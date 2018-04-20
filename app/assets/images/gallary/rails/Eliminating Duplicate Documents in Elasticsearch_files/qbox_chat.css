@@ -1,0 +1,118 @@
+#intercom-container iframe.intercom-launcher-frame,
+#intercom-container iframe.intercom-launcher-discovery-frame {
+  display: none; }
+
+.qbox-chat-container {
+  position: fixed;
+  width: 0;
+  height: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2147483647;
+  overflow: visible; }
+
+.qbox-chat-launcher {
+  background-color: #008ae6;
+  border-radius: 1.25em;
+  bottom: 20px;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.2), 0 -2px 0 rgba(0, 0, 0, 0.2) inset;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  height: 2em;
+  line-height: 1.8em;
+  padding-left: 0.67em;
+  position: fixed;
+  right: 20px;
+  text-align: left;
+  width: 6.5em;
+  z-index: 1; }
+  .qbox-chat-launcher::after {
+    content: 'Contact'; }
+  .qbox-chat-launcher i.fa::after {
+    content: "\f075"; }
+  .qbox-chat-launcher.active::after {
+    content: 'Close'; }
+  .qbox-chat-launcher.active i.fa::after {
+    content: "\f00d"; }
+  .qbox-chat-launcher:hover {
+    background-color: #0199ff; }
+
+.qbox-chat-icon {
+  display: inline-block;
+  min-height: 1em;
+  min-width: 1.25em;
+  text-align: center; }
+
+.qbox-chat-content {
+  background-color: #008ae6;
+  border-radius: 1.25em;
+  bottom: 70px;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.2), 0 -2px 0 rgba(0, 0, 0, 0.2) inset;
+  color: #fff;
+  display: none;
+  max-width: calc(100% - 40px);
+  overflow: hidden;
+  position: fixed;
+  right: 20px;
+  width: 30em;
+  z-index: 2; }
+  .qbox-chat-content.active {
+    display: block; }
+  .qbox-chat-content .chat-page {
+    display: none;
+    padding: 0.5em 1em; }
+    .qbox-chat-content .chat-page:first-of-type {
+      display: block; }
+    .qbox-chat-content .chat-page .chat-options-header {
+      font-size: 1.5em;
+      margin: 1em 0 0.25em; }
+      .qbox-chat-content .chat-page .chat-options-header:first-child {
+        margin-top: 0; }
+    .qbox-chat-content .chat-page a.chat-form-option,
+    .qbox-chat-content .chat-page a.chat-form-option-table {
+      background: rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      color: #fff;
+      display: block;
+      margin: 0 -1em;
+      padding: 0.25em 1em; }
+      .qbox-chat-content .chat-page a.chat-form-option:last-of-type,
+      .qbox-chat-content .chat-page a.chat-form-option-table:last-of-type {
+        border-bottom: none; }
+      .qbox-chat-content .chat-page a.chat-form-option:hover,
+      .qbox-chat-content .chat-page a.chat-form-option-table:hover {
+        background: rgba(255, 255, 255, 0.25); }
+      .qbox-chat-content .chat-page a.chat-form-option i.fa,
+      .qbox-chat-content .chat-page a.chat-form-option-table i.fa {
+        vertical-align: baseline; }
+        .qbox-chat-content .chat-page a.chat-form-option i.fa.fa-inverse,
+        .qbox-chat-content .chat-page a.chat-form-option-table i.fa.fa-inverse {
+          color: #008ae6; }
+      .qbox-chat-content .chat-page a.chat-form-option.chat-form-option-return,
+      .qbox-chat-content .chat-page a.chat-form-option-table.chat-form-option-return {
+        display: none; }
+    .qbox-chat-content .chat-page a.chat-form-option-table {
+      display: table;
+      width: calc(100% + 2em); }
+      .qbox-chat-content .chat-page a.chat-form-option-table .option-data {
+        display: table-cell;
+        vertical-align: top;
+        line-height: 1.5em; }
+        .qbox-chat-content .chat-page a.chat-form-option-table .option-data.label.label-warning {
+          background-color: #f0ad4e; }
+          .qbox-chat-content .chat-page a.chat-form-option-table .option-data.label.label-warning.status-green {
+            background-color: #5cb85c; }
+          .qbox-chat-content .chat-page a.chat-form-option-table .option-data.label.label-warning.status-yellow {
+            background-color: #f0ad4e; }
+          .qbox-chat-content .chat-page a.chat-form-option-table .option-data.label.label-warning.status-red {
+            background-color: #d9534f; }
+
+.qbox-chat-content.engaged .chat-page a.chat-form-option.chat-form-option-return {
+  display: block; }
+
+.office-closed .office-closed-hidden {
+  display: none !important; }
+
+.office-open .office-open-hidden {
+  display: none !important; }

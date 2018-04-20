@@ -1,0 +1,22 @@
+<%= render :partial => "shared/app_nav" %>
+<%= render :partial => "shared/nav" %>
+  <div class="col-xs-offset-2 col-xs-8 col-xs-offset-2 " style="border-radius:0px">
+
+<ol class="breadcrumb" style="border-radius: 0px">
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <!-- <li class="breadcrumb-item"><a href="#">Category</a></li> -->
+  <li class="breadcrumb-item">Promotion</li>
+
+</ol>
+
+ <%  if @arts.present? %>
+  <%= render :partial => "shared/home_sidebar" %>
+  <%= render :partial => "shared/arts" %>
+  <% else%>
+  	  <%= render :partial => "shared/home_sidebar" %>
+  	  <div class="col-xs-9">
+  	  	<h6 style="color: brown"> No arts available on promotion. <a href="/"> << back home </a></h6>
+  	  </div>
+  <%  end %>
+</div>
+

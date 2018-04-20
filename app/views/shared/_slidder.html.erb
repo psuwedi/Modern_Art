@@ -1,0 +1,59 @@
+<style type="text/css">
+  
+
+
+
+
+
+
+
+</style>
+
+
+
+
+<div id="carouselExampleIndicators" class="carousel slide col-xs-offset-2 col-xs-8 col-xs-offset-2 " data-ride="carousel" style="margin-top: 10px">
+
+
+
+  <div class="carousel-inner" role="listbox">
+       <%
+      i = 0
+        Art.all.each do |art|
+        img = art.art_path
+        # img["images/gallary/"] = ''
+        if i == 0
+          active = "active"
+        end
+          i = i + 1
+
+          # raise img.inspect
+      %>
+
+    <div class="item <%= active %>" >
+      <%= image_tag(img, class: "img-responsive",:style=>"width:70%; height:350px; ")%>
+      <div class="carousel-caption"  >
+        <h3><%=  art.title %></h3>
+        <p><%=   art.description %></p>
+      </div>
+    </div>
+
+<%  end %>
+
+
+
+  </div>
+<!--   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a> -->
+</div>
+
+
+
+
+

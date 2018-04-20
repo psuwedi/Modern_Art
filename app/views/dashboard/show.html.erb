@@ -1,0 +1,214 @@
+
+<%= render :partial => "shared/app_nav" %>
+<%= render :partial => "shared/nav" %>
+
+
+
+
+
+<div class="panel panel-white col-xs-offset-2 col-xs-8 col-xs-offset-2 " style="border-radius:0px">
+
+
+  <ol class="breadcrumb" style="border-radius: 0px">
+  <li class="breadcrumb-item"><a href="#">Home</a></li>
+  <li class="breadcrumb-item"><a href="#">Account</a></li>
+  <li class="breadcrumb-item active">Profile</li>
+</ol>
+
+
+    
+
+
+<div id="content" class="col-sm-9" style="margin-top:10px">
+      
+	<div class="row">
+		<div class="col-sm-12" style="background: white;min-height: 60px">
+			<div class="col-sm-3">
+				
+				<%= image_tag(@image, class: "img-responsive img-circle pull-right",:style=>"width:50%; height:15%;")%>
+
+			</div>
+
+			<div class="col-sm-9">
+				
+			
+
+	
+
+
+  <h4> 
+
+
+  	<small> About </small>
+
+  </h4>
+          
+  <table class="table table-striped" style="margin-top-left: 10px">
+    <tbody> 
+			
+      <tr>
+        <td>First name:</td>
+        <td><%= @data.firstname%></td>
+      </tr>
+
+       <tr>
+        <td>Surname:</td>
+        <td><%= @data.surname%></td>
+      </tr>
+
+       <tr>
+        <td>Joined on:</td>
+        <td><%= @data.created_at.to_date.to_s %></td>
+      </tr>
+
+       <tr>
+        <td>Country:</td>
+        <td><%= @data.country%></td>
+      </tr>
+
+
+
+
+       <tr>
+        <td>City:</td>
+        <td><%= @data.city%></td>
+      </tr>
+
+
+
+       <tr>
+        <td>Phone:</td>
+        <td><%= @data.phone%></td>
+      </tr>
+
+
+    </tbody>
+
+
+  
+
+  </table>
+
+    <!-- <button type="submit" class="btn btn-default pull-right" style="border-radius: 0px; margin-bottom: 10px">  -->
+
+    	<%= link_to "Update account", edit_user_registration_path %>
+
+<!--     </button> -->
+
+
+          <!-- <li></li> -->
+
+
+
+
+
+					
+			</div>
+
+		</div>
+
+		<div class="col-sm-12">
+			
+			
+
+			<div class="panel panel-default" style="border-radius: 0px">
+			  <div class="panel-heading"> <h4> Activity Summary</h4> </div>
+			  <div class="panel-body">
+
+
+          
+					  <table class="table table-striped" style="margin-top-left: 0px">
+					    <tbody> 
+								
+					      <tr>
+					        <td>Likes</td>
+					        <td>  <%= @likes %> </td>
+					      </tr>
+
+					       <tr>
+					        <td>Comments</td>
+					        <td><%= @comment%></td>
+					      </tr>
+
+					       <tr>
+					        <td>Orders:</td>
+					        <td><%= @data.created_at.to_date.to_s %></td>
+					      </tr>
+
+					       <tr>
+					        <td>Cart:</td>
+					        <td><%= @cart%> items(s)</td>
+					      </tr>
+
+
+
+
+					       <tr>
+					        <td>Payments:</td>
+					        <td><%= %></td>
+					      </tr>
+
+
+
+					       <tr>
+					        <td>Phone:</td>
+					        <td><%= @data.phone%></td>
+					      </tr>
+
+
+					    </tbody>
+					  </table>
+
+
+
+			  	
+
+			  </div>
+			</div>
+		
+			
+		</div>
+		
+		
+
+	</div>
+
+</div>
+
+
+
+<div class="col-sm-3" style="margin-top: 50px">
+  
+  <%= render :partial => "shared/account_nav" %>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<%= render :partial => "shared/footer" %>

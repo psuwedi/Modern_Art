@@ -1,0 +1,60 @@
+
+
+    <!-- Go to the next column -->
+  <%= form_for order_item, remote: true do |f| %>
+   <div class="col-xs-3" style="background: white; border: 0px solid #ccc;  padding-top:20px;margin-bottom: 30px; ">
+
+<div class="col-xs-12">
+
+      <a href="/arts/show_art?id=<%=art.id%>"> <%= image_tag(art.art_path, class: "img-responsive",:style=>"width:100%; height:180px;")%></a>
+      <br>
+
+      <small style="; font-size:10px; ">  <%= art.name.titleize %>  </small>
+      
+
+
+        <em>      <small class="text-right"> @ <span style="color: "><%= number_to_currency art.price %></span></small>  </em> 
+
+        <% if art.promotion == "yes" %>
+
+            <small class="text-right"><span style="color: red; float: right">&nbsp; &nbsp; &nbsp; on promo..</span></small> 
+        <%end %>
+
+
+
+   
+</div>
+
+
+        <div class="col-xs-12">
+          <div class="col-xs-6" style="margin:0px; padding:0px">
+             <%= f.number_field :quantity, value: 1, class: "form-control", min: 1, style: "margin: 0px; border:0px"%>
+
+          </div>
+
+
+
+          <div class="col-xs-6" style="margin:0px;padding:0px">
+             <%= f.hidden_field :art_id, value: art.id %>
+            
+            <%= f.submit "Add to cart", class: "btn btn-info", style: " margin: 0px; border-radius:0px;"%>
+
+          </div>
+
+        </div>
+         
+
+    </div>
+
+
+
+      <% end %>
+
+
+ 
+
+
+
+
+
+

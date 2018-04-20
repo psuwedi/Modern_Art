@@ -1,0 +1,134 @@
+  <head>
+    <title>New User</title>
+    <script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+       var currentUsername = '';
+      function confirmAction(obj){
+        currentUsername = obj.getAttribute("username")
+        $('#myModal').modal('show');
+      }
+
+      function deleteUser(){
+        jQuery.ajax({
+          type: "POST",
+          url: "/users/delete_me",
+          data: "username=" + currentUsername,
+          success: function(){
+            activeRow = document.getElementById(currentUsername);
+            if (activeRow) activeRow.parentNode.removeChild(activeRow);
+          }
+
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="span3" id="sidebar">
+        <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+        
+
+          <li>
+            <a href="/users/edit_user"><i class="icon-chevron-right"></i> Edit Profile</a>
+          </li>
+         
+          <li>
+            <a href="/users/my_profile"><i class="icon-chevron-right"></i> My Profile</a>
+          </li>
+        <% if @username=="admin" %>
+          <li>
+            <a href="/users/new_user"><i class="icon-chevron-right"></i> Create User</a>
+          </li>
+           <li class="active">
+            <a href="/users/delete_user"><i class="icon-chevron-right"></i> Delete User</a>
+          </li>
+          <%end%>
+
+
+
+        </ul>
+      </div>
+      <div class="span9" id="content">
+
+        <div class="row-fluid">
+          <%  if flash[:notice] %>
+            <div class="alert alert-success">
+              <button data-dismiss="alert" class="close" type="button">×</button>
+              <h4>Success</h4>
+              <%= flash[:notice] %>
+            </div>
+          <% end %>
+          <%  if flash[:error] %>
+            <div class="alert alert-error">
+              <button data-dismiss="alert" class="close" type="button">×</button>
+              <h4>Error</h4>
+              <%= flash[:error] %>
+            </div>
+          <% end %>
+          <div class="block">
+            <div class="navbar navbar-inner block-header">
+              <div class="muted pull-left">Delete User Menu</div>
+            </div>
+            <div class="block-content collapse in">
+              <div class="span12">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Username</th>
+                      <th style="text-align: center; width:12%;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% count = 0 %>
+                    <% @active_users.each do |user| %>
+                      <tr id="<%= user.username %>">
+                        <td><%= count = count + 1 %></td>
+                        <td><%= user.first_name.capitalize %></td>
+                        <td><%= user.last_name.capitalize %></td>
+                        <td><%= user.username %></td>
+                        <td style="text-align: center;">
+                          <% if (user.username == session[:current_user_id]) %>
+                            <button class="disabled btn btn-danger"><i class="icon-remove icon-white"></i> Delete</button>
+                          <% else %>
+                            <button username="<%= user.username %>" onmousedown="confirmAction(this);"class="btn btn-danger"><i class="icon-remove icon-white"></i> Delete</button>
+                          <% end %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- /block -->
+        </div>
+
+      </div>
+    </div>
+
+    <!--CONFIRMATION POPUP BEGIN -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">
+              Delete Confirmation
+            </h4>
+          </div>
+          <div class="modal-body">
+            <span style="text-align:center;">You are about to delete this user. You can not undo this action. Are you really <br />very sure?</span>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="deleteUser();" data-dismiss="modal">Okay</button>
+              <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--CONFIRMATION POPUP END -->
+  </body>
+</html>

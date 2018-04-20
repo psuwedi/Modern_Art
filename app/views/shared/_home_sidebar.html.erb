@@ -1,0 +1,98 @@
+
+
+  <div class="navbar-default  col-xs-3" role="navigation" style="margin-top: 5px; padding-top: 5px; border-radius: 0px; background: #f8f8f8" >
+    <div class="sidebar-nav navbar-collapse">
+      <ul class="nav" id="side-menu">
+       <!--  <li class="sidebar-search">
+          <div class="input-group custom-search-form">
+            <input type="text" name = "key_word" id = "search" value="" class="form-control" placeholder="Search">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" onclick="search()">
+                <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+          <!-- /input-group -->
+<!--         </li> -->
+      <li>
+          <a href="/arts/" class="active glyphicon glyphicon-list-alt"><i class=""></i> All Arts</a>
+        </li>
+        <li>
+          <a href="/arts/index?id=p1"><i class="glyphicon glyphicon-list-alt"></i> What's New? <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">
+
+            <% new_arts = ["Latest","Price (High to Low)","Price (Low to High)","Most Popular"] %>
+             <% new_arts.each do |s|%>
+              <li>
+                <%= link_to "#{s}", "/index/Latest-#{s}+#{s}" %>
+              </li>
+            <% end%>
+
+
+
+          </ul>
+          <!-- /.nav-second-level -->
+        </li>
+
+
+        <li>
+          <a href="#"><i class="glyphicon glyphicon-list-alt"></i> Frames <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">
+            <% Frame.all.each do |f|%>
+             <li>
+               <%= link_to "#{f.name}", "/index/Frame-#{f.id}+#{f.name}" %>
+             </li>
+           <% end%>
+          </ul>
+          <!-- /.nav-second-level -->
+        </li>
+
+        <li>
+          <a href="#"><i class="glyphicon glyphicon-list-alt"></i> Size <span class="fa arrow"></span></a>
+          <ul class="nav nav-first-level">
+            <% Size.all.each do |s|%>
+             <li>
+               <%= link_to "#{s.size}", "/index/Size-#{s.id}-#{s.size}" %>
+             </li>
+           <% end%>
+
+          </ul>
+          <!-- /.nav-second-level -->
+        </li>
+
+        <li>
+          <a href="#"><i class="glyphicon glyphicon-list-alt"></i> Category<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">
+            <% Category.all.each do |cat|%>
+             <li>
+               <%= link_to "#{cat.name}", "/index/Category-#{cat.id}-#{cat.name}" %>
+             </li>
+           <% end%>
+          </ul>
+          <!-- /.nav-second-level -->
+        </li>
+      </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+  </div>
+
+
+<!-- /.sidebar-collapse -->
+
+
+
+
+
+<script type="text/javascript">
+  
+  function search(){
+    var s =  document.getElementById("search").value
+
+    if(s == ""){
+      alert("Key word can not be empty")
+      return false
+    }
+    window.location.href = "/search/search?key_word=" + s + "&src=" + 1
+
+  }
+</script>

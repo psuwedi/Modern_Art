@@ -1,0 +1,118 @@
+<%= render :partial => "shared/app_nav" %>
+<%= render :partial => "shared/nav" %>
+
+
+
+<div class="col-xs-offset-2 col-xs-8 col-xs-offset-2 " style="border-radius:0px;">
+
+
+  <ol class="breadcrumb" style="border-radius: 0px">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Account</a></li>
+    <li class="breadcrumb-item active">Cart</li>
+  </ol>
+
+  
+
+   
+  <%= render :partial => "shared/home_sidebar" %>
+
+
+
+
+
+
+<div class="col-xs-7" style="margin-top:0px; margin-top: 5px;">
+
+
+<div class="panel panel-default" style="border-radius: 0px">
+  <div class="panel-heading"> Review and checkout
+</div>
+  <div class="panel-body">
+
+
+
+<% if !@order_item.nil? && @order_item.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+    <% @order_item.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<% if @order_items.size == 0 %>
+  <p class="text-center">
+    There are no items in your shopping cart.  Please <%= link_to "go back", root_path %> and add some items to your cart.
+  </p>
+<% else %>
+
+
+
+
+
+
+  <table class="table table-striped" >
+    <thead>
+      <tr>
+        <th style="width: 150px">name</th>
+        <th id="c">unit</th>
+        <th id="c">qty</th>
+     
+         <th>action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+
+  <% @order_items.each do |order_item| %>
+
+  
+ 
+    <%= render 'carts/cart_row', art: order_item.art, order_item: order_item, show_total: true %>
+
+
+  <% end %>
+
+    <tr>
+      <td></td>
+      <td></td>
+      <td id="c"> </td>
+      <td  id="c">  </td>
+      <td id=""> <button class="btn btn-danger" type="submit" onclick = "cancel_order('<%= session[:order_id]%>')"> Empty Cart</button></td>
+    </tr> 
+
+
+        </tbody>
+  </table>
+
+
+<% end %>
+
+</div>
+</div> 
+
+
+</div>
+
+  <%= render :partial => "shared/cart_summary" %>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

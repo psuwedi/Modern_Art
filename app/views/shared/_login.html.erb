@@ -1,0 +1,58 @@
+ <div class="panel panel-white col-sm-offset-2 col-sm-8 col-sm-offset-2 " style="border-radius:0px">
+
+
+  <ol class="breadcrumb" style="border-radius: 0px">
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <li class="breadcrumb-item"><a href="#">Account</a></li>
+  <li class="breadcrumb-item active">Login</li>
+</ol>
+
+
+
+<div id="content" class="col-sm-9">
+     
+        <div class="col-sm-6">
+          <div class="well" style="background: white; border-radius: 0px">
+            <h4>New Customer</h4>
+            <p><strong>Register</strong></p>
+            <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
+            <a href="/users/sign_up" class="btn btn-default" style="border-radius: 0px">Continue</a></div>
+        </div>
+
+
+        <div class="col-sm-6">
+          <div class="well" style="background: white; border-radius: 0px">
+            <h4>Returning Customer</h4>
+            <p><strong>I am a returning customer</strong></p>
+
+
+
+           
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="form-group">
+                <label class="control-label" for="input-email">E-Mail Address</label>
+
+                 <%= f.email_field :email, autofocus: true, class: "form-control"  %>  
+
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="input-password">Password</label>
+                <input type="password" name="user[password]" value="" placeholder="Password" id="input-password" class="form-control" />
+              </div>
+
+  
+
+   <div class="form-group">
+  
+
+    <button type="submit" class="btn btn-default" style="border-radius: 0px" > Login</button>
+  </div>
+<% end %>
+
+
+          </div>
+        </div>
+
+
+</div>

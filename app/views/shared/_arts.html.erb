@@ -1,0 +1,54 @@
+<!-- <br> -->
+
+<!-- <div class="row"  style="margin-top: 0px"> -->
+<!-- <i style="color:skyblue; ; margin-left: 30px">Home / Subjects / Animals</i>
+
+<h3 style="color:black; margin-left: 30px">  Animals </h3> -->
+
+
+
+<!-- <h5 style="color:skyblue; ; margin-left: 30px; text-align: center">  Best Sellers > Botanical> Abstract > Scenic >  Decorative Art > Animals</h5> -->
+
+
+
+
+<div class="col-xs-9 " style="float: right;margin-top: 0px; background: white">
+
+
+
+<!-- <h4   style=" text-align: center;"> <a href="">Best Sellers</a> | <a href="">Botanical</a> |  <a href=""> Abstract </a>  | <a href="">Decorative Art  </a> |  <a href=""> Animals </a> </h4> -->
+
+<div class="col-xs-12"  style="background:white">
+
+
+
+  <%
+  count = 1
+  @arts.reverse.each do |cat|
+    img = cat.art_path
+    # raise img.to_s.inspect
+    %>
+
+    <!-- Go to the next column -->
+
+    <div class="col-xs-3" style="background: white; border: 0px solid #ccc;  padding-top:20px">
+
+
+      <a href="/arts/show_art?id=<%=cat.id%>"> <%= image_tag(img, class: "img-responsive",:style=>"width:100%; height:200px;")%></a>
+      <br>
+
+      <small style="text-align: center; font-size:16px; ">  <%= cat.title.titleize %>  </small>
+
+
+    </div>
+
+
+
+    <%
+  end
+  %>
+
+
+
+
+</div>

@@ -1,0 +1,669 @@
+
+
+<%= render :partial => "shared/ims_index" %>
+<style type="text/css">
+    .top{
+        min-height: 460px
+    }
+</style>
+
+<div id="page-wrapper" >
+    <div class="row">
+        <div class="col-lg-12" >
+            <h1 class="page-header">Dashboard</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row"  style="">
+        <!-- summary -->
+        <div class="col-lg-12">
+            <!-- order -->
+            <div class="col-lg-4">
+                <div class="panel panel-default top">
+                    <div class="panel-heading">
+                        <h4> orders </h4>
+                    </div>
+                    <div class="panel-body">
+
+                     <div id="order" style=" margin: 0 auto">
+                     </div>
+
+                 </div>
+
+             </div>
+         </div>
+
+
+         <!-- payments -->
+         <div class="col-lg-4">
+            <div class="panel panel-default top">
+                <div class="panel-heading">
+                    <h4> Payments </h4>
+                </div>
+                <div class="panel-body">
+
+                 <div id="payment" style=" margin: 0 auto">
+                 </div>
+
+             </div>
+
+         </div>
+     </div>
+     <!-- weekly summary -->
+     <div class="col-lg-4">
+        <div class="panel panel-default top">
+            <div class="panel-heading">
+                <h4> Summary </h4>
+            </div>
+            <div class="panel-body" id="summary">          
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th style = "background: grey; color:white;text-align:center;font-size: 2em">Last week</th>
+                    <th style = "background: grey;color:white;text-align:center; font-size: 2em" >Last Month</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% @summary.each do |k, summary|%>
+
+                  <tr>
+                        <td > <span  style="font-size: 3em"> <%= summary['name'] %> </span> </td>
+                        <td style= "text-align: center" ><span id = "wk-s" style="font-size: 3em" > <%= summary['weekly'] %> </span></td>
+                        <td style= "text-align: center" ><span id = "mth-s" style="font-size: 3em"> <%= summary['monthly'] %></span></td>
+                  </tr>
+
+                  <% end%>
+                </tbody>
+              </table>
+
+             <!-- <div id="summary" style=" margin: 0 auto">
+             </div> -->
+
+         </div>
+
+     </div>
+
+
+ </div>
+
+
+</div>
+
+<!-- other graphs -->
+<div class="col-lg-12">
+    <div class="col-lg-6">
+
+        <!-- /.panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="f"></i> <h4> Appointments </h4>
+            </div>
+
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Phidelis</td>
+                    <td>Suwedi</td>
+                    <td>p@yahoo.com</td>
+                    <td style="color:skyblue">view</td>
+                </tr>
+                <tr>
+                    <td>Mary</td>
+                    <td>Banda</td>
+                    <td>mbanda@gmail.com</td>
+                    <td style="color:skyblue">view</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->
+</div>
+
+
+
+
+<!-- end of graphs -->
+
+
+<!-- stock -->
+<!-- /.col-lg-8 -->
+<div class="col-lg-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4> Stock Levels </h4>
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+         <div id="container" style="min-width: 310px; min-height: 200px; margin: 0 auto">
+
+
+
+         </div>
+
+
+         <div id="summary" style="min-width: 310px; height: 200px; margin: 0 auto; display: none">
+
+
+             <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Category Name</th>
+                    <th>Stock Leves</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @category.each do |cat|%>
+                <tr>
+                    <td><%=cat%></td>
+                    <td id="<%=cat%>" >0</td>
+                </tr>
+
+                <%end%>
+
+            </tbody>
+        </table>
+
+        <a href="#" onclick="show()"> hide</a>
+    </div>
+
+
+
+
+
+    <!-- /.panel-body -->
+</div>
+</div>
+</div>
+<!-- end stock -->
+
+</div>
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+// orders
+
+Highcharts.chart('order', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Daily order tracker'
+    },
+    subtitle: {
+        text: 'Source: modernarts.com'
+    },
+    xAxis: {
+        categories:  eval('<%= @days.to_json.html_safe %>')
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'stock level'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+        '<td style="padding:0"><b> {point.y } order(s)</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'In progress',
+        data: eval('<%= @pending.reverse.to_json.html_safe %>')
+
+    }, {
+        name: 'Placed',
+        data: eval('<%= @placed.reverse.to_json.html_safe %>')
+
+    }, {
+        name: 'Shipped',
+        data: eval('<%= @shipped.reverse.to_json.html_safe %>')
+
+    }, {
+        name: 'Cancelled',
+        data: eval('<%= @cancelled.reverse.to_json.html_safe %>')
+
+    }]
+});
+
+
+
+
+// for stock
+Highcharts.chart('container', {
+
+    title: {
+        text: 'Stock Levels for the 7days'
+    },
+
+    subtitle: {
+        text: 'Source: modernarts.com'
+    },
+
+    xAxis: {
+      title: {
+        text: 'Days'
+    },
+    categories:  eval('<%= @days.to_json.html_safe %>')
+
+}, 
+
+yAxis: {
+    title: {
+        text: 'Stock Level'
+    }
+},
+legend: {
+    layout: 'vertical',
+    align: 'right',
+    verticalAlign: 'middle'
+},
+
+plotOptions: {
+    series: {
+        cursor: 'pointer',
+        point: {
+            events: {
+                click: function () {
+                            // document.location.href = '/ims/summary?details=' + this.x;
+                            summary(this.x);
+                        }
+                    }
+                }
+            }
+        },
+
+
+
+
+
+
+
+        series: [{
+            name: 'stock levels',
+            data:eval('<%=  @stock_level.reverse.to_json.html_safe %>')
+        }
+    // }, {
+    //     name: 'Manufacturing',
+    //     data: [24916, 24064, 29742, 29851, 32490, 30282, 38121]
+    // }, {
+    //     name: 'Sales & Distribution',
+    //     data: [11744, 17722, 16005, 19771, 20185, 24377, 32147]
+    // }
+    ],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+
+
+
+// payments
+
+
+
+// Create the chart
+Highcharts.chart('payment', {
+    chart: {
+        type: 'pie'
+    },
+    title: {
+        text: 'Payment/sales as of this year'
+    },
+    subtitle: {
+        text: 'modernarts.com</a>'
+    },
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}: {point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    },
+
+    "series": [
+        {
+            "name": "payment",
+            "colorByPoint": true,
+            "data": [
+                {
+                    "name": "plants",
+                    "y": 62.74,
+                    "drilldown": "plants"
+                },
+                {
+                    "name": "politics",
+                    "y": 10.57,
+                    "drilldown": "politics"
+                },
+                {
+                    "name": "animals",
+                    "y": 7.23,
+                    "drilldown": "animals"
+                },
+                {
+                    "name": "people",
+                    "y": 5.58,
+                    "drilldown": "people"
+                },
+                {
+                    "name": "countries",
+                    "y": 4.02,
+                    "drilldown": "countries"
+                },
+                {
+                    "name": "Other",
+                    "y": 7.62,
+                    "drilldown": null
+                }
+            ]
+        }
+    ],
+    "drilldown": {
+        "series": [
+            {
+                "name": "politics",
+                "id": "politics",
+                "data": [
+                    [
+                        "v65.0",
+                        0.1
+                    ],
+                    [
+                        "v64.0",
+                        1.3
+                    ],
+                    [
+                        "v63.0",
+                        53.02
+                    ],
+                    [
+                        "v62.0",
+                        1.4
+                    ],
+                    [
+                        "v61.0",
+                        0.88
+                    ],
+                    [
+                        "v60.0",
+                        0.56
+                    ],
+                    [
+                        "v59.0",
+                        0.45
+                    ],
+                    [
+                        "v58.0",
+                        0.49
+                    ],
+                    [
+                        "v57.0",
+                        0.32
+                    ],
+                    [
+                        "v56.0",
+                        0.29
+                    ],
+                    [
+                        "v55.0",
+                        0.79
+                    ],
+                    [
+                        "v54.0",
+                        0.18
+                    ],
+                    [
+                        "v51.0",
+                        0.13
+                    ],
+                    [
+                        "v49.0",
+                        2.16
+                    ],
+                    [
+                        "v48.0",
+                        0.13
+                    ],
+                    [
+                        "v47.0",
+                        0.11
+                    ],
+                    [
+                        "v43.0",
+                        0.17
+                    ],
+                    [
+                        "v29.0",
+                        0.26
+                    ]
+                ]
+            },
+            {
+                "name": "people",
+                "id": "people",
+                "data": [
+                    [
+                        "v58.0",
+                        1.02
+                    ],
+                    [
+                        "v57.0",
+                        7.36
+                    ],
+                    [
+                        "v56.0",
+                        0.35
+                    ],
+                    [
+                        "v55.0",
+                        0.11
+                    ],
+                    [
+                        "v54.0",
+                        0.1
+                    ],
+                    [
+                        "v52.0",
+                        0.95
+                    ],
+                    [
+                        "v51.0",
+                        0.15
+                    ],
+                    [
+                        "v50.0",
+                        0.1
+                    ],
+                    [
+                        "v48.0",
+                        0.31
+                    ],
+                    [
+                        "v47.0",
+                        0.12
+                    ]
+                ]
+            },
+            {
+                "name": "vegitation",
+                "id": "vegitation",
+                "data": [
+                    [
+                        "v11.0",
+                        6.2
+                    ],
+                    [
+                        "v10.0",
+                        0.29
+                    ],
+                    [
+                        "v9.0",
+                        0.27
+                    ],
+                    [
+                        "v8.0",
+                        0.47
+                    ]
+                ]
+            },
+            {
+                "name": "countries",
+                "id": "countries",
+                "data": [
+                    [
+                        "v11.0",
+                        3.39
+                    ],
+                    [
+                        "v10.1",
+                        0.96
+                    ],
+                    [
+                        "v10.0",
+                        0.36
+                    ],
+                    [
+                        "v9.1",
+                        0.54
+                    ],
+                    [
+                        "v9.0",
+                        0.13
+                    ],
+                    [
+                        "v5.1",
+                        0.2
+                    ]
+                ]
+            },
+            {
+                "name": "plants",
+                "id": "plants",
+                "data": [
+                    [
+                        "v16",
+                        2.6
+                    ],
+                    [
+                        "v15",
+                        0.92
+                    ],
+                    [
+                        "v14",
+                        0.4
+                    ],
+                    [
+                        "v13",
+                        0.1
+                    ]
+                ]
+            },
+            {
+                "name": "animals",
+                "id": "animals",
+                "data": [
+                    [
+                        "v50.0",
+                        0.96
+                    ],
+                    [
+                        "v49.0",
+                        0.82
+                    ],
+                    [
+                        "v12.1",
+                        0.14
+                    ]
+                ]
+            }
+        ]
+    }
+});
+
+
+
+
+
+function summary(d){
+  document.getElementById("container").style.display = "none"
+  jQuery.ajax({
+    type: "POST",
+    url: "/ims/summary",
+    data: 'd=' + d,
+    dataType: "json",
+    success: function(r){
+     <% @category.each do |cat|%>
+                  // value =  eval('<%= cat %>')
+        if (r["<%=cat%>"] == undefined){
+            value   = 0
+        }else{
+            value = r["<%=cat%>"]
+        }
+        document.getElementById('<%=cat%>').innerHTML = value
+        <%end%>
+    }
+
+        });
+
+  document.getElementById("summary").style.display = "block"
+}
+
+function show(){
+ document.getElementById("container").style.display = "block"
+ document.getElementById("summary").style.display = "none"
+}
+
+
+
+</script>

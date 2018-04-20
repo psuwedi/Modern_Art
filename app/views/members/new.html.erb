@@ -1,0 +1,84 @@
+
+<%= render :partial => "shared/nav" %>
+
+<div class="panel panel-default col-xs-offset-2 col-xs-8 col-xs-offset-2 " style="border-radius:0px">
+
+  <div class="panel-heading" style="border-radius:0px"></div>
+  <div class="panel-body">
+
+      <%= form_tag(member_new_path)  do |f| %>
+
+
+         <div class="form-group">
+            <%= f.label :name, "Full Name:", class: " control-label " %>
+            <%= f.text_field :first_name ,  class: " form-control control-label "  ,:required => true%>
+         </div>
+
+         <div class="form-group">
+            <%= f.label :sur, "Surname:", class: " control-label " %>
+            <%= f.text_field :surname ,  class: " form-control control-label "  ,:required => true%>
+         </div>
+
+         <div class="form-group">
+            <%= f.label :email, "email:", class: " control-label " %>
+            <%=f.text_field :email, :required => true, :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}', :required => true %>
+
+         </div>
+
+
+         <div class="form-group">
+            <%= f.label :password, "address:", class: " control-label " %>
+            <%= f.text_field :password ,  class: " form-control control-label "  ,:required => true%>
+         </div>
+
+         <div class="form-group">
+            <%= f.label :confirm_password, "address:", class: " control-label " %>
+            <%= f.text_field :confirm_password ,  class: " form-control control-label "  ,:required => true%>
+         </div>
+
+
+         <div class="form-group">
+            <%= f.label :name, "phone:", class: " control-label " %>
+            <%= f.text_field :phone ,  class: " form-control control-label "  ,:required => true%>
+         </div>
+
+         <div class="form-group">
+            <%= f.label :name, "district:", class: " control-label " %>
+            <%= f.text_field :district ,  class: " form-control control-label "  ,:required => true%>
+         </div>
+
+         <div class="form-group">
+            <%= f.label :name, "country:", class: " control-label " %>
+            <%= f.text_field :country ,  class: " form-control control-label "  ,:required => true%>
+         </div>
+
+         <div class="form-group">
+            <%= f.label :name, "city:", class: " control-label " %>
+            <%= f.text_field :city ,  class: " form-control control-label "  ,:required => true%>
+         </div>
+
+         <div class="form-group">
+            <%= f.label :name, "address:", class: " control-label " %>
+            <%= f.text_field :address ,  class: " form-control control-label "  ,:required => true%>
+         </div>
+
+         <div class="form-group">
+           <%= f.label :subject, "Description:", class: " control-label" %>
+           <%= f.text_area :subject, rows: 5, cols: 3, class: "  form-control  ",:require => true %>
+         </div>
+
+        <%= f.submit "Submit", class: "btn btn-default btn-primary  " %>
+
+
+<% end %>
+
+
+    </div>
+
+
+
+
+</div>
+
+
+<%= render :partial => "shared/footer" %>

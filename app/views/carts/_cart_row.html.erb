@@ -1,0 +1,23 @@
+    <tr>
+      
+      <%= form_for order_item, remote: true do |f| %>
+ 
+
+           
+            <%= f.hidden_field :art_id, value: art.id %>
+       
+
+
+   
+        <td id=""><%= art.name %></td>
+        <td id="c"><%= number_to_currency order_item.unit_price %></td>
+        <td id="c" style="width: 100px">  <%= f.number_field :quantity, value: order_item.quantity.to_i, class: "form-control", min: 1 %></td>
+        <td > <%= f.submit "update", class: "btn btn-info" %> </td>
+        <td >
+          
+              <%= link_to "remove", order_item, { data: { confirm: "Are you sure you wish to delete the product '#{order_item.art.name}' from your cart?" }, method: :delete, remote: true, class: "btn btn-warning"} %>
+                
+          </td>
+   
+      <% end %>
+     </tr>

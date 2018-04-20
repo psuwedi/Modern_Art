@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/pubads_impl_rendering_190.js"></script><script async="" type="text/javascript" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/gpt.js"></script><script type="text/javascript" async="" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/getad" charset="UTF-8"></script><script src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/osd.js"></script><script type="text/javascript" async="" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/analytics.js"></script><script src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/ca-pub-6178912956839358.js"></script><script async="" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/gtm.js"></script><script async="" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/gtm.js"></script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5RBN6Q');</script>
+<link rel="stylesheet" media="all" href="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/application-f77b016a0f8c1898c34dc3cf38263b43a4664ee9a596b440.css"><script src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/application-fea82ff4d3d9d1ba5fb1be72738c69acb46110e5db1ba2f19.js"></script><meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"><meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="I6HrCZ6zTZJnLaR8/FZ+tP7lCdDeykMpF8+AReNPzUflaDQb8VTHdB2WZGgHyO57efBR3lWq5CFM7oJ6fUnzug=="><meta content="Building a Shopping Cart in Ruby on Rails - This article will show you how to build a shopping cart using Ruby on Rails." name="description"><meta content="Building a Shopping Cart in Ruby on Rails" property="og:title"><meta content="article" property="og:type"><meta content="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails" property="og:url"><title>Building a Shopping Cart in Ruby on Rails - RichOnRails.com</title><link rel="alternate" type="application/atom+xml" title="ATOM" href="https://richonrails.com/?format=atom"><link rel="apple-touch-icon" sizes="57x57" href="https://richonrails.com/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="https://richonrails.com/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="https://richonrails.com/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="https://richonrails.com/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="https://richonrails.com/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="https://richonrails.com/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="https://richonrails.com/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://richonrails.com/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://richonrails.com/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://richonrails.com/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://richonrails.com/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="https://richonrails.com/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://richonrails.com/favicon/favicon-16x16.png">
+<link rel="manifest" href="https://richonrails.com/articles/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff"><link rel="preload" href="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/integrator_002.js" as="script"><script type="text/javascript" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/integrator_002.js"></script><link rel="preload" href="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/integrator.js" as="script"><script type="text/javascript" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/integrator.js"></script><script type="text/javascript" async="" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/a.js"></script><script src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/pubads_impl_190.js" async=""></script></head><body><div class="wrapper"><header><nav class="navbar navbar-inverse navbar-static-top header"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" data-target="#main-navbar-menu" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><div class="icon-bar"></div><div class="icon-bar"></div><div class="icon-bar"></div></button><a class="navbar-brand" href="https://richonrails.com/"><img alt="RichOnRails" srcset="/assets/header/header-logo@2x-b189547c84519022017cb48934c1ea88af98ffcd867aac9aeade827973676597.png 2x, /assets/header/header-logo@3x-66df89e1a2d2a25b0c35078fe2d0ca9dfb723a46b69acd512176db23c70b5cb4.png 3x, /assets/header/header-logo@4x-7d90fe5d9192efa70757168a76b0b564dc9425edfddce6e6e56a026405f026c1.png 4x" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/header-logo-b52d96d33e175e2b4c49b16ad16db5af3e924046a6f65bd6.png"></a></div><div class="collapse navbar-collapse" id="main-navbar-menu"><form class="navbar-search navbar-form navbar-left" id="article_search" action="/search_results" accept-charset="UTF-8" method="get"><input name="utf8" value="✓" type="hidden"><div class="input-group"><input class="form-control" placeholder="Search..." name="q[title_cont]" id="q_title_cont" type="text"><div class="input-group-btn"><button name="button" type="submit" class="btn btn-search"><i class="fa fa-search"></i></button></div></div></form><div class="navbar-right text-center"><a class="navbar-btn btn btn-link" href="https://richonrails.com/auth/github"><i class="fa fa-github"></i>&nbsp;Sign In with <b>GitHub</b></a></div><ul class="nav navbar-nav navbar-right"><li class=" "><a href="https://richonrails.com/articles">Articles</a></li><li></li><li class=" "><a href="https://richonrails.com/about">About</a></li><li></li><li class=" "><a href="https://richonrails.com/posts">Blog</a></li></ul></div></div></nav></header><main><div class="splash"><div class="tint bg-tr-blue"><div class="container"><h1>Building a Shopping Cart in Ruby on Rails</h1></div></div></div><div class="container"><div class="row"><div class="page col-md-8 col-lg-8"><h1>Building a Shopping Cart in Ruby on Rails</h1><hr><div class="row"><div class="col-sm-6 text-sm-left text-xs-center"><div class="published-at"><span class="fa fa-clock-o"></span>&nbsp;Published October 2, 2014<div class="updated-at"><i class="fa fa-pencil-square"></i>&nbsp;Last updated January 3, 2017</div></div></div><div class="col-sm-6 text-sm-right text-xs-center"><a href="#comments"><i class="fa fa-comments"></i>&nbsp;&nbsp;134 comments</a></div></div><hr><div class="well visible-md visible-lg text-center"><a rel="nofollow" class="btn btn-primary" href="https://github.com/RichIsOnRails/ShoppingCartExampleApp">View Source</a>&nbsp;<a rel="nofollow" class="btn btn-success" href="https://github.com/RichIsOnRails/ShoppingCartExampleApp/archive/master.zip">Download Example Project</a></div><div class="visible-xs visible-sm text-center"><p class="btn-group"><a rel="nofollow" class="btn btn-primary btn-sm" href="https://github.com/RichIsOnRails/ShoppingCartExampleApp">View Source</a><a rel="nofollow" class="btn btn-success btn-sm" href="https://github.com/RichIsOnRails/ShoppingCartExampleApp/archive/master.zip">Download Example</a></p></div><p class="post-summary"><em>This article will show you how to build a shopping cart using Ruby on Rails.</em></p> <ins class="adsbygoogle" style="display: block; height: 90px;" data-ad-client="ca-pub-6178912956839358" data-ad-slot="9862092956" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:740px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:740px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:740px;height:90px;" width="740" height="90" frameborder="0"></iframe></ins></ins></ins>
+<div class="article-body"><h1>Introduction</h1>
+<p>
+One of the many questions i've seen out there on the web is 'how do I 
+build a shopping cart?' This article will attempt to answer that 
+question. In this article, we will build up a simple shopping cart that 
+can be easily expanded upon. Let's get started.
+</p>
+<h1>Rails Application Setup</h1>
+<p>
+The first thing we will need to do is create our models. For this example we will need 4 different models:
+</p>
+<ul>
+<li><b>Product</b> — Stores product information for products that are sellable.</li>
+<li><b>Order Status</b> — Determines the status of an order. For 
+instance, 'In Progress' means it's just a shopping cart, 'Completed' 
+means it's completed, etc.</li>
+<li><b>Order</b> — Summarizes the order information. Things like the subtotal are stored/calculated here.</li>
+<li><b>OrderItem</b> — Stores detailed order item information.</li>
+</ul>
+<p>
+Run the commands below to generate these models now.
+</p>
+<p><b>Edit:</b> As some of my readers have pointed out, you need to wrap
+ the decimal fields in quotes. This was a recent Rails change. The 
+commands below should work from 4.1 up.</p>
+<h6>Terminal Commands:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby">rails g model <span class="token constant">Product</span> name <span class="token string">'price:decimal{12,3}'</span> active<span class="token symbol">:boolean</span>
+rails g model <span class="token constant">OrderStatus</span> name<span class="token symbol">:string</span>
+rails g model <span class="token constant">Order</span> <span class="token string">'subtotal:decimal{12,3}'</span> <span class="token string">'tax:decimal{12,3}'</span> <span class="token string">'shipping:decimal{12,3}'</span> <span class="token string">'total:decimal{12,3}'</span> order_status<span class="token symbol">:references</span>
+rails g model <span class="token constant">OrderItem</span> product<span class="token symbol">:references</span> order<span class="token symbol">:references</span> <span class="token string">'unit_price:decimal{12,3}'</span> quantity<span class="token symbol">:integer</span> <span class="token string">'total_price:decimal{12,3}'</span>
+rake db<span class="token symbol">:migrate</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>
+The next thing we need to do is create some seed data. Open up your 
+db/seeds.rb file and modify it so that it looks like the code listed 
+below.
+</p>
+<h6>db/seeds.rb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token constant">Product</span><span class="token punctuation">.</span>delete_all
+<span class="token constant">Product</span><span class="token punctuation">.</span>create<span class="token operator">!</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">"Banana"</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> <span class="token number">0.49</span><span class="token punctuation">,</span> active<span class="token punctuation">:</span> <span class="token keyword">true</span>
+<span class="token constant">Product</span><span class="token punctuation">.</span>create<span class="token operator">!</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">"Apple"</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> <span class="token number">0.29</span><span class="token punctuation">,</span> active<span class="token punctuation">:</span> <span class="token keyword">true</span>
+<span class="token constant">Product</span><span class="token punctuation">.</span>create<span class="token operator">!</span> id<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">"Carton of Strawberries"</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> <span class="token number">1.99</span><span class="token punctuation">,</span> active<span class="token punctuation">:</span> <span class="token keyword">true</span>
+
+<span class="token constant">OrderStatus</span><span class="token punctuation">.</span>delete_all
+<span class="token constant">OrderStatus</span><span class="token punctuation">.</span>create<span class="token operator">!</span> id<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">"In Progress"</span>
+<span class="token constant">OrderStatus</span><span class="token punctuation">.</span>create<span class="token operator">!</span> id<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">"Placed"</span>
+<span class="token constant">OrderStatus</span><span class="token punctuation">.</span>create<span class="token operator">!</span> id<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">"Shipped"</span>
+<span class="token constant">OrderStatus</span><span class="token punctuation">.</span>create<span class="token operator">!</span> id<span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">"Cancelled"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6178912956839358" data-ad-slot="9862092956" data-ad-format="auto">
+</ins>
+<p>
+Now run a <code>rake db:seed</code> to insert the seed data into your database.
+</p>
+<h6>Terminal Commands:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby">rake db<span class="token symbol">:seed</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>
+Next we need to add some code to our model. Open up your order model and modify it so that it looks like the code listed below.
+</p>
+<h6>app/models/order.rb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token keyword">class</span> <span class="token class-name">Order</span> <span class="token operator">&lt;</span> <span class="token constant">ActiveRecord</span><span class="token punctuation">:</span><span class="token symbol">:Base</span>
+  belongs_to <span class="token symbol">:order_status</span>
+  has_many <span class="token symbol">:order_items</span>
+  before_create <span class="token symbol">:set_order_status</span>
+  before_save <span class="token symbol">:update_subtotal</span>
+
+  <span class="token keyword">def</span> subtotal
+    order_items<span class="token punctuation">.</span>collect <span class="token punctuation">{</span> <span class="token operator">|</span>oi<span class="token operator">|</span> oi<span class="token punctuation">.</span>valid<span class="token operator">?</span> <span class="token operator">?</span> <span class="token punctuation">(</span>oi<span class="token punctuation">.</span>quantity <span class="token operator">*</span> oi<span class="token punctuation">.</span>unit_price<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">.</span>sum
+  <span class="token keyword">end</span>
+private
+  <span class="token keyword">def</span> set_order_status
+    <span class="token keyword">self</span><span class="token punctuation">.</span>order_status_id <span class="token operator">=</span> <span class="token number">1</span>
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> update_subtotal
+    <span class="token keyword">self</span><span class="token punctuation">[</span><span class="token symbol">:subtotal</span><span class="token punctuation">]</span> <span class="token operator">=</span> subtotal
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>
+In the model above, the first 2 lines set up our associations. The next 2 lines set up a couple callbacks. The <code>set_order_status</code> gets fired when the order is created and sets the <code>order_status_id</code> column to 1 (in progress). The <code>update_subtotal</code> function is called during save and sums up our order item's total cost and stores it in the subtotal field. The <code>subtotal</code> function actually overrides the field named subtotal, so calling <code>order.subtotal</code>
+ calls the function. You can still access the field internally by 
+calling self[:subtotal], so we use that to update the field. This allows
+ us to dynamically update subtotal as needed. A side effect of this is 
+user can't write any arbitrary value to the subtotal field.
+</p>
+<p>
+Now let's add some code to our OrderItem model. Open up the OrderItem model and add in the code listed below.
+</p>
+<h6>app/models/order_item.rb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token keyword">class</span> <span class="token class-name">OrderItem</span> <span class="token operator">&lt;</span> <span class="token constant">ActiveRecord</span><span class="token punctuation">:</span><span class="token symbol">:Base</span>
+  belongs_to <span class="token symbol">:product</span>
+  belongs_to <span class="token symbol">:order</span>
+
+  validates <span class="token symbol">:quantity</span><span class="token punctuation">,</span> presence<span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">,</span> numericality<span class="token punctuation">:</span> <span class="token punctuation">{</span> only_integer<span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">,</span> greater_than<span class="token punctuation">:</span> <span class="token number">0</span> <span class="token punctuation">}</span>
+  validate <span class="token symbol">:product_present</span>
+  validate <span class="token symbol">:order_present</span>
+
+  before_save <span class="token symbol">:finalize</span>
+
+  <span class="token keyword">def</span> unit_price
+    <span class="token keyword">if</span> persisted<span class="token operator">?</span>
+      <span class="token keyword">self</span><span class="token punctuation">[</span><span class="token symbol">:unit_price</span><span class="token punctuation">]</span>
+    <span class="token keyword">else</span>
+      product<span class="token punctuation">.</span>price
+    <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> total_price
+    unit_price <span class="token operator">*</span> quantity
+  <span class="token keyword">end</span>
+
+private
+  <span class="token keyword">def</span> product_present
+    <span class="token keyword">if</span> product<span class="token punctuation">.</span><span class="token keyword">nil</span><span class="token operator">?</span>
+      errors<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token symbol">:product</span><span class="token punctuation">,</span> <span class="token string">"is not valid or is not active."</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> order_present
+    <span class="token keyword">if</span> order<span class="token punctuation">.</span><span class="token keyword">nil</span><span class="token operator">?</span>
+      errors<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token symbol">:order</span><span class="token punctuation">,</span> <span class="token string">"is not a valid order."</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> finalize
+    <span class="token keyword">self</span><span class="token punctuation">[</span><span class="token symbol">:unit_price</span><span class="token punctuation">]</span> <span class="token operator">=</span> unit_price
+    <span class="token keyword">self</span><span class="token punctuation">[</span><span class="token symbol">:total_price</span><span class="token punctuation">]</span> <span class="token operator">=</span> quantity <span class="token operator">*</span> <span class="token keyword">self</span><span class="token punctuation">[</span><span class="token symbol">:unit_price</span><span class="token punctuation">]</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>
+The first thing to note are the validations. The first validation for 
+quantity ensures that the quantity is a number that is an integer and is
+ greater than 0. The next validation is a custom validation that ensures
+ that the product is present and valid. The final validation for order 
+determines if the order is present and valid.
+</p>
+<p>
+The next thing to note here is the <code>unit_price</code> function. The
+ unit_price function will take the associated product's price if the 
+order item is not currently persisted. If the order item is persisted 
+then the contents of the unit_price field will be returned instead. 
+Before the model is saved, the return value of unit_price is written to 
+the unit_price field. This means that once the product is added to our 
+cart, if the product changes price the user will still be able to buy 
+the product at the previous price. This is necessary because if the 
+price changes while the user is in checkout, there could be a mismatch 
+between the product price on the cart page and the product price on the 
+checkout page. You can always modify this code to fit your own needs.
+</p>
+<p>
+The <code>finalize</code> function gets called before save and updates the unit_price and total_price fields with the proper values.
+</p>
+<p>
+Phew! Now that we are done with that, let's ensure that our OrderStatus 
+model is set up properly. Open up your OrderStatus model and verify that
+ it looks like the code listed below.
+</p>
+<h6>app/models/order_status.rb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token keyword">class</span> <span class="token class-name">OrderStatus</span> <span class="token operator">&lt;</span> <span class="token constant">ActiveRecord</span><span class="token punctuation">:</span><span class="token symbol">:Base</span>
+  has_many <span class="token symbol">:orders</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>
+Great, now let's add some code into our Product model. Open up your 
+Product model and modify it so that it looks like the code listed below.
+</p>
+<h6>app/models/product.rb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token keyword">class</span> <span class="token class-name">Product</span> <span class="token operator">&lt;</span> <span class="token constant">ActiveRecord</span><span class="token punctuation">:</span><span class="token symbol">:Base</span>
+  has_many <span class="token symbol">:order_items</span>
+
+  default_scope <span class="token punctuation">{</span> <span class="token function">where</span><span class="token punctuation">(</span>active<span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="visible-lg visible-md"><div class="dmad dmad" data-format="300x250" data-publisher="richonrails.com" data-tags="shopping cart,ruby,rails,tutorials,services,consulting,startups" data-type="ad" data-zone="article-inline"><div style="height: 250px; width: 300px; box-sizing: border-box; border: 0px none; font-size: 0px;" id="div-gpt-ad-richonrails.com/article-inline-1" data-google-query-id="CJKt0vyNkdoCFdIR0wodzXIDqw"><div id="google_ads_iframe_/6839/richonrails.com/article-inline_1__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/6839/richonrails.com/article-inline_1" title="3rd party ad content" name="google_ads_iframe_/6839/richonrails.com/article-inline_1" scrolling="no" marginwidth="0" marginheight="0" style="border: 0px none; vertical-align: bottom;" srcdoc="" width="300" height="250" frameborder="0"></iframe></div></div></div></div><p>
+All we did here is add a default scope that checks if the active flag is
+ set to true. This ensures that deleted/inactive products aren't shown.
+</p>
+<p>
+Great! Now let's move onto our controllers. For this example we will 
+create 3 controllers. The Products controller will display a list of 
+products for sale. The Carts controller will show the contents of our 
+shopping cart. Finally the OrderItems controller will take care of the 
+dirty work of manipulating our shopping cart. Run the commands below to 
+generate these controllers now.
+</p>
+<h6>Terminal Commands:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby">rails g controller <span class="token constant">Products</span> index
+rails g controller <span class="token constant">Carts</span> show
+rails g controller <span class="token constant">OrderItems</span> create update destroy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>
+Now let's modify our routes file to properly set up the routes. Open up your routes file and add in the code listed below.
+</p>
+<h6>config/routes.rb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token constant">Rails</span><span class="token punctuation">.</span>application<span class="token punctuation">.</span>routes<span class="token punctuation">.</span>draw <span class="token keyword">do</span>
+  resources <span class="token symbol">:products</span><span class="token punctuation">,</span> only<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token symbol">:index</span><span class="token punctuation">]</span>
+  resource <span class="token symbol">:cart</span><span class="token punctuation">,</span> only<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token symbol">:show</span><span class="token punctuation">]</span>
+  resources <span class="token symbol">:order_items</span><span class="token punctuation">,</span> only<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token symbol">:create</span><span class="token punctuation">,</span> <span class="token symbol">:update</span><span class="token punctuation">,</span> <span class="token symbol">:destroy</span><span class="token punctuation">]</span>
+  root to<span class="token punctuation">:</span> <span class="token string">"products#index"</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>
+Now let's add in a bit of code to our ApplicationController. In our ApplicationController we will add in a method called <code>current_order</code>
+ that will return the current order or create a new order if none 
+exists. Open up your application controller and modify it so that it 
+looks like the code listed below.
+</p>
+<h6>app/controllers/application_controller.rb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token keyword">class</span> <span class="token class-name">ApplicationController</span> <span class="token operator">&lt;</span> <span class="token constant">ActionController</span><span class="token punctuation">:</span><span class="token symbol">:Base</span>
+  protect_from_forgery with<span class="token punctuation">:</span> <span class="token symbol">:exception</span>
+  helper_method <span class="token symbol">:current_order</span>
+
+  <span class="token keyword">def</span> current_order
+    <span class="token keyword">if</span> <span class="token operator">!</span>session<span class="token punctuation">[</span><span class="token symbol">:order_id</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">nil</span><span class="token operator">?</span>
+      <span class="token constant">Order</span><span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>session<span class="token punctuation">[</span><span class="token symbol">:order_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span>
+      <span class="token constant">Order</span><span class="token punctuation">.</span><span class="token keyword">new</span>
+    <span class="token class-name">end</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>
+Great, now let's open up our CartsController and add some code that will
+ allow us to render our cart. Open up the CartsController and modify it 
+so that it looks like the code listed below.
+</p>
+<h6>app/controllers/carts_controller.rb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token keyword">class</span> <span class="token class-name">CartsController</span> <span class="token operator">&lt;</span> <span class="token constant">ApplicationController</span>
+  <span class="token keyword">def</span> show
+    <span class="token variable">@order_items</span> <span class="token operator">=</span> current_order<span class="token punctuation">.</span>order_items
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>
+Now let's tackle the OrderItems controller. Open up your OrderItems 
+controller and modify it so that it looks like the code listed below.
+</p>
+<h6>app/controllers/order_items_controller.rb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token keyword">class</span> <span class="token class-name">OrderItemsController</span> <span class="token operator">&lt;</span> <span class="token constant">ApplicationController</span>
+  <span class="token keyword">def</span> create
+    <span class="token variable">@order</span> <span class="token operator">=</span> current_order
+    <span class="token variable">@order_item</span> <span class="token operator">=</span> <span class="token variable">@order</span><span class="token punctuation">.</span>order_items<span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>order_item_params<span class="token punctuation">)</span>
+    <span class="token variable">@order</span><span class="token punctuation">.</span>save
+    session<span class="token punctuation">[</span><span class="token symbol">:order_id</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">@order</span><span class="token punctuation">.</span>id
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> update
+    <span class="token variable">@order</span> <span class="token operator">=</span> current_order
+    <span class="token variable">@order_item</span> <span class="token operator">=</span> <span class="token variable">@order</span><span class="token punctuation">.</span>order_items<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>params<span class="token punctuation">[</span><span class="token symbol">:id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token variable">@order_item</span><span class="token punctuation">.</span><span class="token function">update_attributes</span><span class="token punctuation">(</span>order_item_params<span class="token punctuation">)</span>
+    <span class="token variable">@order_items</span> <span class="token operator">=</span> <span class="token variable">@order</span><span class="token punctuation">.</span>order_items
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> destroy
+    <span class="token variable">@order</span> <span class="token operator">=</span> current_order
+    <span class="token variable">@order_item</span> <span class="token operator">=</span> <span class="token variable">@order</span><span class="token punctuation">.</span>order_items<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>params<span class="token punctuation">[</span><span class="token symbol">:id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token variable">@order_item</span><span class="token punctuation">.</span>destroy
+    <span class="token variable">@order_items</span> <span class="token operator">=</span> <span class="token variable">@order</span><span class="token punctuation">.</span>order_items
+  <span class="token keyword">end</span>
+private
+  <span class="token keyword">def</span> order_item_params
+    params<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token symbol">:order_item</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">permit</span><span class="token punctuation">(</span><span class="token symbol">:quantity</span><span class="token punctuation">,</span> <span class="token symbol">:product_id</span><span class="token punctuation">)</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="visible-lg visible-md"><div class="dmad dmad" data-format="300x250" data-publisher="richonrails.com" data-tags="shopping cart,cloud,merchant,api" data-type="ad" data-zone="article-inline"><div style="height: 250px; width: 300px; box-sizing: border-box; border: 0px none; font-size: 0px;" id="div-gpt-ad-richonrails.com/article-inline-2" data-google-query-id="CNaziPyNkdoCFagX0woddxwDFA"><div id="google_ads_iframe_/6839/richonrails.com/article-inline_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/6839/richonrails.com/article-inline_0" title="3rd party ad content" name="google_ads_iframe_/6839/richonrails.com/article-inline_0" scrolling="no" marginwidth="0" marginheight="0" style="border: 0px none; vertical-align: bottom;" srcdoc="" width="300" height="250" frameborder="0"></iframe></div></div></div></div><p>
+If you notice the <code>@order.save</code> call in the new method, it 
+works like this: the first time the user adds an order_item to his cart,
+ the new order is persisted to the database. From there on, the order's 
+state is saved every time an order_item is added.
+</p>
+<p>
+Now let's add some code to our ProductsController. Open up your Products controller and add in the code listed below.
+</p>
+<h6>app/controllers/products_controller.rb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token keyword">class</span> <span class="token class-name">ProductsController</span> <span class="token operator">&lt;</span> <span class="token constant">ApplicationController</span>
+  <span class="token keyword">def</span> index
+    <span class="token variable">@products</span> <span class="token operator">=</span> <span class="token constant">Product</span><span class="token punctuation">.</span>all
+    <span class="token variable">@order_item</span> <span class="token operator">=</span> current_order<span class="token punctuation">.</span>order_items<span class="token punctuation">.</span><span class="token keyword">new</span>
+  <span class="token class-name">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>
+The only thing special about the products controller is it creates a new instance of our OrderItem model for use in our forms.
+</p>
+<p>
+Alright! We are almost there. It's time for the views. Let's start with 
+our application layout. Open up your application layout and modify it so
+ that it looks like the code listed below.
+</p>
+<h6>app/views/layouts/application.html.erb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token constant">DOCTYPE</span> html<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>html<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>head<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>title<span class="token operator">&gt;</span><span class="token constant">ShoppingCartExample</span><span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token string">%= javascript_include_tag 'application', 'data-turbolinks-track' =</span><span class="token operator">&gt;</span> <span class="token keyword">true</span> <span class="token string">%&gt;
+  &lt;% if request.ssl? %&gt;</span>
+    <span class="token operator">&lt;</span><span class="token string">%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' %&gt;
+    &lt;%=</span> javascript_include_tag <span class="token string">'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'</span> <span class="token string">%&gt;
+  &lt;% else %&gt;</span>
+    <span class="token operator">&lt;</span><span class="token string">%= stylesheet_link_tag 'http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css' %&gt;
+    &lt;%=</span> javascript_include_tag <span class="token string">'http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'</span> <span class="token string">%&gt;
+  &lt;% end %&gt;</span>
+  <span class="token operator">&lt;</span><span class="token string">%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' =</span><span class="token operator">&gt;</span> <span class="token keyword">true</span> <span class="token string">%&gt;
+
+  &lt;%= csrf_meta_tags %&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>body<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"container"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"row"</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"col-xs-6"</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%= link_to "My Store", root_path %&gt;&lt;/h1&gt;
+      &lt;/div&gt;
+      &lt;div class=</span><span class="token string">"col-xs-6 text-right"</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>h1 <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"cart-text"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%= render 'layouts/cart_text' %&gt;&lt;/h1&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;hr&gt;
+    &lt;%=</span> <span class="token keyword">yield</span> <span class="token string">%&gt;
+  &lt;/div&gt;</span>
+
+<span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>
+In our layout we added bootstrap and created a basic layout for our application.
+</p>
+<p>
+Now let's create a partial called <code>cart_text</code> in our layouts 
+folder. The cart_text partial is used to render the current cart 
+subtotal in the upper right corner of your web page. Create the 
+cart_text partial now and add in the code listed below.
+</p>
+<h6>app/views/layouts/_cart_text.html.erb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">=</span> link_to <span class="token string">"<span class="token interpolation"><span class="token delimiter tag">#{</span>current_order<span class="token punctuation">.</span>order_items<span class="token punctuation">.</span>size<span class="token delimiter tag">}</span></span> Items in Cart ( <span class="token interpolation"><span class="token delimiter tag">#{</span>number_to_currency current_order<span class="token punctuation">.</span>subtotal<span class="token delimiter tag">}</span></span> )"</span><span class="token punctuation">,</span> cart_path<span class="token punctuation">,</span> <span class="token keyword">class</span><span class="token punctuation">:</span> <span class="token string">"btn btn-link"</span> <span class="token operator">%</span><span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>
+Great, now let's modify the <code>show</code> view for the Carts 
+controller. The show view is a wrapper for a partial that renders a 
+listing of all of the items that have been added to our cart. We wrap 
+the partial with a div so that we can modify it using AJAX. Modify your 
+show view so that it looks like the code listed below.
+</p>
+<h6>app/views/carts/show.html.erb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"shopping-cart"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">=</span> render <span class="token string">"shopping_cart"</span> <span class="token string">%&gt;
+&lt;/div&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<div class="visible-lg visible-md"><div class="dmad dmad" data-format="300x250" data-publisher="richonrails.com" data-tags="shopping cart,ruby,rails,mysql,postgresql,cloud" data-type="ad" data-zone="article-inline-2"><div style="height: 250px; width: 300px; box-sizing: border-box; border: 0px none; font-size: 0px;" id="div-gpt-ad-richonrails.com/article-inline-2-3" data-google-query-id="CKrL6fuNkdoCFccD0woda8MGdg"><div id="google_ads_iframe_/6839/richonrails.com/article-inline-2_0__container__" style="border: 0pt none; display: inline-block; width: 300px; height: 250px;"><iframe style="border: 0px none; vertical-align: bottom;" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/container_002.html" id="google_ads_iframe_/6839/richonrails.com/article-inline-2_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" data-is-safeframe="true" width="300" height="250" frameborder="0"></iframe></div></div></div></div><p>
+Now let's create the <code>shopping_cart</code> partial. The 
+shopping_cart partial is responsible for rendering the cart itself. 
+Create the shopping_cart partial for the Carts controller and add in the
+ code listed below.
+</p>
+<h6>app/views/carts/_shopping_cart.html.erb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token operator">!</span><span class="token variable">@order_item</span><span class="token punctuation">.</span><span class="token keyword">nil</span><span class="token operator">?</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">@order_item</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>any<span class="token operator">?</span> <span class="token string">%&gt;
+  &lt;div class="alert alert-danger"&gt;</span>
+    <span class="token operator">&lt;</span>ul<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token variable">@order_item</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>full_messages<span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>msg<span class="token operator">|</span> <span class="token string">%&gt;
+      &lt;li&gt;</span><span class="token operator">&lt;</span><span class="token string">%= msg %&gt;&lt;/li&gt;
+    &lt;% end %&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;% end %&gt;
+&lt;% if @order_items.size =</span><span class="token operator">=</span> <span class="token number">0</span> <span class="token string">%&gt;
+  &lt;p class="text-center"&gt;</span>
+    <span class="token constant">There</span> are no items <span class="token keyword">in</span> your shopping cart<span class="token punctuation">.</span>  <span class="token constant">Please</span> <span class="token operator">&lt;</span><span class="token string">%= link_to "go back", root_path %&gt; and add some items to your cart.
+  &lt;/p&gt;
+&lt;% else %&gt;
+  &lt;% @order_items.each do |order_item| %&gt;
+    &lt;%=</span> render <span class="token string">'carts/cart_row'</span><span class="token punctuation">,</span> product<span class="token punctuation">:</span> order_item<span class="token punctuation">.</span>product<span class="token punctuation">,</span> order_item<span class="token punctuation">:</span> order_item<span class="token punctuation">,</span> show_total<span class="token punctuation">:</span> <span class="token keyword">true</span> <span class="token string">%&gt;
+  &lt;% end %&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token operator">%</span><span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>
+Great, now let's create the <code>cart_row</code> partial. The cart_row 
+partial is responsible for rendering each row of the cart. Create the 
+cart_row partial for Carts and add in the code listed below.
+</p>
+<h6>app/views/carts/_cart_row.html.erb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"well"</span><span class="token operator">&gt;</span>
+
+  <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"row"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"col-xs-8"</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>h4<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%= product.name %&gt;&lt;/h4&gt;
+    &lt;/div&gt;
+    &lt;div class=</span><span class="token string">"col-xs-4"</span><span class="token operator">&gt;</span>
+
+      <span class="token operator">&lt;</span><span class="token string">%= form_for order_item, remote: true do |f| %&gt;
+        &lt;h4 class=</span><span class="token string">"text-right"</span><span class="token operator">&gt;</span><span class="token constant">Unit</span> <span class="token constant">Price</span><span class="token punctuation">:</span> <span class="token operator">&lt;</span>span style<span class="token operator">=</span><span class="token string">"color: green"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%= number_to_currency order_item.unit_price %&gt;&lt;/span&gt;&lt;/h4&gt;
+        &lt;div class=</span><span class="token string">"row"</span><span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"col-xs-4"</span><span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span><span class="token string">%= f.number_field :quantity, value: order_item.quantity.to_i, class: "form-control", min: 1 %&gt;
+            &lt;%=</span> f<span class="token punctuation">.</span>hidden_field <span class="token symbol">:product_id</span><span class="token punctuation">,</span> value<span class="token punctuation">:</span> product<span class="token punctuation">.</span>id <span class="token string">%&gt;
+          &lt;/div&gt;</span>
+          <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"col-xs-8 text-right"</span><span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"btn-group"</span><span class="token operator">&gt;</span>
+              <span class="token operator">&lt;</span><span class="token string">%= f.submit "Update Quantity", class: "btn btn-primary" %&gt;
+              &lt;%=</span> link_to <span class="token string">"Delete"</span><span class="token punctuation">,</span> order_item<span class="token punctuation">,</span> <span class="token punctuation">{</span> data<span class="token punctuation">:</span> <span class="token punctuation">{</span> confirm<span class="token punctuation">:</span> <span class="token string">"Are you sure you wish to delete the product '<span class="token interpolation"><span class="token delimiter tag">#{</span>order_item<span class="token punctuation">.</span>product<span class="token punctuation">.</span>name<span class="token delimiter tag">}</span></span>' from your cart?"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token symbol">:delete</span><span class="token punctuation">,</span> remote<span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">,</span> <span class="token keyword">class</span><span class="token punctuation">:</span> <span class="token string">"btn btn-danger"</span> <span class="token punctuation">}</span> <span class="token string">%&gt;
+            &lt;/div&gt;</span>
+          <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>h4 <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"text-right"</span><span class="token operator">&gt;</span><span class="token constant">Total</span> <span class="token constant">Price</span><span class="token punctuation">:</span> <span class="token operator">&lt;</span>span style<span class="token operator">=</span><span class="token string">"color: green"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">=</span> number_to_currency order_item<span class="token punctuation">.</span>total_price <span class="token string">%&gt;&lt;/span&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h4<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token string">%&gt;
+    &lt;/div&gt;</span>
+
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>
+You'll notice we make extensive use of <code>remote: true</code>. This shopping cart is completely AJAX driven. Don't worry, the rest is easy!
+</p>
+<p>
+Next we will need to create a view called <code>create.js.erb</code> for
+ our OrderItems controller. This view will render some JavaScript as a 
+response to an item being added to the cart. Create the create.js.erb 
+view for OrderItems and add in the code listed below.
+</p>
+<h6>app/views/order_items/create.js.erb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token variable">@order</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>any<span class="token operator">?</span> <span class="token operator">||</span> <span class="token variable">@order_item</span><span class="token punctuation">.</span>errors<span class="token punctuation">.</span>any<span class="token operator">?</span> <span class="token string">%&gt;
+alert("not valid.")
+&lt;% else %&gt;</span>
+  $<span class="token punctuation">(</span><span class="token string">".cart-text"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span>"<span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">=</span> <span class="token function">escape_javascript</span><span class="token punctuation">(</span>render <span class="token string">'layouts/cart_text'</span><span class="token punctuation">)</span> <span class="token string">%&gt;")
+&lt;% end %&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>
+Now let's create the <code>destroy.js.erb</code> view for carts. This 
+view will return some js that is used to manipulate the cart when an 
+item is removed. Create the destroy.js.erb view for Carts and add in the
+ code listed below.
+</p>
+<h6>app/views/order_items/destroy.js.erb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby">$<span class="token punctuation">(</span><span class="token string">".cart-text"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span>"<span class="token operator">&lt;</span><span class="token string">%= escape_javascript(render 'layouts/cart_text') %&gt;")
+$(".shopping-cart").html("&lt;%=</span> <span class="token function">escape_javascript</span><span class="token punctuation">(</span>render <span class="token string">'carts/shopping_cart'</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span>"<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<div class="visible-lg visible-md"><div class="dmad dmad" data-format="300x250" data-publisher="richonrails.com" data-tags="shopping cart,ruby,rails,jobs,training,startups" data-type="ad" data-zone="article-inline-3"><div style="height: 250px; width: 300px; box-sizing: border-box; border: 0px none; font-size: 0px;" id="div-gpt-ad-richonrails.com/article-inline-3-4" data-google-query-id="CKrh9LuKkdoCFdAw0wod4akMzg"><div id="google_ads_iframe_/6839/richonrails.com/article-inline-3_0__container__" style="border: 0pt none; display: inline-block; width: 300px; height: 250px;"><iframe style="border: 0px none; vertical-align: bottom;" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/container_002.html" id="google_ads_iframe_/6839/richonrails.com/article-inline-3_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" data-is-safeframe="true" width="300" height="250" frameborder="0"></iframe></div></div></div></div><p>
+Let's create one final view for OrderItems called <code>update.js.erb</code>.
+ The update.js.erb view is rendered whenever a quantity is changed or 
+the order item is updated. Create the update.js.erb view for OrderItems 
+and add in the code listed below.
+</p>
+<h6>app/views/order_items/update.js.erb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby">$<span class="token punctuation">(</span><span class="token string">".cart-text"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span>"<span class="token operator">&lt;</span><span class="token string">%= escape_javascript(render 'layouts/cart_text') %&gt;")
+$(".shopping-cart").html("&lt;%=</span> <span class="token function">escape_javascript</span><span class="token punctuation">(</span>render <span class="token string">'carts/shopping_cart'</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token operator">&gt;</span>"<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>
+Phew! Almost there! Now open up the <code>index</code> view for the Products controller and add in the code listed below.
+</p>
+<h6>app/views/products/index.html.erb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>h3 <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"text-center"</span><span class="token operator">&gt;</span><span class="token constant">Products</span> <span class="token keyword">for</span> <span class="token constant">Sale</span><span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"row"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"col-xs-6 col-xs-offset-3"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token variable">@products</span><span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>product<span class="token operator">|</span> <span class="token string">%&gt;
+      &lt;%= render "product_row", product: product, order_item: @order_item %&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token string">%&gt;
+  &lt;/div&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>
+The index view renders the list of products that are for sale.
+</p>
+<p>
+Now let's add one final partial for the Products controller called <code>_product_row</code>,
+ The product_row partial actually renders each product. Create the 
+product_row partial for the Products controller and add in the code 
+listed below.
+</p>
+<h6>app/views/products/_product_row.html.erb:</h6>
+<pre class=" line-numbers language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"well"</span><span class="token operator">&gt;</span>
+
+  <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"row"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"col-xs-8"</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>h4<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%= product.name %&gt;&lt;/small&gt;&lt;/h4&gt;
+    &lt;/div&gt;
+    &lt;div class=</span><span class="token string">"col-xs-4"</span><span class="token operator">&gt;</span>
+
+      <span class="token operator">&lt;</span><span class="token string">%= form_for order_item, remote: true do |f| %&gt;
+      &lt;h4 class=</span><span class="token string">"text-right"</span><span class="token operator">&gt;</span><span class="token constant">Unit</span> <span class="token constant">Price</span><span class="token punctuation">:</span> <span class="token operator">&lt;</span>span style<span class="token operator">=</span><span class="token string">"color: green"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%= number_to_currency product.price %&gt;&lt;/span&gt;&lt;/h4&gt;
+        &lt;div class=</span><span class="token string">"input-group"</span><span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span><span class="token string">%= f.number_field :quantity, value: 1, class: "form-control", min: 1 %&gt;
+          &lt;div class=</span><span class="token string">"input-group-btn"</span><span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span><span class="token string">%= f.hidden_field :product_id, value: product.id %&gt;
+            &lt;%=</span> f<span class="token punctuation">.</span>submit <span class="token string">"Add to Cart"</span><span class="token punctuation">,</span> <span class="token keyword">class</span><span class="token punctuation">:</span> <span class="token string">"btn btn-primary"</span> <span class="token string">%&gt;
+          &lt;/div&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token string">%&gt;
+    &lt;/div&gt;</span>
+
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Great! We are all finished! Now if you start a <code>rails server</code> and navigate to <a rel="nofollow" target="_blank" href="http://localhost:3000/">http://localhost:3000</a> you will see that you have a functional shopping cart! That's it! Thanks for reading!</p></div> <script data-cfasync="false" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/email-decode.js"></script><script async="" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-6178912956839358" data-ad-slot="4854970559"></ins>
+<script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+<div class="comment-system"><hr><h2 id="comments">Comments</h2><div class="well"><div class="alert"><p><b>Note:</b>&nbsp;&nbsp;You
+ are not logged in. This means your comment be automatically sent into 
+moderation and you won't receive emails when a user replies. To log in 
+using GitHub, click the button below. This is a one step process.</p><p><small><i class="text-muted">Your information is kept private. to RichOnRails.com and will never be given away or sold. Take a look at our <a href="https://richonrails.com/privacy">Privacy Policy</a> for more details.</i></small></p></div><div class="text-center"><a class="btn btn-github" href="https://richonrails.com/auth/github"><div class="fa fa-github"></div>&nbsp;Sign In with Github</a><br><br></div><h3>Comment Anonymously</h3><form class="new_comment" id="new_comment" action="/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="comments_page" id="comments_page" type="hidden"><input value="building-a-shopping-cart-in-ruby-on-rails" name="comment[commentable_id]" id="comment_commentable_id" type="hidden"><input value="Article" name="comment[commentable_type]" id="comment_commentable_type" type="hidden"><textarea class="form-control" rows="6" name="comment[content]" id="comment_content"></textarea><p class="help-block"></p><div class="text-right">HTML is NOT allowed. However, you can use markdown.&nbsp;&nbsp;<a class="show-md-examples" href="#">See Examples</a></div><div class="md-examples hide"><table class="table table-bordered table-striped"><tbody><tr><td>**Bold Text**</td><td><p><strong>Bold Text</strong></p>
+</td></tr><tr><td>*Italic text*</td><td><p><em>Italic Text</em></p>
+</td></tr><tr><td>* List<br>* Items</td><td><ul>
+<li>List</li>
+<li>Items</li>
+</ul>
+</td></tr><tr><td>&gt; Block Quote</td><td><blockquote>
+<p>Block Quote</p>
+</blockquote>
+</td></tr><tr><td>`puts 'Inline Code'`</td><td><p></p><pre class=" language-ruby"><code class=" language-ruby">puts <span class="token string">'Inline Code'</span></code></pre><p></p>
+</td></tr><tr><td>``` # code.rb<br>puts 'Code Block!'<br>puts 'RichOnRails!'<br>```</td><td><div class="example"><p></p><pre class=" language-ruby"><code class=" language-ruby"><span class="token comment" spellcheck="true"># code.rb</span>
+puts <span class="token string">'Code Block'</span>
+puts <span class="token string">'RichOnRails!'</span></code></pre><p></p>
+</div></td></tr></tbody></table></div><p></p><div class="text-right"><button name="button" type="submit" class="btn btn-primary btn-comment"><i class="fa fa-commenting"></i>&nbsp;Comment</button><a class="btn btn-text hide please-wait" href="#">Please wait...</a></div></form> <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6178912956839358" data-ad-slot="3815559356" data-ad-format="auto">
+</ins>
+</div><div class="text-center"><ul class="pagination pagination"><li class="prev disabled"><span>← Previous</span></li> <li class="active"><span>1</span></li> <li><a rel="next" href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=2">2</a></li> <li><a href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=3">3</a></li> <li><a href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=4">4</a></li> <li><a href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=5">5</a></li> <li><a href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=6">6</a></li> <li><a href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=7">7</a></li> <li class="next"><a rel="next" href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=2">Next →</a></li></ul></div><div class="comments"><div class="comment panel panel-default"><div class="panel-heading gray-gradient"><div class="row"><div class="col-md-12"><div class="avatar"><img alt="" class="img-thumbnail" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/3540752.jpeg"></div><div class="user"><div class="username">Christopher Talib</div><div class="hide"></div><div class="posted-at">Posted 3 months ago</div></div></div></div></div><div class="panel-body"><div class="row"><div class="col-lg-12"><p>Hey ! Great article !</p>
+<p>I was wondering where is the current set up ? I'd like to change to Euros or maybe allow user to choose it. </p>
+<p>Anyone ran into this issue ? Thanks !</p>
+</div></div><div class="row"><div class="col-lg-12"><div class="well"><div class="comment "><div class="panel-heading"><div class="row"><div class="col-md-12"><div class="avatar"><img alt="" class="img-thumbnail" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/3540752.jpeg"></div><div class="user"><div class="username">Christopher Talib</div><div class="hide"></div><div class="posted-at">Posted 2 months ago</div></div></div></div></div><div class="panel-body"><div class="row"><div class="col-lg-12"><p>I ment the currency setup* Sorry for the typo !</p>
+<p>Thanks!</p>
+</div></div></div></div></div></div></div></div><div class="panel-footer gray-gradient"><div class="row"><div class="col-xs-12 text-right comment-button"><a class="btn btn-success btn-reply" href="#"><i class="fa fa-commenting"></i>&nbsp;Reply</a></div></div><div class="row"><div class="col-xs-12"><div class="reply-form hide"><div class="alert"><p><b>Note:</b>&nbsp;&nbsp;You
+ are not logged in. This means your comment be automatically sent into 
+moderation and you won't receive emails when a user replies. To log in 
+using GitHub, click the button below. This is a one step process.</p><p><small><i class="text-muted">Your information is kept private. to RichOnRails.com and will never be given away or sold. Take a look at our <a href="https://richonrails.com/privacy">Privacy Policy</a> for more details.</i></small></p></div><div class="text-center"><a class="btn btn-github" href="https://richonrails.com/auth/github"><div class="fa fa-github"></div>&nbsp;Sign In with Github</a><br><br></div><h3>Reply Anonymously</h3><form class="new_comment" id="new_comment" action="/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="comments_page" id="comments_page" type="hidden"><input value="building-a-shopping-cart-in-ruby-on-rails" name="comment[commentable_id]" id="comment_commentable_id" type="hidden"><input value="Article" name="comment[commentable_type]" id="comment_commentable_type" type="hidden"><textarea class="form-control" rows="6" name="comment[content]" id="comment_content"></textarea><p class="help-block"></p><div class="text-right">HTML is NOT allowed. However, you can use markdown.&nbsp;&nbsp;<a class="show-md-examples" href="#">See Examples</a></div><div class="md-examples hide"><table class="table table-bordered table-striped"><tbody><tr><td>**Bold Text**</td><td><p><strong>Bold Text</strong></p>
+</td></tr><tr><td>*Italic text*</td><td><p><em>Italic Text</em></p>
+</td></tr><tr><td>* List<br>* Items</td><td><ul>
+<li>List</li>
+<li>Items</li>
+</ul>
+</td></tr><tr><td>&gt; Block Quote</td><td><blockquote>
+<p>Block Quote</p>
+</blockquote>
+</td></tr><tr><td>`puts 'Inline Code'`</td><td><p></p><pre class=" language-ruby"><code class=" language-ruby">puts <span class="token string">'Inline Code'</span></code></pre><p></p>
+</td></tr><tr><td>``` # code.rb<br>puts 'Code Block!'<br>puts 'RichOnRails!'<br>```</td><td><div class="example"><p></p><pre class=" language-ruby"><code class=" language-ruby"><span class="token comment" spellcheck="true"># code.rb</span>
+puts <span class="token string">'Code Block'</span>
+puts <span class="token string">'RichOnRails!'</span></code></pre><p></p>
+</div></td></tr></tbody></table></div><p></p><div class="text-right"><input value="858" name="comment[parent_id]" id="comment_parent_id" type="hidden"><a class="btn btn-default btn-cancel-comment" href="#">Cancel</a>&nbsp;<button name="button" type="submit" class="btn btn-success green btn-comment"><i class="fa fa-commenting"></i>&nbsp;Reply</button><a class="btn btn-text hide please-wait" href="#">Please wait...</a></div></form> <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6178912956839358" data-ad-slot="3815559356" data-ad-format="auto">
+</ins>
+</div></div></div></div></div><div class="comment panel panel-default"><div class="panel-heading gray-gradient"><div class="row"><div class="col-md-12"><div class="avatar"><img alt="" class="img-thumbnail" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/29162800.png"></div><div class="user"><div class="username">Morganja95</div><div class="hide"></div><div class="posted-at">Posted 3 months ago</div></div></div></div></div><div class="panel-body"><div class="row"><div class="col-lg-12"><p>I
+ have a site that has 4 different types of products all on different 
+tabs on the same page. I was wondering what process I would need to go 
+through to make sure each product type is loaded on the right tab and 
+only on that tab. Thank you so much!</p>
+</div></div></div><div class="panel-footer gray-gradient"><div class="row"><div class="col-xs-12 text-right comment-button"><a class="btn btn-success btn-reply" href="#"><i class="fa fa-commenting"></i>&nbsp;Reply</a></div></div><div class="row"><div class="col-xs-12"><div class="reply-form hide"><div class="alert"><p><b>Note:</b>&nbsp;&nbsp;You
+ are not logged in. This means your comment be automatically sent into 
+moderation and you won't receive emails when a user replies. To log in 
+using GitHub, click the button below. This is a one step process.</p><p><small><i class="text-muted">Your information is kept private. to RichOnRails.com and will never be given away or sold. Take a look at our <a href="https://richonrails.com/privacy">Privacy Policy</a> for more details.</i></small></p></div><div class="text-center"><a class="btn btn-github" href="https://richonrails.com/auth/github"><div class="fa fa-github"></div>&nbsp;Sign In with Github</a><br><br></div><h3>Reply Anonymously</h3><form class="new_comment" id="new_comment" action="/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="comments_page" id="comments_page" type="hidden"><input value="building-a-shopping-cart-in-ruby-on-rails" name="comment[commentable_id]" id="comment_commentable_id" type="hidden"><input value="Article" name="comment[commentable_type]" id="comment_commentable_type" type="hidden"><textarea class="form-control" rows="6" name="comment[content]" id="comment_content"></textarea><p class="help-block"></p><div class="text-right">HTML is NOT allowed. However, you can use markdown.&nbsp;&nbsp;<a class="show-md-examples" href="#">See Examples</a></div><div class="md-examples hide"><table class="table table-bordered table-striped"><tbody><tr><td>**Bold Text**</td><td><p><strong>Bold Text</strong></p>
+</td></tr><tr><td>*Italic text*</td><td><p><em>Italic Text</em></p>
+</td></tr><tr><td>* List<br>* Items</td><td><ul>
+<li>List</li>
+<li>Items</li>
+</ul>
+</td></tr><tr><td>&gt; Block Quote</td><td><blockquote>
+<p>Block Quote</p>
+</blockquote>
+</td></tr><tr><td>`puts 'Inline Code'`</td><td><p></p><pre class=" language-ruby"><code class=" language-ruby">puts <span class="token string">'Inline Code'</span></code></pre><p></p>
+</td></tr><tr><td>``` # code.rb<br>puts 'Code Block!'<br>puts 'RichOnRails!'<br>```</td><td><div class="example"><p></p><pre class=" language-ruby"><code class=" language-ruby"><span class="token comment" spellcheck="true"># code.rb</span>
+puts <span class="token string">'Code Block'</span>
+puts <span class="token string">'RichOnRails!'</span></code></pre><p></p>
+</div></td></tr></tbody></table></div><p></p><div class="text-right"><input value="857" name="comment[parent_id]" id="comment_parent_id" type="hidden"><a class="btn btn-default btn-cancel-comment" href="#">Cancel</a>&nbsp;<button name="button" type="submit" class="btn btn-success green btn-comment"><i class="fa fa-commenting"></i>&nbsp;Reply</button><a class="btn btn-text hide please-wait" href="#">Please wait...</a></div></form> <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6178912956839358" data-ad-slot="3815559356" data-ad-format="auto">
+</ins>
+</div></div></div></div></div><div class="comment panel panel-default"><div class="panel-heading gray-gradient"><div class="row"><div class="col-md-12"><div class="avatar"><img alt="" class="img-thumbnail" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/22996864.jpeg"></div><div class="user"><div class="username">EDGloriam</div><div class="hide"></div><div class="posted-at">Posted 7 months ago</div></div></div></div></div><div class="panel-body"><div class="row"><div class="col-lg-12"><p>Hello All! Could you please help me to figure out where does session come from? Session was not declared anywhere. Thank you<br>
+</p><pre class=" language-ruby"><code class=" language-ruby"><span class="token keyword">def</span> current_order
+    <span class="token keyword">if</span> <span class="token operator">!</span>session<span class="token punctuation">[</span><span class="token symbol">:order_id</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">nil</span><span class="token operator">?</span>
+      <span class="token constant">Order</span><span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>session<span class="token punctuation">[</span><span class="token symbol">:order_id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span>
+      <span class="token constant">Order</span><span class="token punctuation">.</span><span class="token keyword">new</span>
+    <span class="token class-name">end</span>
+  <span class="token keyword">end</span></code></pre><p></p>
+</div></div><div class="row"><div class="col-lg-12"><div class="well"><div class="comment "><div class="panel-heading"><div class="row"><div class="col-md-12"><div class="avatar"><img alt="" class="img-thumbnail" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/3540752.jpeg"></div><div class="user"><div class="username">Christopher Talib</div><div class="hide"></div><div class="posted-at">Posted 3 months ago</div></div></div></div></div><div class="panel-body"><div class="row"><div class="col-lg-12"><p>I believe that session is the session of the user currently on the website. But not sure</p>
+</div></div></div></div></div></div></div></div><div class="panel-footer gray-gradient"><div class="row"><div class="col-xs-12 text-right comment-button"><a class="btn btn-success btn-reply" href="#"><i class="fa fa-commenting"></i>&nbsp;Reply</a></div></div><div class="row"><div class="col-xs-12"><div class="reply-form hide"><div class="alert"><p><b>Note:</b>&nbsp;&nbsp;You
+ are not logged in. This means your comment be automatically sent into 
+moderation and you won't receive emails when a user replies. To log in 
+using GitHub, click the button below. This is a one step process.</p><p><small><i class="text-muted">Your information is kept private. to RichOnRails.com and will never be given away or sold. Take a look at our <a href="https://richonrails.com/privacy">Privacy Policy</a> for more details.</i></small></p></div><div class="text-center"><a class="btn btn-github" href="https://richonrails.com/auth/github"><div class="fa fa-github"></div>&nbsp;Sign In with Github</a><br><br></div><h3>Reply Anonymously</h3><form class="new_comment" id="new_comment" action="/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="comments_page" id="comments_page" type="hidden"><input value="building-a-shopping-cart-in-ruby-on-rails" name="comment[commentable_id]" id="comment_commentable_id" type="hidden"><input value="Article" name="comment[commentable_type]" id="comment_commentable_type" type="hidden"><textarea class="form-control" rows="6" name="comment[content]" id="comment_content"></textarea><p class="help-block"></p><div class="text-right">HTML is NOT allowed. However, you can use markdown.&nbsp;&nbsp;<a class="show-md-examples" href="#">See Examples</a></div><div class="md-examples hide"><table class="table table-bordered table-striped"><tbody><tr><td>**Bold Text**</td><td><p><strong>Bold Text</strong></p>
+</td></tr><tr><td>*Italic text*</td><td><p><em>Italic Text</em></p>
+</td></tr><tr><td>* List<br>* Items</td><td><ul>
+<li>List</li>
+<li>Items</li>
+</ul>
+</td></tr><tr><td>&gt; Block Quote</td><td><blockquote>
+<p>Block Quote</p>
+</blockquote>
+</td></tr><tr><td>`puts 'Inline Code'`</td><td><p></p><pre class=" language-ruby"><code class=" language-ruby">puts <span class="token string">'Inline Code'</span></code></pre><p></p>
+</td></tr><tr><td>``` # code.rb<br>puts 'Code Block!'<br>puts 'RichOnRails!'<br>```</td><td><div class="example"><p></p><pre class=" language-ruby"><code class=" language-ruby"><span class="token comment" spellcheck="true"># code.rb</span>
+puts <span class="token string">'Code Block'</span>
+puts <span class="token string">'RichOnRails!'</span></code></pre><p></p>
+</div></td></tr></tbody></table></div><p></p><div class="text-right"><input value="764" name="comment[parent_id]" id="comment_parent_id" type="hidden"><a class="btn btn-default btn-cancel-comment" href="#">Cancel</a>&nbsp;<button name="button" type="submit" class="btn btn-success green btn-comment"><i class="fa fa-commenting"></i>&nbsp;Reply</button><a class="btn btn-text hide please-wait" href="#">Please wait...</a></div></form> <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6178912956839358" data-ad-slot="3815559356" data-ad-format="auto">
+</ins>
+</div></div></div></div></div><div class="comment panel panel-default"><div class="panel-heading gray-gradient"><div class="row"><div class="col-md-12"><div class="avatar"><img alt="" class="img-thumbnail" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/default-avatar-big-0f74f42b7d831ec812545b20b3745225cb99887e7.png"></div><div class="user"><div class="username">Guest User</div><div class="hide"></div><div class="posted-at">Posted 7 months ago</div></div></div></div></div><div class="panel-body"><div class="row"><div class="col-lg-12"><p>What does session reference to? I mean we didn't declare it. I can not figure out how does it apear</p>
+<p>def current<em>order<br>
+if !session[:order</em>id].nil?<br>
+Order.find(session[:order_id])<br>
+else<br>
+Order.new<br>
+end<br>
+end</p>
+</div></div></div><div class="panel-footer gray-gradient"><div class="row"><div class="col-xs-12 text-right comment-button"><a class="btn btn-success btn-reply" href="#"><i class="fa fa-commenting"></i>&nbsp;Reply</a></div></div><div class="row"><div class="col-xs-12"><div class="reply-form hide"><div class="alert"><p><b>Note:</b>&nbsp;&nbsp;You
+ are not logged in. This means your comment be automatically sent into 
+moderation and you won't receive emails when a user replies. To log in 
+using GitHub, click the button below. This is a one step process.</p><p><small><i class="text-muted">Your information is kept private. to RichOnRails.com and will never be given away or sold. Take a look at our <a href="https://richonrails.com/privacy">Privacy Policy</a> for more details.</i></small></p></div><div class="text-center"><a class="btn btn-github" href="https://richonrails.com/auth/github"><div class="fa fa-github"></div>&nbsp;Sign In with Github</a><br><br></div><h3>Reply Anonymously</h3><form class="new_comment" id="new_comment" action="/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="comments_page" id="comments_page" type="hidden"><input value="building-a-shopping-cart-in-ruby-on-rails" name="comment[commentable_id]" id="comment_commentable_id" type="hidden"><input value="Article" name="comment[commentable_type]" id="comment_commentable_type" type="hidden"><textarea class="form-control" rows="6" name="comment[content]" id="comment_content"></textarea><p class="help-block"></p><div class="text-right">HTML is NOT allowed. However, you can use markdown.&nbsp;&nbsp;<a class="show-md-examples" href="#">See Examples</a></div><div class="md-examples hide"><table class="table table-bordered table-striped"><tbody><tr><td>**Bold Text**</td><td><p><strong>Bold Text</strong></p>
+</td></tr><tr><td>*Italic text*</td><td><p><em>Italic Text</em></p>
+</td></tr><tr><td>* List<br>* Items</td><td><ul>
+<li>List</li>
+<li>Items</li>
+</ul>
+</td></tr><tr><td>&gt; Block Quote</td><td><blockquote>
+<p>Block Quote</p>
+</blockquote>
+</td></tr><tr><td>`puts 'Inline Code'`</td><td><p></p><pre class=" language-ruby"><code class=" language-ruby">puts <span class="token string">'Inline Code'</span></code></pre><p></p>
+</td></tr><tr><td>``` # code.rb<br>puts 'Code Block!'<br>puts 'RichOnRails!'<br>```</td><td><div class="example"><p></p><pre class=" language-ruby"><code class=" language-ruby"><span class="token comment" spellcheck="true"># code.rb</span>
+puts <span class="token string">'Code Block'</span>
+puts <span class="token string">'RichOnRails!'</span></code></pre><p></p>
+</div></td></tr></tbody></table></div><p></p><div class="text-right"><input value="763" name="comment[parent_id]" id="comment_parent_id" type="hidden"><a class="btn btn-default btn-cancel-comment" href="#">Cancel</a>&nbsp;<button name="button" type="submit" class="btn btn-success green btn-comment"><i class="fa fa-commenting"></i>&nbsp;Reply</button><a class="btn btn-text hide please-wait" href="#">Please wait...</a></div></form> <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6178912956839358" data-ad-slot="3815559356" data-ad-format="auto">
+</ins>
+</div></div></div></div></div><div class="comment panel panel-default"><div class="panel-heading gray-gradient"><div class="row"><div class="col-md-12"><div class="avatar"><img alt="" class="img-thumbnail" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/7674405.png"></div><div class="user"><div class="username">André Rocha</div><div class="hide"></div><div class="posted-at">Posted 9 months ago</div></div></div></div></div><div class="panel-body"><div class="row"><div class="col-lg-12"><p>Hey guys, nice work !<br>
+I just want to know how do I associate the user with all this models ?<br>
+Does a Order also belongs<em>to User or does the OrderStatus belongs</em>to User ?</p>
+</div></div></div><div class="panel-footer gray-gradient"><div class="row"><div class="col-xs-12 text-right comment-button"><a class="btn btn-success btn-reply" href="#"><i class="fa fa-commenting"></i>&nbsp;Reply</a></div></div><div class="row"><div class="col-xs-12"><div class="reply-form hide"><div class="alert"><p><b>Note:</b>&nbsp;&nbsp;You
+ are not logged in. This means your comment be automatically sent into 
+moderation and you won't receive emails when a user replies. To log in 
+using GitHub, click the button below. This is a one step process.</p><p><small><i class="text-muted">Your information is kept private. to RichOnRails.com and will never be given away or sold. Take a look at our <a href="https://richonrails.com/privacy">Privacy Policy</a> for more details.</i></small></p></div><div class="text-center"><a class="btn btn-github" href="https://richonrails.com/auth/github"><div class="fa fa-github"></div>&nbsp;Sign In with Github</a><br><br></div><h3>Reply Anonymously</h3><form class="new_comment" id="new_comment" action="/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="comments_page" id="comments_page" type="hidden"><input value="building-a-shopping-cart-in-ruby-on-rails" name="comment[commentable_id]" id="comment_commentable_id" type="hidden"><input value="Article" name="comment[commentable_type]" id="comment_commentable_type" type="hidden"><textarea class="form-control" rows="6" name="comment[content]" id="comment_content"></textarea><p class="help-block"></p><div class="text-right">HTML is NOT allowed. However, you can use markdown.&nbsp;&nbsp;<a class="show-md-examples" href="#">See Examples</a></div><div class="md-examples hide"><table class="table table-bordered table-striped"><tbody><tr><td>**Bold Text**</td><td><p><strong>Bold Text</strong></p>
+</td></tr><tr><td>*Italic text*</td><td><p><em>Italic Text</em></p>
+</td></tr><tr><td>* List<br>* Items</td><td><ul>
+<li>List</li>
+<li>Items</li>
+</ul>
+</td></tr><tr><td>&gt; Block Quote</td><td><blockquote>
+<p>Block Quote</p>
+</blockquote>
+</td></tr><tr><td>`puts 'Inline Code'`</td><td><p></p><pre class=" language-ruby"><code class=" language-ruby">puts <span class="token string">'Inline Code'</span></code></pre><p></p>
+</td></tr><tr><td>``` # code.rb<br>puts 'Code Block!'<br>puts 'RichOnRails!'<br>```</td><td><div class="example"><p></p><pre class=" language-ruby"><code class=" language-ruby"><span class="token comment" spellcheck="true"># code.rb</span>
+puts <span class="token string">'Code Block'</span>
+puts <span class="token string">'RichOnRails!'</span></code></pre><p></p>
+</div></td></tr></tbody></table></div><p></p><div class="text-right"><input value="727" name="comment[parent_id]" id="comment_parent_id" type="hidden"><a class="btn btn-default btn-cancel-comment" href="#">Cancel</a>&nbsp;<button name="button" type="submit" class="btn btn-success green btn-comment"><i class="fa fa-commenting"></i>&nbsp;Reply</button><a class="btn btn-text hide please-wait" href="#">Please wait...</a></div></form> <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6178912956839358" data-ad-slot="3815559356" data-ad-format="auto">
+</ins>
+</div></div></div></div></div><div class="comment panel panel-default"><div class="panel-heading gray-gradient"><div class="row"><div class="col-md-12"><div class="avatar"><img alt="" class="img-thumbnail" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/14856906.png"></div><div class="user"><div class="username">Aris Nance</div><div class="hide"></div><div class="posted-at">Posted 9 months ago</div></div></div></div></div><div class="panel-body"><div class="row"><div class="col-lg-12"><p>Hello All,</p>
+<p>Has anyone experience this error on Heroku? Everything works fine on 
+localhost! I'n completely lost. I'm on rails 4.2 and any help given is 
+much appreciated!</p>
+<p>DETAIL: Key (order<em>status</em>id)=(1) is not present in table "order<em>statuses".<br>
+INSERT INTO "orders" ("subtotal", "created</em>at", "updated<em>at", "order</em>status<em>id") VALUES ($1, $2, $3, $4) RETURNING "id")<br>
+app/controllers/order</em>items_controller.rb:19:in `create'</p>
+</div></div></div><div class="panel-footer gray-gradient"><div class="row"><div class="col-xs-12 text-right comment-button"><a class="btn btn-success btn-reply" href="#"><i class="fa fa-commenting"></i>&nbsp;Reply</a></div></div><div class="row"><div class="col-xs-12"><div class="reply-form hide"><div class="alert"><p><b>Note:</b>&nbsp;&nbsp;You
+ are not logged in. This means your comment be automatically sent into 
+moderation and you won't receive emails when a user replies. To log in 
+using GitHub, click the button below. This is a one step process.</p><p><small><i class="text-muted">Your information is kept private. to RichOnRails.com and will never be given away or sold. Take a look at our <a href="https://richonrails.com/privacy">Privacy Policy</a> for more details.</i></small></p></div><div class="text-center"><a class="btn btn-github" href="https://richonrails.com/auth/github"><div class="fa fa-github"></div>&nbsp;Sign In with Github</a><br><br></div><h3>Reply Anonymously</h3><form class="new_comment" id="new_comment" action="/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="comments_page" id="comments_page" type="hidden"><input value="building-a-shopping-cart-in-ruby-on-rails" name="comment[commentable_id]" id="comment_commentable_id" type="hidden"><input value="Article" name="comment[commentable_type]" id="comment_commentable_type" type="hidden"><textarea class="form-control" rows="6" name="comment[content]" id="comment_content"></textarea><p class="help-block"></p><div class="text-right">HTML is NOT allowed. However, you can use markdown.&nbsp;&nbsp;<a class="show-md-examples" href="#">See Examples</a></div><div class="md-examples hide"><table class="table table-bordered table-striped"><tbody><tr><td>**Bold Text**</td><td><p><strong>Bold Text</strong></p>
+</td></tr><tr><td>*Italic text*</td><td><p><em>Italic Text</em></p>
+</td></tr><tr><td>* List<br>* Items</td><td><ul>
+<li>List</li>
+<li>Items</li>
+</ul>
+</td></tr><tr><td>&gt; Block Quote</td><td><blockquote>
+<p>Block Quote</p>
+</blockquote>
+</td></tr><tr><td>`puts 'Inline Code'`</td><td><p></p><pre class=" language-ruby"><code class=" language-ruby">puts <span class="token string">'Inline Code'</span></code></pre><p></p>
+</td></tr><tr><td>``` # code.rb<br>puts 'Code Block!'<br>puts 'RichOnRails!'<br>```</td><td><div class="example"><p></p><pre class=" language-ruby"><code class=" language-ruby"><span class="token comment" spellcheck="true"># code.rb</span>
+puts <span class="token string">'Code Block'</span>
+puts <span class="token string">'RichOnRails!'</span></code></pre><p></p>
+</div></td></tr></tbody></table></div><p></p><div class="text-right"><input value="724" name="comment[parent_id]" id="comment_parent_id" type="hidden"><a class="btn btn-default btn-cancel-comment" href="#">Cancel</a>&nbsp;<button name="button" type="submit" class="btn btn-success green btn-comment"><i class="fa fa-commenting"></i>&nbsp;Reply</button><a class="btn btn-text hide please-wait" href="#">Please wait...</a></div></form> <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6178912956839358" data-ad-slot="3815559356" data-ad-format="auto">
+</ins>
+</div></div></div></div></div><div class="comment panel panel-default"><div class="panel-heading gray-gradient"><div class="row"><div class="col-md-12"><div class="avatar"><img alt="" class="img-thumbnail" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/default-avatar-big-0f74f42b7d831ec812545b20b3745225cb99887e7.png"></div><div class="user"><div class="username">Guest User</div><div class="hide"></div><div class="posted-at">Posted 10 months ago</div></div></div></div></div><div class="panel-body"><div class="row"><div class="col-lg-12"><p>hi!!
+ when i add product to cart , on pressing the button once a product gets
+ added 3 times, i am not able to find out whats the problem and where is
+ such loop present which is running 3 times. sometimes, the no. of 
+product added to cart is also more than 3. Anyone can help?</p>
+</div></div><div class="row"><div class="col-lg-12"><div class="well"><div class="comment "><div class="panel-heading"><div class="row"><div class="col-md-12"><div class="avatar"><img alt="" class="img-thumbnail" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/27968917.png"></div><div class="user"><div class="username">MargulanKZ</div><div class="hide"></div><div class="posted-at">Posted 8 months ago</div></div></div></div></div><div class="panel-body"><div class="row"><div class="col-lg-12"><p>Take a close look at the file application.html.erb to see if that is referring to jquery.js and jquery<em>ujs.js. If so, just take the jquery</em>ujs.js out, refresh the browser and try it again.</p>
+</div></div></div></div></div></div></div></div><div class="panel-footer gray-gradient"><div class="row"><div class="col-xs-12 text-right comment-button"><a class="btn btn-success btn-reply" href="#"><i class="fa fa-commenting"></i>&nbsp;Reply</a></div></div><div class="row"><div class="col-xs-12"><div class="reply-form hide"><div class="alert"><p><b>Note:</b>&nbsp;&nbsp;You
+ are not logged in. This means your comment be automatically sent into 
+moderation and you won't receive emails when a user replies. To log in 
+using GitHub, click the button below. This is a one step process.</p><p><small><i class="text-muted">Your information is kept private. to RichOnRails.com and will never be given away or sold. Take a look at our <a href="https://richonrails.com/privacy">Privacy Policy</a> for more details.</i></small></p></div><div class="text-center"><a class="btn btn-github" href="https://richonrails.com/auth/github"><div class="fa fa-github"></div>&nbsp;Sign In with Github</a><br><br></div><h3>Reply Anonymously</h3><form class="new_comment" id="new_comment" action="/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><input name="comments_page" id="comments_page" type="hidden"><input value="building-a-shopping-cart-in-ruby-on-rails" name="comment[commentable_id]" id="comment_commentable_id" type="hidden"><input value="Article" name="comment[commentable_type]" id="comment_commentable_type" type="hidden"><textarea class="form-control" rows="6" name="comment[content]" id="comment_content"></textarea><p class="help-block"></p><div class="text-right">HTML is NOT allowed. However, you can use markdown.&nbsp;&nbsp;<a class="show-md-examples" href="#">See Examples</a></div><div class="md-examples hide"><table class="table table-bordered table-striped"><tbody><tr><td>**Bold Text**</td><td><p><strong>Bold Text</strong></p>
+</td></tr><tr><td>*Italic text*</td><td><p><em>Italic Text</em></p>
+</td></tr><tr><td>* List<br>* Items</td><td><ul>
+<li>List</li>
+<li>Items</li>
+</ul>
+</td></tr><tr><td>&gt; Block Quote</td><td><blockquote>
+<p>Block Quote</p>
+</blockquote>
+</td></tr><tr><td>`puts 'Inline Code'`</td><td><p></p><pre class=" language-ruby"><code class=" language-ruby">puts <span class="token string">'Inline Code'</span></code></pre><p></p>
+</td></tr><tr><td>``` # code.rb<br>puts 'Code Block!'<br>puts 'RichOnRails!'<br>```</td><td><div class="example"><p></p><pre class=" language-ruby"><code class=" language-ruby"><span class="token comment" spellcheck="true"># code.rb</span>
+puts <span class="token string">'Code Block'</span>
+puts <span class="token string">'RichOnRails!'</span></code></pre><p></p>
+</div></td></tr></tbody></table></div><p></p><div class="text-right"><input value="710" name="comment[parent_id]" id="comment_parent_id" type="hidden"><a class="btn btn-default btn-cancel-comment" href="#">Cancel</a>&nbsp;<button name="button" type="submit" class="btn btn-success green btn-comment"><i class="fa fa-commenting"></i>&nbsp;Reply</button><a class="btn btn-text hide please-wait" href="#">Please wait...</a></div></form> <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6178912956839358" data-ad-slot="3815559356" data-ad-format="auto">
+</ins>
+</div></div></div></div></div></div><div class="text-center"><ul class="pagination pagination"><li class="prev disabled"><span>← Previous</span></li> <li class="active"><span>1</span></li> <li><a rel="next" href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=2">2</a></li> <li><a href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=3">3</a></li> <li><a href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=4">4</a></li> <li><a href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=5">5</a></li> <li><a href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=6">6</a></li> <li><a href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=7">7</a></li> <li class="next"><a rel="next" href="https://richonrails.com/articles/building-a-shopping-cart-in-ruby-on-rails?comments_page=2">Next →</a></li></ul></div></div><hr> <div class="text-center">
+<script type="text/javascript" language="javascript" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/getads.js"></script>
+<script type="text/javascript" language="javascript">
+	//<![CDATA[
+	aax_getad_mpb({
+	  "slot_uuid":"a837b03e-1ba6-4189-9634-899716311c1e"
+	});
+	//]]>
+	</script><script src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/getad_002"></script><script type="text/javascript">
+amzn_assoc_placement = "adunit0";
+amzn_assoc_enable_interest_ads = "true";
+amzn_assoc_tracking_id = "richocom0a-20";
+amzn_assoc_ad_mode = "auto";
+amzn_assoc_ad_type = "smart";
+amzn_assoc_marketplace = "amazon";
+amzn_assoc_region = "US";
+amzn_assoc_linkid = "6319dbd519cbf932ccf59905472054df";
+amzn_assoc_emphasize_categories = "1000,13900871,5088769011,979455011,599858,1064954,229534,468642";
+amzn_assoc_fallback_mode = {"type":"search","value":"ruby on rails"};
+amzn_assoc_default_category = "All";
+</script>
+<script src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/onejs.js"></script><div id="amzn_assoc_ad_div_adunit0_0"></div>
+</div>
+</div><div class="col-md-4 col-lg-4 hidden-xs hidden-sm"><div class="sidebar card dm"><div class="visible-lg visible-md"><div class="dmad dmad" data-format="300x250" data-publisher="richonrails.com" data-tags="ruby,rails,consulting,development,startups" data-type="ad" data-zone="article-sidebar-top"><div style="height: 250px; width: 300px; box-sizing: border-box; border: 0px none; font-size: 0px;" id="div-gpt-ad-richonrails.com/article-sidebar-top-5" data-google-query-id="CK6stv-NkdoCFfcR0wodlD4Cvw"><div id="google_ads_iframe_/6839/richonrails.com/article-sidebar-top_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/6839/richonrails.com/article-sidebar-top_0" title="3rd party ad content" name="google_ads_iframe_/6839/richonrails.com/article-sidebar-top_0" scrolling="no" marginwidth="0" marginheight="0" style="border: 0px none; vertical-align: bottom;" srcdoc="" width="300" height="250" frameborder="0"></iframe></div></div></div></div></div><div class="sidebar card"><div class="sidebar-header"><h1>Recent Blog Posts</h1></div><div class="sidebar-body text-center"><h2><a href="https://richonrails.com/blog/richonrails-news-july-6th-2017">RichOnRails News - July 6th, 2017</a></h2><p>I'M BAAAAAACCKKKK!!!</p><small class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;Posted 9 months ago</small><hr><h2><a href="https://richonrails.com/blog/important-announcement-april-18-2017">Important Announcement - April 18, 2017</a></h2><p>Please read this important announcement.</p><small class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;Posted 11 months ago</small><hr><h2><a href="https://richonrails.com/blog/new-series-tomorrow-and-more-richonrails-news-february-12th-2016">New Series Tomorrow and More - RichOnRails News - February 12th, 2016</a></h2><p>A new series is coming tomorrow and more! </p><small class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;Posted about 1 year ago</small><hr><h2><a href="https://richonrails.com/blog/richonrails-com-news-for-january-6th-2017">RichOnRails.com News for January 6th, 2017</a></h2><p>New Look! eCommerce Series getting a revamp! More series coming soon! Take a peak to learn more!</p><small class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;Posted about 1 year ago</small><hr><h2><a href="https://richonrails.com/blog/subscribes-get-free-month-amazon-issues-resolved-and-more">Subscribes get FREE month, Amazon issues resolved, and more.</a></h2><p>What's going on at RichOnRails.com</p><small class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;Posted over 1 year ago</small></div></div><div class="sidebar card dm"><div class="visible-lg visible-md"><div class="dmad dmad" data-format="300x250" data-publisher="richonrails.com" data-tags="ruby,rails,consulting,development,startups,tutorials,training,services" data-type="ad" data-zone="article-sidebar-middle"><div style="height: 250px; width: 300px; box-sizing: border-box; border: 0px none; font-size: 0px;" id="div-gpt-ad-richonrails.com/article-sidebar-middle-6" data-google-query-id="CIPJlP-NkdoCFdYg0wodOToNmw"><div id="google_ads_iframe_/6839/richonrails.com/article-sidebar-middle_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/6839/richonrails.com/article-sidebar-middle_0" title="3rd party ad content" name="google_ads_iframe_/6839/richonrails.com/article-sidebar-middle_0" scrolling="no" marginwidth="0" marginheight="0" style="border: 0px none; vertical-align: bottom;" srcdoc="" width="300" height="250" frameborder="0"></iframe></div></div></div></div></div><div class="sidebar card"><div class="sidebar-header"><h1>Recent Articles</h1></div><div class="sidebar-body text-center"><h2><a href="https://richonrails.com/articles/rails-on-ubuntu-16-04">Rails on Ubuntu 16.04</a></h2><p>This article will show you how to set up a Ruby on Rails development environment in Ubuntu 16.04.</p><small class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;Posted over 1 year ago</small><hr><h2><a href="https://richonrails.com/articles/adding-recaptcha-to-your-rails-application">Adding reCAPTCHA To Your Rails Application</a></h2><p>This article will show you how to add reCAPTCHA to your Rails application</p><small class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;Posted over 1 year ago</small><hr><h2><a href="https://richonrails.com/articles/ecommerce-site-from-scratch-part-6-the-shopping-cart">eCommerce Site From Scratch Part 6: The Shopping Cart</a></h2><p>In this article we will build out the shopping cart for our eCommerce application.</p><small class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;Posted over 1 year ago</small><hr><h2><a href="https://richonrails.com/articles/easier-debugging-with-pry">Easier Debugging With Pry</a></h2><p>This article will show you how to make debugging easier with Pry</p><small class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;Posted over 1 year ago</small><hr><h2><a href="https://richonrails.com/articles/ecommerce-site-from-scratch-part-5-images-authentication-and-more">eCommerce Site From Scratch Part 5: Images, Authentication, And More!</a></h2><p>In this article we will add images, authentication, and the product page.</p><small class="text-muted"><i class="fa fa-clock-o"></i>&nbsp;Posted over 1 year ago</small></div></div><div class="sidebar card dm"><div class="visible-lg visible-md"><div class="dmad dmad" data-format="300x250" data-publisher="richonrails.com" data-tags="ruby,rails,consulting,development,startups,tutorials" data-type="ad" data-zone="article-sidebar-bottom"><div style="height: 250px; width: 300px; box-sizing: border-box; border: 0px none; font-size: 0px;" id="div-gpt-ad-richonrails.com/article-sidebar-bottom-7" data-google-query-id="CIuggf6NkdoCFdIR0wodzXIDqw"><div id="google_ads_iframe_/6839/richonrails.com/article-sidebar-bottom_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/6839/richonrails.com/article-sidebar-bottom_0" title="3rd party ad content" name="google_ads_iframe_/6839/richonrails.com/article-sidebar-bottom_0" scrolling="no" marginwidth="0" marginheight="0" style="border: 0px none; vertical-align: bottom;" srcdoc="" width="300" height="250" frameborder="0"></iframe></div></div></div></div></div></div></div></div></main><footer><div class="container-fluid top"><div class="container"><div class="row text-xs-center text-sm-left"><div class="col-md-2 col-sm-4 col-xs-6 footer-links"><h4>SOCIAL MEDIA</h4><a rel="nofollow" target="_blank" href="https://facebook.com/richonrails">Facebook</a><a rel="nofollow" target="_blank" href="https://twitter.com/RichIsOnRails">Twitter</a><a rel="nofollow" target="_blank" href="https://www.youtube.com/channel/UCjSai7773YaHAGNNGx78O0Q">YouTube</a></div><div class="col-md-2 col-sm-4 col-xs-6 footer-links"><h4>READ</h4><a href="https://richonrails.com/articles">Articles</a><a href="https://richonrails.com/posts">Blog</a></div><div class="col-md-3 col-sm-4 col-xs-6 col-xs-offset-3 col-sm-offset-0 footer-links"><h4>ABOUT US</h4><a href="https://richonrails.com/about">About Us</a><a href="https://richonrails.com/legal">Terms of Use</a><a href="https://richonrails.com/privacy">Privacy Policy</a><a href="https://richonrails.com/contact">Contact Us</a><a href="https://richonrails.com/contact?subject=advertising">Advertise With Us</a></div><div class="col-md-5 col-xs-12"><div class="well well-inverse"><h4>NEWSLETTER</h4><form action="/emails" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" type="hidden"><div class="form-group"><label for="newsletter_email">Sign up for our weekly newsletter to receive news, Ruby tips, and more.</label><input class="form-control" placeholder="you@example.com" name="newsletter[email]" id="newsletter_email" type="email"></div><div class="form-group text-right"><button name="button" type="submit" class="btn btn-success"><b>Subscribe</b></button></div></form></div></div></div></div></div><div class="container-fluid bottom"><div class="container"><div class="row logo"><div class="col-xs-12 col-sm-6 col-md-4 text-xs-center text-sm-left"><a href="https://richonrails.com/"><img alt="RichOnRails Full Logo" srcset="/assets/footer/footer-logo@2x-19b63e3fb714dfda6e58e1806a356a6413ffd5a33a73faa3fd6902d47674e896.png 2x, /assets/footer/footer-logo@3x-46b63f18bd22863d1ad572c2faca0808867d42dc90571a25cb96b4e512d2fcf7.png 3x, /assets/footer/footer-logo@4x-0b83b22ce219ad195b4d12b7460d525a7988702ed96c95db91738230183dcbf1.png 4x" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/footer-logo-2dacd3d02640bd6c3a81bde4ab1e550fedfb6bdfdbac44cd.png"></a></div><div class="col-xs-12 col-sm-6 col-md-4 text-xs-center copyright-text">© Copyright 2012-2018 RichOnRails.com.</div><div class="col-xs-12 col-md-4 text-xs-center text-md-right scl"><b class="hidden-xs">Follow Us:&nbsp;&nbsp;</b><a rel="nofollow" target="_blank" href="https://facebook.com/richonrails"><img alt="A big F logo" srcset="/assets/footer/sm1@2x-a4fe6e374c40187aa3ba7809f1778e098a31fddb0e3b170fa709a0d765cdb1d8.png 2x, /assets/footer/sm1@3x-5bdc35372d8de232bf23e461fec4f9baa1a4f40dc67023bb102a45a065ba9dd5.png 3x, /assets/footer/sm1@4x-021fa87a4d3b96174873ef8ef8de9fe4bc048b5e6392d6c5c4f336d948b482ba.png 4x" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/sm1-0aa3ed82278bc8b5c0dba6755171de190737e6d3a9d670fe098e063c.png"></a><a rel="nofollow" target="_blank" href="https://twitter.com/richisonrails"><img alt="Little Birdy" srcset="/assets/footer/sm2@2x-1f2b9a1c066a35230c433e3f3cb33bc2d47c01e657492e77f8dad4aadf5d1e74.png 2x, /assets/footer/sm2@3x-fd98ec99569bca9ce3d8753c65f41d92a1dde08d6745dd4d2b09bd4bf01a655f.png 3x, /assets/footer/sm2@4x-00cb58b4291190937232d7fc3f232a9dedef6aa4416287ae5279ed2f4158c23e.png 4x" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/sm2-201ce8291b7ce35cfb05c42d7fcf606e3f802335d58161c0bb449e7c.png"></a><a href="https://richonrails.com/?format=atom"><img alt="Atom Feed" srcset="/assets/footer/sm3@2x-2cae574999c3d23caf739111e2b189cabde60f675bf3e9c1ff5c4724540c1efa.png 2x, /assets/footer/sm3@3x-0c1939c5c0818effe35f6f9fcd198d04b060e80e32687b0b1502b22f95922d4e.png 3x, /assets/footer/sm3@4x-7fd47c80896190019647a7f3ce4816abbf209b86b70838da594dbad0a6cc835c.png 4x" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/sm3-062efc097990b15cc0a66009f9d74245765ebef7af98ac325f8274c5.png"></a></div></div></div></div></footer><div class="modal fade" id="newsletter-modal"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"></div><div class="modal-footer"><a class="btn btn-primary" data-dismiss="modal" href="#">Close</a></div></div></div></div></div><iframe id="google_osd_static_frame_5778435923938" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe><script async="true" src="Building%20a%20Shopping%20Cart%20in%20Ruby%20on%20Rails%20-%20RichOnRails.com_files/adsbygoogle.js"></script><script type="text/javascript">
+function _dmBootstrap(file) {
+    var _dma = document.createElement('script');
+    _dma.type = 'text/javascript';
+    _dma.async = true;
+    _dma.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + file;
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(_dma);
+}
+function _dmFollowup(file) { if (typeof DMAds === 'undefined') _dmBootstrap('cdn2.DeveloperMedia.com/a.min.js'); }
+(function () { _dmBootstrap('cdn1.DeveloperMedia.com/a.min.js'); setTimeout(_dmFollowup, 2000); })();
+</script>
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-5RBN6Q" style="display:none;visibility:hidden" width="0"></iframe></noscript><script type="text/javascript" id="">/*
+ @preserve
+ jquery.scrolldepth.js | v0.4.1
+ Copyright (c) 2014 Rob Flaherty (@robflaherty)
+ Licensed under the MIT and GPL licenses.
+*/
+(function(c,h,m,u){var n={elements:[],minHeight:0,percentage:!0,testing:!1},k=c(h),f=[];c.scrollDepth=function(d){function l(a,b,e){d.testing?c("#console").html(a+": "+b):"undefined"!==typeof dataLayer?(dataLayer.push({event:"ScrollDistance",eventCategory:"Scroll Depth",eventAction:a,eventLabel:b,eventValue:1,eventNonInteraction:!0}),2<arguments.length&&dataLayer.push({event:"ScrollTiming",eventCategory:"Scroll Depth",eventAction:a,eventLabel:b,eventTiming:e})):("undefined"!==typeof ga&&(ga("send",
+"event","Scroll Depth",a,b,1,{nonInteraction:1}),2<arguments.length&&ga("send","timing","Scroll Depth",a,e,b)),"undefined"!==typeof _gaq&&(_gaq.push(["_trackEvent","Scroll Depth",a,b,1,!0]),2<arguments.length&&_gaq.push(["_trackTiming","Scroll Depth",a,e,b,100])))}function p(a,b,e){c.each(a,function(a,g){-1===c.inArray(a,f)&&b>=g&&(l("Percentage",a,e),f.push(a))})}function q(a,b,e){c.each(a,function(a,g){-1===c.inArray(g,f)&&c(g).length&&b>=c(g).offset().top&&(l("Elements",g,e),f.push(g))})}function r(a,
+b){var e,c,g,d=null,f=0,k=function(){f=new Date;d=null;g=a.apply(e,c)};return function(){var h=new Date;f||(f=h);var l=b-(h-f);e=this;c=arguments;0>=l?(clearTimeout(d),d=null,f=h,g=a.apply(e,c)):d||(d=setTimeout(k,l));return g}}var t=+new Date;d=c.extend({},n,d);c(m).height()<d.minHeight||(l("Percentage","Baseline"),k.on("scroll.scrollDepth",r(function(){var a=c(m).height(),b=h.innerHeight?h.innerHeight:k.height(),b=k.scrollTop()+b,a={"25%":parseInt(.25*a,10),"50%":parseInt(.5*a,10),"75%":parseInt(.75*
+a,10),"100%":a-1},e=+new Date-t;f.length>=4+d.elements.length?k.off("scroll.scrollDepth"):(d.elements&&q(d.elements,b,e),d.percentage&&p(a,b,e))},500)))}})(jQuery,window,document);jQuery.scrollDepth();</script></body></html>

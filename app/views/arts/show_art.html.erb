@@ -1,0 +1,295 @@
+<%= render :partial => "shared/app_nav" %>
+<%= render :partial => "shared/nav" %>
+  <div class="col-xs-offset-2 col-xs-8 col-xs-offset-2 " style="border-radius:0px">
+  <ol class="breadcrumb" style="border-radius: 0px">
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <!-- <li class="breadcrumb-item"><a href="#">Category</a></li> -->
+  <li class="breadcrumb-item"><%= @art.title %></li>
+
+</ol>
+    <div class="row">
+                  <div id="content" class="col-sm-12">
+        <div class="row">                         <div class="col-sm-6">           <ul class="thumbnails nav " style="border-radius:0px; border: 0px ">
+                          <li><a class="thumbnail" href="/arts/show_art?id=<%= @art.id%>" title="Hunters Gold 6 Pack">
+
+                              <%= image_tag(@art.art_path, class: "img-responsive",:style=>"width:100%; height:300px; ")%>
+                          </a></li>
+                                                  
+                                    </ul>
+              
+          </div>
+                                  <div class="col-sm-6">
+            <div class="btn-group">
+              <button type="button" data-toggle="tooltip" class="btn btn-default" title="Add to Wish List" onclick="wishlist.add('55');"><i class="fa fa-heart"></i></button>
+              <button type="button" data-toggle="tooltip" class="btn btn-default" title="Compare this Product" onclick="compare.add('55');"><i class="fa fa-exchange"></i></button>
+            </div>
+            <h1><%= @art.title %></h1>
+            <ul class="list-unstyled">
+                          <li><b>Product Code:</b> <%= @art.title %>-0<%= @art.id %></li>
+                          <li><b>Stock level:</b> <%= @art.stock_level%> piece(s)</li>
+            </ul>
+                      <ul class="list-unstyled">
+                          <li>
+                <h2>$<%= @art.price %></h2>
+              </li>
+                                                            </ul>
+                      <div id="product">                         <div class="form-group">
+                <label class="control-label" for="input-quantity">Qty</label>
+                <div class="input-group w60">
+                <span class="input-group-btn"><button class="btn btn-default value-control" data-action="minus" data-target="input-quantity"><span class="glyphicon glyphicon-minus"></span></button></span>
+                
+                <input type="text" name="quantity" value="1" size="2" id="input-quantity" class="form-control" />
+                
+                
+                <span class="input-group-btn"><button class="btn btn-default value-control" data-action="plus" data-target="input-quantity"><span class="glyphicon glyphicon-plus"></span></button></span>
+                  </div>
+                
+                <input type="hidden" name="product_id" value="55" />
+                <br />
+                <!-- <button type="button" id="button-cart"  class="btn btn-warning">Order Now</button> -->
+
+
+
+                     <button type='button' class="btn btn-warning" style="margin-top:6px;border-radius:0px; margin-left:2px " data-toggle="modal" data-target="#order"><span class="glyphicon glyphicon-log-in"></span> Order Now </button>     
+
+                     <button type='button' class="btn btn-info" style="margin-top:6px;border-radius:0px; margin-left:2px " data-toggle="modal" data-target="#inquiry"><span class="glyphicon glyphicon-log-in"></span> Enquiry</button>
+              </div>
+              </div>
+                      <div class="rating">
+              <p>              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>                            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>                            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>                            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>                            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>               <a href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">0 reviews</a> / <a href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">Write a review</a></p>
+              <hr>
+              <!-- AddThis Button BEGIN -->
+              <div class="addthis_toolbox addthis_default_style" data-url="http://adsmalawi.com/index.php?route=product/product&amp;product_id=55"><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a></div>
+              <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script> 
+              <!-- AddThis Button END --> 
+            </div>
+             </div>
+        </div>
+      
+<!-- ordering form -->
+  <div class="modal fade" id="order">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- header -->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title" >You are about to make an oder of <%= @art.title %></h3>
+        </div>
+        <!-- body -->
+        <div class="modal-header">
+          <form class="form-horizontal" action="//login" method="POST">
+
+
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="district">Your Name:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="username" required placeholder="Enter username">
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="district">Email:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="username" required placeholder="Email address">
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="district">Address:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="username" required placeholder="Enter Addree">
+              </div>
+            </div>
+
+
+            <div class="form-group">
+          
+              <small style="margin:70px"> <a href="/customers/recover_password"> Do not have account? </a> </small>
+            </div>
+
+
+          </div>
+          <!-- footer -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-info" >Submit</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- ordering form -->
+  <div class="modal fade" id="inquiry">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- header -->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title" >Submit your  enquiry</h3>
+        </div>
+        <!-- body -->
+        <div class="modal-header">
+          <form class="form-horizontal" action="//login" method="POST">
+
+
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="district">Your Name:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="username" required placeholder="Enter username">
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label class="control-label col-sm-3" for="district">Email:</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="username" required placeholder="Email address">
+              </div>
+            </div>
+
+
+  
+
+          <div class="form-group" >
+              <label class="control-label col-sm-3" for="role">Type Message:</label>
+              <div class="col-sm-9">
+
+                <textarea class="form-control" rows="7" id="art" name = "art" required></textarea>
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+          
+              <small style="margin:70px"> <a href="/customers/recover_password"> Do not have account? </a> </small>
+            </div>
+
+
+          </div>
+          <!-- footer -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-info" >Submit</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+                <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab-description" data-toggle="tab">Description</a></li>
+                                      <li><a href="#tab-review" data-toggle="tab">Reviews (0)</a></li>
+                        </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab-description"><p> <%= @art.description %><br></p></div>
+                                      <div class="tab-pane" id="tab-review">
+                <form class="form-horizontal" id="form-review">
+                  <div id="review"></div>
+                  <h2>Write a review</h2>
+                                  <div class="form-group required">
+                    <div class="col-sm-12">
+                      <label class="control-label" for="input-name">Your Name</label>
+                      <input type="text" name="name" value="" id="input-name" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group required">
+                    <div class="col-sm-12">
+                      <label class="control-label" for="input-review">Your Review</label>
+                      <textarea name="text" rows="5" id="input-review" class="form-control"></textarea>
+                      <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
+                    </div>
+                  </div>
+                  <div class="form-group required">
+                    <div class="col-sm-12">
+                      <label class="control-label">Rating</label>
+                      &nbsp;&nbsp;&nbsp; Bad&nbsp;
+                      <input type="radio" name="rating" value="1" />
+                      &nbsp;
+                      <input type="radio" name="rating" value="2" />
+                      &nbsp;
+                      <input type="radio" name="rating" value="3" />
+                      &nbsp;
+                      <input type="radio" name="rating" value="4" />
+                      &nbsp;
+                      <input type="radio" name="rating" value="5" />
+                      &nbsp;Good</div>
+                  </div>
+                  
+                  <div class="buttons clearfix">
+                    <div class="pull-right">
+                      <button type="button" id="button-review" data-loading-text="Loading..." class="btn btn-primary">Continue</button>
+                    </div>
+                  </div>
+                                </form>
+              </div>
+              </div>
+        
+        
+        
+        <div class="row">                                        
+
+      <% @arts.each do |art| %>
+
+         <div class="col-xs-6 col-sm-3">
+            <div class="product-thumb transition">
+
+
+
+              <div class="image"><<a href="/arts/show_art?id=<%= @art.id%>">
+                
+
+                <%= image_tag(art.art_path, class: "img-responsive",:style=>"width:100%; height:200px; ")%>
+              </a></div>
+              <div class="caption text-center">
+                <h4><a href="http://adsmalawi.com/index.php?route=product/product&amp;product_id=56"> <%= art.title %></a></h4>
+                                            <p class="price">                 MwK<%= art.price %>
+                 
+                
+                </div>
+
+            </div>
+          </div>
+
+
+          <% end %>
+                           </div>
+                        </div>
+      </div>

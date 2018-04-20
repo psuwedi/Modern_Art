@@ -1,0 +1,129 @@
+
+<%= render :partial => "shared/nav" %>
+
+<div class="container" style="border-bottom: 0px solid grey; padding-bottom: 20px; background: " >
+
+      <div class="col-offset-2 col-col-xs-8 col-offset-2"  style="margin-top: 0px">
+         <!-- <i style="color:skyblue; ; margin-left: 30px">Home / Subjects / Animals</i>
+
+         <h3 style="color:black; margin-left: 30px">  Animals </h3> -->
+
+
+
+
+
+
+
+      <!-- <h5 style="color:skyblue; ; margin-left: 30px; text-align: center">  Best Sellers > Botanical> Abstract > Scenic >  Decorative Art > Animals</h5> -->
+
+
+
+      <%= form_for @arts do |f| %>
+
+
+         <div class="form-group">
+            <%= f.label :name, "Art Name:", class: " control-label " %>
+            <%= f.text_field :name ,  class: " form-control control-label "  ,:required => true%>
+         </div>
+
+
+         <div class="form-group">
+           <%= f.label :category, "Category Name:", class: " control-label" %>
+
+          <%=
+            collection_select(:category,   Category.all, :id, :name, {},  class: ' form-control', :html => { :style => '' } ,:required => true) %>
+         </div>
+
+
+      <div class="form-group">
+        <%= f.label :frame, "Frame Name:", class: " control-label" %>
+        <%=  collection_select(:frame, :name,  Frame.all,  :id, :name, {}, class:' form-control', :html => { :style => '' } ,:required => true) %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :size, "Art Size:", class: " control-label" %>
+        <%=  collection_select(:size, :size,  Size.all,  :id, :size, {}, class:' form-control', :html => { :style => '' } ,:required => true) %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :color, "Art Color:", class: " control-label" %>
+        <%=  collection_select(:color, :name,  Color.all,  :id, :art_color, {},  class:' form-control', :html => { :style => '' } ,:required => true) %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :price, "Price per piece:", class: " control-label" %>
+        <%= f.number_field :price, class: " form-control control-label " , :placeholder => "Price per piece" ,:require => true, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: ''), step: :any %>
+
+      </div>
+
+
+      <div class="form-group">
+        <%= f.label :stock_level, "Art Pieces (qty):", class: " control-label" %>
+        <%= f.number_field :stock_level, class: " form-control " , :placeholder => "Number of pieces" ,:require => true, step: :any %>
+
+      </div>
+
+
+
+
+
+      <div class="form-group">
+        <%= f.label :image, "Upload Image:", class: "control-label" %>
+        <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg',
+        class: " form-control ",:require => true, onchange: "validateFiles(this);",
+        data: { max_file_size: 5.megabytes } %>
+      </div>
+
+
+
+
+      <div class="form-group">
+        <%= f.label :description, "Description:", class: " control-label" %>
+
+        <%= f.text_area :description, rows: 9, class: "  form-control  ",:require => true %>
+      </div>
+
+        <%= f.submit "Submit", class: "btn btn-default btn-primary  " %>
+
+
+<% end %>
+
+
+    </div>
+
+</div>
+
+
+<%= render :partial => "shared/footer" %>
+
+
+
+<script>
+
+function validateFiles(inputFile) {
+  var maxExceededMessage = "This file exceeds the maximum allowed file size (5 MB)";
+  var extErrorMessage = "Only image file with extension: .jpg, .jpeg, .gif or .png is allowed";
+  var allowedExtension = ["jpg", "jpeg", "gif", "png"];
+
+  var extName;
+  var maxFileSize = $(inputFile).data('max-file-size');
+  var sizeExceeded = false;
+  var extError = false;
+
+  $.each(inputFile.files, function() {
+    if (this.size && maxFileSize && this.size > parseInt(maxFileSize)) {sizeExceeded=true;};
+    extName = this.name.split('.').pop();
+    if ($.inArray(extName, allowedExtension) == -1) {extError=true;};
+  });
+  if (sizeExceeded) {
+    window.alert(maxExceededMessage);
+    $(inputFile).val('');
+  };
+
+  if (extError) {
+    window.alert(extErrorMessage);
+    $(inputFile).val('');
+  };
+}
+
+</script>

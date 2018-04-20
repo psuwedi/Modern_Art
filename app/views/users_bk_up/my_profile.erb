@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>New User</title>
+    <script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+      function editField(fieldName){
+        window.location = "/users/field_edit?field=" + fieldName;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="span3" id="sidebar">
+        <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+         
+           <li>
+            <a href="/users/edit_user"><i class="icon-chevron-right"></i> Edit Profile</a>
+          </li>
+
+
+        <% if @username=="admin" %>
+          <li>
+            <a href="/users/new_user"><i class="icon-chevron-right"></i> New User</a>
+          </li>
+           <li class="">
+            <a href="/users/delete_user"><i class="icon-chevron-right"></i> Delete User</a>
+          </li>
+        <%end%>
+
+          <li class="active">
+            <a href="/users/my_profile"><i class="icon-chevron-right"></i> My Profile</a>
+          </li>
+        </ul>
+      </div>
+      <div class="span9" id="content">
+        <div class="row-fluid">
+          <%  if flash[:notice] %>
+            <div class="alert alert-success">
+              <button data-dismiss="alert" class="close" type="button">×</button>
+              <h4>Success</h4>
+              <%= flash[:notice] %>
+            </div>
+          <% end %>
+          <%  if flash[:error] %>
+            <div class="alert alert-error">
+              <button data-dismiss="alert" class="close" type="button">×</button>
+              <h4>Error</h4>
+              <%= flash[:error] %>
+            </div>
+          <% end %>
+          <div class="block">
+            <div class="navbar navbar-inner block-header">
+              <div class="muted pull-left">My Profile</div>
+            </div>
+            <div class="block-content collapse in">
+              <div class="span12">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>First Name</th>
+                      <td><%= @user.first_name.capitalize %></td>
+                      <td><button class="btn btn-block btn-primary" onclick="editField('first_name')"><i class="icon-pencil icon-white"></i> Edit</button></td>
+                    </tr>
+                    <tr>
+                      <th>Last Name</th>
+                      <td><%= @user.last_name.capitalize %></td>
+                      <td><button class="btn btn-block btn-primary" onclick="editField('last_name')"><i class="icon-pencil icon-white"></i> Edit</button></td>
+                    </tr>
+                    <tr>
+                      <th>Username</th>
+                      <td><%= @user.username %></td>
+                      <td><button class="btn btn-block btn-primary" onclick="editField('username')"><i class="icon-pencil icon-white"></i> Edit</button></td>
+                    </tr>
+                    <tr>
+                      <th>E-mail</th>
+                      <td><%= @user.email %></td>
+                      <td><button class="btn btn-block btn-primary" onclick="editField('email')"><i class="icon-pencil icon-white"></i> Edit</button></td>
+                    </tr>
+                    <tr>
+                      <th>Password</th>
+                      <td>*********</td>
+                      <td><button class="btn btn-block btn-primary" onclick="editField('password')"><i class="icon-pencil icon-white"></i> Edit</button></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- /block -->
+        </div>
+
+      </div>
+    </div>
+
+    <!--CONFIRMATION POPUP BEGIN -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">
+              Delete Confirmation
+            </h4>
+          </div>
+          <div class="modal-body">
+            <span style="text-align:center;">You are about to delete this user. You can not undo this action. Are you really <br />very sure?</span>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="deleteUser();" data-dismiss="modal">Okay</button>
+              <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--CONFIRMATION POPUP END -->
+  </body>
+</html>

@@ -1,0 +1,201 @@
+
+
+<%= render :partial => "shared/cms_index" %>
+
+
+<div id="page-wrapper" >
+<div class="row">
+    <div class="col-lg-12" >
+        <h1 class="page-header">Dashboard</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row"  style="min-height: 750px">
+ 
+
+
+     <div class="col-lg-3 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="glyphicon glyphicon-picture fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        
+                        <div> <h4>Manage art pieces</h4> </div>
+                    </div>
+                </div>
+            </div>
+            <a href="/cms/new_arts">
+                <div class="panel-footer">
+                    <span class="pull-left">View details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+
+         <div class="col-lg-3 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="glyphicon glyphicon-picture fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        
+                        <div> <h4>Manage categories</h4> </div>
+                    </div>
+                </div>
+            </div>
+            <a href="/cms/all_categories">
+                <div class="panel-footer">
+                    <span class="pull-left">View cetails</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="glyphicon glyphicon-user fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        
+                        <div> <h4>Manage customers</h4> </div>
+                    </div>
+                </div>
+            </div>
+            <a href="/cms/show_customers">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+
+     <div class="col-lg-3 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="glyphicon glyphicon-user fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        
+                        <div> <h4>Manage artists</h4> </div>
+                    </div>
+                </div>
+            </div>
+            <a href="/cms/view_artists">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-8">
+
+        <!-- /.panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="f"></i> Artists pending approval
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Phidelis</td>
+        <td>Suwedi</td>
+        <td>p@yahoo.com</td>
+         <td style="color:skyblue">view</td>
+      </tr>
+      <tr>
+        <td>Mary</td>
+        <td>Banda</td>
+        <td>mbanda@gmail.com</td>
+        <td style="color:skyblue">view</td>
+      </tr>
+  
+    </tbody>
+  </table>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-8 -->
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bell fa-fw"></i> Notifications 
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-comment fa-fw"></i> New Comment
+                        <span class="pull-right text-muted small"><em>20 minutes ago</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-twitter fa-fw"></i> 3 New Flikes
+                        <span class="pull-right text-muted small"><em>9 minutes ago</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-envelope fa-fw"></i> Message Sent
+                        <span class="pull-right text-muted small"><em>27 minutes ago</em>
+                        </span>
+                    </a>
+                 
+           
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
+                        <span class="pull-right text-muted small"><em>9:21 AM</em>
+                        </span>
+                    </a>
+                   
+                </div>
+                <!-- /.list-group -->
+                <a href="#" class="btn btn-default btn-block">View All </a>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        

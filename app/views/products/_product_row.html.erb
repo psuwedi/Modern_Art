@@ -1,0 +1,61 @@
+
+  <%
+  count = 1
+ cat = Art.first 
+
+  img = cat.art_path
+  %>
+
+    <!-- Go to the next column -->
+  <%= form_for order_item, remote: true do |f| %>
+   <div class="col-xs-3" style="background: white; border: 1px solid #ccc;  padding-top:20px;margin-bottom: 30px; ">
+
+<div class="col-xs-12">
+
+      <a href="/arts/show_art?id=<%=cat.id%>"> <%= image_tag(img, class: "img-responsive",:style=>"width:100%; height:180px;")%></a>
+      <br>
+
+      <small style="; font-size:10px; ">  <%= cat.title.titleize %>  </small>
+      
+
+
+        <em>      <small class="text-right"> @ <span style="color: green"><%= number_to_currency product.price %></span></small>  </em> 
+
+
+
+   
+</div>
+
+
+        <div class="col-xs-12">
+          <div class="col-xs-6" style="margin:0px; padding:0px">
+             <%= f.number_field :quantity, value: 1, class: "form-control", min: 1, style: "margin: 0px; border:0px"%>
+
+          </div>
+
+
+
+          <div class="col-xs-6" style="margin:0px;padding:0px">
+             <%= f.hidden_field :product_id, value: product.id %>
+            
+            <%= f.submit "Add to cart", class: "btn btn-info", style: " margin: 0px; border-radius:0px;"%>
+
+          </div>
+
+        </div>
+         
+
+    </div>
+
+
+
+      <% end %>
+
+
+ 
+
+
+
+
+
+

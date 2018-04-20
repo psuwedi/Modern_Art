@@ -1,0 +1,132 @@
+
+<%= render :partial => "shared/cms_index" %>
+
+
+
+<div id="page-wrapper" style="min-height: 900px">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="page-header">Categories </h1>
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+
+  <div class="row">
+    <div class="col-sm-10">
+
+
+
+      <%  if flash[:notice] %>
+      <div col-xs-offset-4 col-xs-4 col-xs-offset-4>
+        <div class="alert alert-success ">
+          <button data-dismiss="alert" class="close" type="button">×</button>
+          <h4>Success</h4>
+          <%= flash[:notice] %>
+        </div>
+      </div>
+      <% end %>
+
+      <%  if flash[:error] %>
+      <div col-xs-offset-4 col-xs-4 col-xs-offset-4>
+        <div class="alert alert-error col-xs-offset-4 col-xs-4 col-xs-offset-4">
+          <button data-dismiss="alert" class="close" type="button">×</button>
+          <h4>Errorssssssssssssss</h4>
+          <%= flash[:error] %>
+        </div>
+
+      </div>
+      <% end %>
+
+
+
+      <div class="panel panel-grey" >
+        <div class="panel-heading" style="padding: 15px">
+          <div class="row">
+
+
+           <form class="form-horizontal" action="/cms/new_category" method="POST"  enctype="multipart/form-data">
+             <div class="col-sm-12">
+
+              <a href="/cms/delete_category" class="btn btn-danger pull-right" style="margin:5px; border-radius:0px"> <span class=""> Delete</span>
+              </a>
+
+
+              <a href="" class="btn btn-default pull-right" style="margin:5px; border-radius:0px"> <span class=""> New</span>
+              </a> 
+
+
+
+
+
+            </div>
+
+
+
+            
+            <div class="form-group">
+              <h2></h2>
+  <p>The .table-striped class adds zebra-stripes to a table:</p>            
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name </th>
+        <th>action </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John</td>
+        <td>Doe</td>
+       
+      </tr>
+      
+    </tbody>
+  </table>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+  function validateFiles(inputFile) {
+    var maxExceededMessage = "This file exceeds the maximum allowed file size (5 MB)";
+    var extErrorMessage = "Only image file with extension: .jpg, .jpeg, .gif or .png is allowed";
+    var allowedExtension = ["jpg", "jpeg", "gif", "png"];
+
+    var extName;
+    var maxFileSize = $(inputFile).data('max-file-size');
+    var sizeExceeded = false;
+    var extError = false;
+
+    $.each(inputFile.files, function() {
+      if (this.size && maxFileSize && this.size > parseInt(maxFileSize)) {sizeExceeded=true;};
+      extName = this.name.split('.').pop();
+      if ($.inArray(extName, allowedExtension) == -1) {extError=true;};
+    });
+    if (sizeExceeded) {
+      window.alert(maxExceededMessage);
+      $(inputFile).val('');
+    };
+
+    if (extError) {
+      window.alert(extErrorMessage);
+      $(inputFile).val('');
+    };
+  }
+
+</script>

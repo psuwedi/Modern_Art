@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="sp🚧  no-js lt-ie9" lang="en" ><![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="sp🚧  js no-ie8compat svg csspositionsticky inlinesvg svgclippaths " lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/168037960209485" async=""></script><script async="" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/fbevents.js"></script><script src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/osd.js"></script><script src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/pubads_impl_rendering_191.js"></script><script src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/ptrack-v1.js"></script><script async="" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/purchs2stag_002.js"></script><script async="" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/purchs2stag.js"></script><script src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/sitepoint.com"></script>
+    <link rel="manifest" href="https://www.sitepoint.com/manifest.json">
+    <link href="https://dab1nmslvvntp.cloudfront.net/" ref="dns-prefetch">
+    <link href="https://d2sis3lil8ndrq.cloudfront.net/" ref="dns-prefetch">
+    <link href="https://sitepoint.com/" ref="dns-prefetch">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:image" content="https://www.sitepoint.com/wp-content/themes/sitepoint/assets/images/icon.ruby.png">
+        
+    <link rel="shortcut icon" href="https://www.sitepoint.com/favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="https://www.sitepoint.com/wp-content/themes/sitepoint/assets/images/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://www.sitepoint.com/wp-content/themes/sitepoint/assets/images/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://www.sitepoint.com/wp-content/themes/sitepoint/assets/images/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.sitepoint.com/wp-content/themes/sitepoint/assets/images/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- Sitepoint's new font from Google Fonts -->
+    <link href="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/css.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/font-awesome.css">
+
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for SitePoint.com" href="https://www.sitepoint.com/feed/">
+
+        <link href="https://plus.google.com/+sitepoint" rel="publisher">
+        <meta property="twitter:account_id" content="15743570">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+    
+<script async="" id="demandbase_js_lib" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/IM2QfEma.js"></script><script async="" type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/gpt.js"></script><script async="" type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/purchs2s.js"></script><script type="text/javascript">
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+
+  ga('create', 'UA-30131-1', '.sitepoint.com');
+
+  ga('set', 'dimension2', 'ruby');
+
+  ga('require', 'eventTracker', {
+    attributePrefix: "data-ga-",
+    events: ["click", "submit"]
+  });
+  ga('require', 'impressionTracker', {
+    attributePrefix: "data-ga-",
+    elements: [],
+    fieldsObj: {
+      eventCategory: "maestro",
+    }
+  });
+  ga('require', 'outboundLinkTracker');
+  ga('require', 'SitePointPlugin');
+
+  ga('send', 'pageview');
+
+  // Cross Domain Tracking to Learnable
+  ga('require', 'linker');
+  // command, domains, useAnchor, enableForms
+  ga('linker:autoLink', ['learnable.com'], false, true);
+
+  (function() {
+		var ga = window[window['GoogleAnalyticsObject'] || 'ga'];
+
+		var providePlugin = function(pluginName, pluginConstructor) {
+			if (ga) {
+				ga('provide', pluginName, pluginConstructor);
+			}
+		};
+
+		var SitePointPlugin = function(tracker) {
+			this.impressionObservables = [];
+			this.hasIntersectionObserverLoaded = false;
+			this.tracker = tracker;
+			var originalSendHitTask = this.tracker.get('sendHitTask');
+			this.tracker.set('sendHitTask', function(model) {
+				originalSendHitTask(model);
+
+        
+				if (model.get('eventCategory') !== 'Demandbase') return;
+				window.SP_OnDemandBaseReady && window.SP_OnDemandBaseReady(model);
+			});
+		};
+
+    SitePointPlugin.prototype.observeImpressions = function(el) {
+      if (el) this.impressionObservables = this.impressionObservables.concat(el);
+
+      if (this.hasIntersectionObserverLoaded && this.impressionObservables.length) {
+		    var ga = window[window['GoogleAnalyticsObject'] || 'ga'];
+        ga('impressionTracker:observeElements', this.impressionObservables);
+        this.impressionObservables = [];
+      }
+    }
+
+    SitePointPlugin.prototype.intersectionObserverLoaded = function() {
+      this.hasIntersectionObserverLoaded = true;
+      this.observeImpressions();
+    }
+
+		providePlugin('SitePointPlugin', SitePointPlugin);
+	})();
+</script>
+<script async="" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/analytics.js"></script>
+<meta name="google-site-verification" content="hcQq0cWX73AYby8aMMzNHx8bZrTDI75GWeljGdPmNf8">
+<meta name="google-site-verification" content="I0jyQlTvZaveab8RtDOjUxSPZXbdSgFrcKdAwaCCfvA">
+<script src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/polyfill.js" async="" defer="defer" onload="ga('SitePointPlugin:intersectionObserverLoaded')"></script>
+    <script class="SP_stripMobile" type="text/javascript">
+      var purchs2s = purchs2s||{};
+      purchs2s.cmd = purchs2s.cmd || [];
+      purchs2s.timeout=500;
+      (function() {
+        var ps2s = document.createElement('script');
+        ps2s.async = true;
+        ps2s.type = 'text/javascript';
+        var useSSL = 'https:' == document.location.protocol;
+        ps2s.src = (useSSL ? 'https:' : 'http:') + '//ads.servebom.com/purchs2s.js';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(ps2s, node);
+      })();
+    </script>
+    <script class="SP_stripMobile" type="text/javascript">
+      var googletag = googletag || {};
+      googletag.cmd = googletag.cmd || [];
+      (function() {
+      var gads = document.createElement('script');
+      gads.async = true;
+      gads.type = 'text/javascript';
+      var useSSL = 'https:' == document.location.protocol;
+      gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+      var node = document.getElementsByTagName('script')[0];
+      node.parentNode.insertBefore(gads, node);
+      })();
+    </script>
+    <script src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/sitepoint.js" data-cfasync="false"></script><script async="" type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/purchs2s.js"></script><script async="" type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/gpt.js"></script>
+    <script src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/OneSignalSDK.js" async=""></script>
+    <script>
+    var OneSignal = window.OneSignal || [];
+    OneSignal.push(["init", {
+      appId: "65189cfb-a985-4bd7-a41b-c2666081e811",
+      safari_web_id: 'web.onesignal.auto.49d2239d-a04e-422a-89e0-14dbda97fb4d',
+      autoRegister: true,
+      persistNotification: true,
+    }]);
+  </script>
+        
+<!-- This site is optimized with the Yoast SEO plugin v5.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<title>Build an Online Store with Rails — SitePoint</title>
+<meta name="description" content="Learn to create an online store from scratch using Rails, Redis, and Foundation.">
+<link rel="canonical" href="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/a_005.html">
+<link rel="publisher" href="https://plus.google.com/+sitepoint/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Build an Online Store with Rails — SitePoint">
+<meta property="og:description" content="Learn to create an online store from scratch using Rails, Redis, and Foundation.">
+<meta property="og:url" content="https://www.sitepoint.com/build-online-store-rails/">
+<meta property="og:site_name" content="SitePoint">
+<meta property="article:publisher" content="https://www.facebook.com/sitepoint">
+<meta property="article:tag" content="GlennG">
+<meta property="article:section" content="Ruby">
+<meta property="article:published_time" content="2014-08-01T07:00:53-07:00">
+<meta property="article:modified_time" content="2014-07-31T13:08:49-07:00">
+<meta property="og:updated_time" content="2014-07-31T13:08:49-07:00">
+<meta property="fb:admins" content="121300382">
+<meta property="og:image" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/Screenshot%202014-07-11%2012.09.38.png">
+<meta property="og:image:secure_url" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/Screenshot%202014-07-11%2012.09.38.png">
+<meta property="og:image" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/IMG_20140711_124229.jpg">
+<meta property="og:image:secure_url" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/IMG_20140711_124229.jpg">
+<meta property="og:image" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/IMG_20140711_125505.jpg">
+<meta property="og:image:secure_url" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/IMG_20140711_125505.jpg">
+<meta property="og:image" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/IMG_20140711_135354.jpg">
+<meta property="og:image:secure_url" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/IMG_20140711_135354.jpg">
+<meta property="og:image" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/IMG_20140711_140245.jpg">
+<meta property="og:image:secure_url" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/IMG_20140711_140245.jpg">
+<meta property="og:image" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/IMG_20140711_130415.jpg">
+<meta property="og:image:secure_url" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/IMG_20140711_130415.jpg">
+<meta property="og:image" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/IMG_20140711_131406.jpg">
+<meta property="og:image:secure_url" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/IMG_20140711_131406.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Learn to create an online store from scratch using Rails, Redis, and Foundation.">
+<meta name="twitter:title" content="Build an Online Store with Rails — SitePoint">
+<meta name="twitter:site" content="@sitepointdotcom">
+<meta name="twitter:image" content="https://dl.dropboxusercontent.com/u/33588915/SP_OnlineStore/Screenshot%202014-07-11%2012.09.38.png">
+<meta name="twitter:creator" content="@Azzurrio">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="SitePoint » Build an Online Store with Rails Comments Feed" href="https://www.sitepoint.com/build-online-store-rails/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.sitepoint.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.8.1"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,56826,8203,55356,56819),0,0),c=j.toDataURL(),b===c&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55358,56794,8205,9794,65039),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55358,56794,8203,9794,65039),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/wp-emoji-release.js" type="text/javascript" defer="defer"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="sitepoint-styles-css" href="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/styles-63620ced6374adfdc078b1a126c2f666.css" type="text/css" media="all">
+<link rel="stylesheet" id="sitepoint-styles-janus-css" href="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/compiled.css" type="text/css" media="all"><link rel="stylesheet" id="sitepoint-styles-janus-article-css" href="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/compiledArticle.css" type="text/css" media="all">
+<script type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/scripts-head-42a85c5219e5c4b733340d9ea50d7a36.js"></script>
+<link rel="https://api.w.org/" href="https://www.sitepoint.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.sitepoint.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.sitepoint.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.8.1">
+<link rel="shortlink" href="https://www.sitepoint.com/?p=86484">
+<link rel="alternate" type="application/json+oembed" href="https://www.sitepoint.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.sitepoint.com%2Fbuild-online-store-rails%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://www.sitepoint.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.sitepoint.com%2Fbuild-online-store-rails%2F&amp;format=xml">
+<script data-cfasync="false" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/a.js" data-sumo-platform="wordpress" data-sumo-site-id="64b8e500e3524000ecfa2000d01e2100033e83009398f000ab804c005e0e4300" async=""></script><!-- BEGIN wp-parsely Plugin Version 1.10.2 -->
+<meta name="wp-parsely_version" id="wp-parsely_version" content="1.10.2">
+   <script type="application/ld+json">
+   {"@context":"http:\/\/schema.org","@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/www.sitepoint.com\/build-online-store-rails\/"},"headline":"Build an Online Store with Rails","url":"http:\/\/www.sitepoint.com\/build-online-store-rails\/","thumbnailUrl":"https:\/\/dl.dropboxusercontent.com\/u\/33588915\/SP_OnlineStore\/Screenshot%202014-07-11%2012.09.38.png","image":{"@type":"ImageObject","url":"https:\/\/dl.dropboxusercontent.com\/u\/33588915\/SP_OnlineStore\/Screenshot%202014-07-11%2012.09.38.png"},"dateCreated":"2014-08-01T14:00:53Z","datePublished":"2014-08-01T14:00:53Z","dateModified":"2004-02-02T01:34:47Z","articleSection":"Ruby","author":[{"@type":"Person","name":"Karim El Husseiny"}],"creator":["Karim El Husseiny"],"publisher":{"@type":"Organization","name":"SitePoint"},"keywords":["glenng"]}   </script>
+    <!-- END wp-parsely Plugin Version 1.10.2 -->
+    <script type="text/javascript">
+      googletag.cmd.push(function() {
+        purchs2s.cmd.push(function() {
+          		googletag.pubads().setTargeting("channel", "ruby");
+		googletag.pubads().setTargeting("post_id", "86484");
+		googletag.pubads().setTargeting("AOL",["true", "false"]);
+		googletag.pubads().setTargeting("OpenX",["true", "false"]);
+		googletag.pubads().setTargeting("Tribal",["true", "false"]);
+		googletag.pubads().enableSingleRequest();
+                    googletag.pubads().collapseEmptyDivs();
+          googletag.pubads().disableInitialLoad();
+          googletag.enableServices();
+          purchs2s.setup();
+        });
+      });
+      SP_GPT_Slots = [];
+    </script>
+    <!--[if lt IE 9]>
+      <script src="/wp-content/themes/sitepoint/assets/javascripts/vendor/respond.custom.min.js"></script>
+    <![endif]-->
+    <style>
+  .t-color { color: #EB5745 }
+  a.t-color:hover,
+  button.t-color:hover { color: #B84435 }
+
+  .t-bg { background-color: #EB5745 }
+  a.t-bg:hover,
+  button.t-bg:hover { background-color: #B84435}
+
+  .t-border { border-color: #EB5745 }
+  a.t-border:hover,
+  button.t-border:hover { border-color: #B84435 }
+
+  .t-bg-dark { background-color: #B84435 }
+
+  .t-list li:before { background-color: #EB5745; }
+
+  .t-p-pop-bg { background-color: #1a9b9e }
+  a.t-p-pop-bg:hover,
+  button.t-p-pop-bg:hover { background-color: #018285}
+</style>
+  <script async="" type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/count.js"></script><style type="text/css"></style><script type="text/javascript" charset="utf-8" async="" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/Prism.js"></script><style type="text/css" id="av_css_id">#av-container *::-webkit-media-controls-panel{display:none!important;-webkit-appearance:none}#av-container *::--webkit-media-controls-play-button{display:none !important;-webkit-appearance:none}#av-container *::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}@-webkit-keyframes "fade-in"{0%{opacity:0;filter:alpha(opacity=0);}100%{opacity:1;filter:alpha(opacity=100);}}@-moz-keyframes "fade-in"{0%{opacity:0;filter:alpha(opacity=0);}100%{opacity:1;filter:alpha(opacity=100);}}@-o-keyframes fade-in{0% { opacity:0;filter:alpha(opacity=0)}100%{opacity:1;filter:alpha(opacity=100)}}@keyframes "fade-in"{0%{opacity:0;filter:alpha(opacity=0);}100%{opacity:1;filter:alpha(opacity=100);}}@-webkit-keyframes "av-loading-dash"{0%{stroke-dasharray:1, 210;stroke-dashoffset:0;}50%{stroke-dasharray:130, 220;stroke-dashoffset:-50;}100%{stroke-dasharray:170, 220;stroke-dashoffset:-210;}}@-moz-keyframes "av-loading-dash"{0%{stroke-dasharray:1, 210;stroke-dashoffset:0;}50%{stroke-dasharray:130, 220;stroke-dashoffset:-50;}100%{stroke-dasharray:170, 220;stroke-dashoffset:-210;}}@-o-keyframes av-loading-dash{0% { stroke-dasharray:1, 210;stroke-dashoffset:0}50%{stroke-dasharray:130, 220;stroke-dashoffset:-50}100%{stroke-dasharray:170, 220;stroke-dashoffset:-210}}@keyframes "av-loading-dash"{0%{stroke-dasharray:1, 210;stroke-dashoffset:0;}50%{stroke-dasharray:130, 220;stroke-dashoffset:-50;}100%{stroke-dasharray:170, 220;stroke-dashoffset:-210;}}@-webkit-keyframes "av-loading-rotate"{0%{stroke:white;-webkit-transform:rotate(0deg);transform:rotate(0deg);}100%{stroke:currentColor;-webkit-transform:rotate(360deg);transform:rotate(360deg);}}@-moz-keyframes "av-loading-rotate"{0%{stroke:white;-webkit-transform:rotate(0deg);transform:rotate(0deg);}100%{stroke:currentColor;-webkit-transform:rotate(360deg);transform:rotate(360deg);}}@-o-keyframes av-loading-rotate{0% { stroke:white;-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{stroke:currentColor;-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes "av-loading-rotate"{0%{stroke:white;-webkit-transform:rotate(0deg);transform:rotate(0deg);}100%{stroke:currentColor;-webkit-transform:rotate(360deg);transform:rotate(360deg);}}#av-container{position:relative;width:640px;height:360px;background:black;margin:0;overflow:hidden;text-align:initial;}#av-container #av-inner{position:absolute;top:0;left:0;width:100%;height:100%}#av-container #av-inner #slot{position:absolute;width:100%;height:100%;background:black;-webkit-box-shadow:inset 0 0 0 1px rgba(0, 0, 0, 0.1);-moz-box-shadow:inset 0 0 0 1px rgba(0, 0, 0, 0.1);box-shadow:inset 0 0 0 1px rgba(0, 0, 0, 0.1)}#av-container #av-inner #slot #preloader{width:0;height:0;position:absolute;top:0;left:0;bottom:0;right:0;margin:auto;outline:none}#av-container #av-inner #slot #preloader svg{position:absolute;top:50%;left:50%}#av-container #av-inner #slot #preloader svg.icon{fill:white;width:50px;height:50px;margin-left:-25px;margin-top:-25px}#av-container #av-inner #slot #preloader svg.circle{fill:transparent;stroke:rgba(255, 255, 255, 0.2);stroke-width:3;width:70px;height:70px;margin-left:-35px;margin-top:-35px}#av-container #av-inner #slot #preloader svg.circle.active{color:red;stroke:white;stroke-linecap:round;animation:av-loading-dash 2s ease infinite, av-loading-rotate 2.5s linear infinite}#av-container #av-inner #slot #videoslot{text-align:left;position:absolute;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);left:0;right:0;bottom:0;width:100%;object-fit:initial;opacity:0;filter:alpha(opacity=0)}#av-container #av-inner #slot #videoslot.loaded{opacity:1;filter:alpha(opacity=100);-webkit-animation:fade-in 0.5s ease;-moz-animation:fade-in 0.5s ease;-o-animation:fade-in 0.5s ease;animation:fade-in 0.5s ease}#av-container #av-inner #gui:before{content:"";pointer-events:none;position:absolute;left:0;bottom:0;width:100%;height:15%;-webkit-transition:all 0.15s ease-in-out;-moz-transition:all 0.15s ease-in-out;-o-transition:all 0.15s ease-in-out;transition:all 0.15s ease-in-out;background:-webkit-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.5) 100%);background:-moz-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.5) 100%);background:linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 100%);filter:progid: DXImageTransform.Microsoft.gradient(startColorstr="#00000000", endColorstr="#80000000", GradientType=0)}#av-container #av-inner #gui #timeline{position:absolute;height:10px;overflow:hidden;-webkit-transition:all 0.15s ease-in-out;-moz-transition:all 0.15s ease-in-out;-o-transition:all 0.15s ease-in-out;transition:all 0.15s ease-in-out;cursor:pointer}#av-container #av-inner #gui #timeline:before,#av-container #av-inner #gui #timeline #timeline-buffer,#av-container #av-inner #gui #timeline #timeline-moveto,#av-container #av-inner #gui #timeline #timeline-progress{position:absolute;left:0;height:2px}#av-container #av-inner #gui #timeline:before{content:"";width:100%;background:rgb(100, 100, 100);background:rgba(255, 255, 255, 0.3);-webkit-box-shadow:0 0 3px 0 rgba(0, 0, 0, 0.1);-moz-box-shadow:0 0 3px 0 rgba(0, 0, 0, 0.1);box-shadow:0 0 3px 0 rgba(0, 0, 0, 0.1)}#av-container #av-inner #gui #timeline #timeline-buffer{width:0;background:rgb(180, 180, 180);background:rgba(255, 255, 255, 0.5);-webkit-box-shadow:0 0 3px 0 rgba(0, 0, 0, 0.1);-moz-box-shadow:0 0 3px 0 rgba(0, 0, 0, 0.1);box-shadow:0 0 3px 0 rgba(0, 0, 0, 0.1)}#av-container #av-inner #gui #timeline #timeline-moveto{width:0;background:rgb(255, 255, 255);background:rgba(255, 255, 255, 0.8);opacity:0}#av-container #av-inner #gui #timeline #timeline-progress{width:0;background:red}#av-container #av-inner #gui #timeline.av-overlay{bottom:41px;left:10px;right:10px}#av-container #av-inner #gui #timeline.av-overlay:before,#av-container #av-inner #gui #timeline.av-overlay #timeline-buffer,#av-container #av-inner #gui #timeline.av-overlay #timeline-moveto,#av-container #av-inner #gui #timeline.av-overlay #timeline-progress{top:50%;margin-top:-1px}#av-container #av-inner #gui #timeline.av-bottom{bottom:0;left:0;right:0}#av-container #av-inner #gui #timeline.av-bottom:before,#av-container #av-inner #gui #timeline.av-bottom #timeline-buffer,#av-container #av-inner #gui #timeline.av-bottom #timeline-moveto,#av-container #av-inner #gui #timeline.av-bottom #timeline-progress{top:auto;bottom:0}#av-container #av-inner #gui #timeline.av-top{top:0;left:0;right:0}#av-container #av-inner #gui #timeline.av-top:before,#av-container #av-inner #gui #timeline.av-top #timeline-buffer,#av-container #av-inner #gui #timeline.av-top #timeline-moveto,#av-container #av-inner #gui #timeline.av-top #timeline-progress{top:0;bottom:auto}#av-container #av-inner #gui #timeline.av-top~#skip-btn{top:2px}#av-container #av-inner #gui #timeline.av-top~#aniview-credit{top:4px}#av-container #av-inner #gui #timeline.av-none{opacity:0 !important;display:none !important}#av-container #av-inner #gui #buttons{-webkit-transition:all 0.15s ease-in-out;-moz-transition:all 0.15s ease-in-out;-o-transition:all 0.15s ease-in-out;transition:all 0.15s ease-in-out}#av-container #av-inner #gui #buttons #play-pause,#av-container #av-inner #gui #buttons #phone,#av-container #av-inner #gui #buttons #sound,#av-container #av-inner #gui #buttons #share,#av-container #av-inner #gui #buttons #fullscreen{width:24px;height:24px;background-repeat:no-repeat;background-size:cover}#av-container #av-inner #gui #buttons #left,#av-container #av-inner #gui #buttons #right{position:absolute;height:24px;bottom:11px}#av-container #av-inner #gui #buttons #left{left:13px}#av-container #av-inner #gui #buttons #left>div{position:relative;float:left;margin-right:14px}#av-container #av-inner #gui #buttons #left #play-pause.play{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22play-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.677%2022.677%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.677%2022.677%22%3E%09%3Cpath%20fill%3D%22white%22%20d%3D%22m19.343%2011.251c-0.035-0.439-0.334-0.874-0.902-1.207l-10.905-6.403c-1.211-0.712-2.203-0.138-2.203%201.275v7.463c5.85-2.36%2013.783-1.163%2014.01-1.128z%22%2F%3E%09%3Cpath%20fill%3D%22white%22%20d%3D%22m5.333%2017v0.762c0%201.412%200.992%201.985%202.203%201.273l10.904-6.402c0.643-0.377%200.941-0.882%200.902-1.379-8.65%200.696-12.404%203.614-14.009%205.746z%22%2F%3E%3C%2Fsvg%3E")}#av-container #av-inner #gui #buttons #left #play-pause.pause{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22pause-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.677%2022.677%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.677%2022.677%22%3E%09%09%3Cpath%20fill%3D%22white%22%20d%3D%22m4.338%2019.339h5v-16h-5v16zm9.001-16.001v16h5v-16h-5z%22%2F%3E%3C%2Fsvg%3E")}#av-container #av-inner #gui #buttons #left #play-pause.replay{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22replay-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.677%2022.677%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.677%2022.677%22%3E%09%09%3Cpath%20fill%3D%22white%22%20d%3D%22m16.672%2011.339c0%202.945-2.389%205.333-5.334%205.333s-5.334-2.388-5.334-5.333c0-2.943%202.385-5.329%205.326-5.333v2.336l7.016-3.503-7.016-3.503v2.004c-4.414%200.004-7.992%203.583-7.992%207.999%200%204.418%203.582%208%208%208s8-3.582%208-8h-2.666z%22%2F%3E%3C%2Fsvg%3E")}#av-container #av-inner #gui #buttons #left #phone{width:auto;font-size:0}#av-container #av-inner #gui #buttons #left #phone .icon{width:24px;height:24px;display:inline-block;vertical-align:top;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22phone-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.677%2022.677%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.677%2022.677%22%3E%3Cpath%20fill%3D%22white%22%20clip-rule%3D%22evenodd%22%20d%3D%22m20.154%2017.236c0.299-0.298%200.254-0.921-0.236-1.188-0.492-0.267-4.518-2.602-4.982-2.138-0.463%200.465-1.447%201.498-2.135%201.188s-2.289-1.816-2.846-2.375c-0.559-0.557-2.064-2.159-2.377-2.847-0.31-0.687%200.725-1.67%201.188-2.134%200.464-0.465-1.87-4.491-2.137-4.982-0.266-0.489-0.889-0.534-1.188-0.237s-2.18%202.176-2.85%202.847c-0.671%200.671-0.279%205.415%204.514%2010.202%204.787%204.792%209.531%205.185%2010.203%204.514%200.671-0.671%202.549-2.551%202.846-2.85z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E");background-repeat:no-repeat;background-size:cover}#av-container #av-inner #gui #buttons #left #phone #phone-num{display:inline-block;margin-left:4px;height:24px;line-height:24px;font-size:12px;font-weight:400;font-family:Helvetica, Arial, fallback, sans-serif;color:white}#av-container #av-inner #gui #buttons #right{right:13px}#av-container #av-inner #gui #buttons #right>div{position:relative;float:right;margin-left:14px}#av-container #av-inner #gui #buttons #right #sound{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22sound-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.68%2022.68%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.68%2022.68%22%3E%09%09%3Cpolygon%20fill%3D%22white%22%20points%3D%227.247%207.34%201.761%207.34%201.761%2015.34%207.247%2015.34%2012.743%2019.346%2012.743%203.334%22%20clip-rule%3D%22evenodd%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E")}#av-container #av-inner #gui #buttons #right #sound div{position:absolute;width:100%;height:100%;top:0;left:0;background-repeat:no-repeat;background-size:cover}#av-container #av-inner #gui #buttons #right #sound div.on{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22sound-on-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.677%2022.677%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.677%2022.677%22%3E%09%09%3Cpath%20fill%3D%22white%22%20d%3D%22m17.808%204.757l-1.705%201.881c1.357%201.146%202.221%202.824%202.221%204.7s-0.863%203.556-2.221%204.701l1.705%201.881c1.902-1.605%203.109-3.955%203.109-6.582%200-2.626-1.207-4.975-3.109-6.581z%22%20%2F%3E%3C%2Fsvg%3E")}#av-container #av-inner #gui #buttons #right #sound div.off{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22sound-off-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.677%2022.677%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.677%2022.677%22%3E%09%09%3Cpolygon%20points%3D%2220.009%2011.337%2022.671%208.674%2021.343%207.345%2018.679%2010.007%2016.015%207.345%2014.685%208.674%2017.349%2011.337%2014.681%2014.003%2016.015%2015.331%2018.679%2012.666%2021.343%2015.331%2022.677%2014.003%22%20fill%3D%22red%22%20clip-rule%3D%22evenodd%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E")}#av-container #av-inner #gui #buttons #right #share{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22share-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.677%2022.677%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.677%2022.677%22%3E%3Cpath%20fill%3D%22white%22%20clip-rule%3D%22evenodd%22%20d%3D%22m17.338%2014.339c-0.695%200-1.328%200.246-1.838%200.645l-7.17-3.567c0-0.026%200.008-0.051%200.008-0.078%200-0.026-0.008-0.052-0.008-0.078l7.17-3.566c0.51%200.397%201.143%200.645%201.838%200.645%201.656%200%203-1.343%203-3s-1.344-3-3-3-3%201.343-3%203c0%200.188%200.023%200.372%200.057%200.552l-6.864%203.412c-0.549-0.591-1.324-0.966-2.193-0.966-1.656%200-3%201.343-3%203s1.344%203%203%203c0.869%200%201.645-0.375%202.193-0.965l6.863%203.412c-0.033%200.18-0.057%200.363-0.057%200.553%200%201.656%201.344%203%203%203s3-1.344%203-3-1.343-2.999-2.999-2.999z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E")}#av-container #av-inner #gui #buttons #right #fullscreen.off{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22fullscreen-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.677%2022.677%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.677%2022.677%22%3E%09%09%3Cpath%20fill%3D%22white%22%20d%3D%22m4.339%2015.339h-2v5h5v-2h-3v-3zm-2-8.001h2v-3h3v-2h-5v5zm13-5v2h3v3h2v-5h-5zm3%2016.001h-3v2h5v-5h-2v3z%22%2F%3E%3C%2Fsvg%3E")}#av-container #av-inner #gui #buttons #right #fullscreen.on{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22fullscreen-off-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.677%2022.677%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.677%2022.677%22%3E%09%09%3Cpath%20fill%3D%22white%22%20d%3D%22m6.338%206.338h-3v2h5v-5h-2v3zm-3%2010.001h3v3h2v-5h-5v2zm11%203h2v-3h3v-2h-5v5zm2-13.001v-3h-2v5h5v-2h-3z%22%2F%3E%3C%2Fsvg%3E")}#av-container #av-inner #gui #big-play{display:none;position:absolute;width:68px;height:68px;top:50%;left:50%;margin-top:-34px;margin-left:-34px;background-color:rgb(50, 50, 50);background-color:rgba(0, 0, 0, 0.4);background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22play-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.677%2022.677%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.677%2022.677%22%3E%09%3Cpath%20fill%3D%22white%22%20d%3D%22m19.343%2011.251c-0.035-0.439-0.334-0.874-0.902-1.207l-10.905-6.403c-1.211-0.712-2.203-0.138-2.203%201.275v7.463c5.85-2.36%2013.783-1.163%2014.01-1.128z%22%2F%3E%09%3Cpath%20fill%3D%22white%22%20d%3D%22m5.333%2017v0.762c0%201.412%200.992%201.985%202.203%201.273l10.904-6.402c0.643-0.377%200.941-0.882%200.902-1.379-8.65%200.696-12.404%203.614-14.009%205.746z%22%2F%3E%3C%2Fsvg%3E");background-size:62% 64%;background-position:16px center;background-repeat:no-repeat;border:3px solid white;border-radius:50%;-webkit-transition:all 0.15s ease-in-out;-moz-transition:all 0.15s ease-in-out;-o-transition:all 0.15s ease-in-out;transition:all 0.15s ease-in-out}#av-container #av-inner #gui #close-btn{z-index:9999999;position:absolute;top:0;left:0;width:28px;height:28px;background-color:rgb(50, 50, 50);background-color:rgba(0, 0, 0, 0.4);background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22close-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.677%2022.677%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.677%2022.677%22%3E%09%09%3Cpolygon%20fill%3D%22white%22%20points%3D%2219.346%205.421%2017.256%203.332%2011.338%209.25%205.42%203.332%203.332%205.421%209.25%2011.338%203.332%2017.257%205.42%2019.345%2011.338%2013.427%2017.256%2019.345%2019.346%2017.257%2013.428%2011.338%22%20clip-rule%3D%22evenodd%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E");background-repeat:no-repeat;background-size:60%;background-position:center;border-color:white;border-style:solid;border-width:0 1px 1px 0;-webkit-transition:all 0.15s ease-in-out;-moz-transition:all 0.15s ease-in-out;-o-transition:all 0.15s ease-in-out;transition:all 0.15s ease-in-out}#av-container #av-inner #gui #timer{position:absolute;top:0;left:0;width:28px;height:28px;background-color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0.7);color:white;font-family:Helvetica, Arial, fallback, sans-serif;font-size:12px;text-align:center;line-height:28px;border-color:white;border-style:solid;border-width:0 1px 1px 0;-webkit-transition:all 0.15s ease-in-out;-moz-transition:all 0.15s ease-in-out;-o-transition:all 0.15s ease-in-out;transition:all 0.15s ease-in-out}#av-container #av-inner #gui #skip-btn{position:absolute;bottom:60px;right:0;padding:0 12px;height:32px;background-color:rgb(50, 50, 50);background-color:rgba(0, 0, 0, 0.4);color:white;font-family:Helvetica, Arial, fallback, sans-serif;font-size:14px;text-align:center;text-transform:uppercase;line-height:32px;border-color:white;border-style:solid;border-width:1px 0 1px 1px;-webkit-transition:all 0.15s ease-in-out;-moz-transition:all 0.15s ease-in-out;-o-transition:all 0.15s ease-in-out;transition:all 0.15s ease-in-out}#av-container #av-inner #gui #aniview-credit{position:absolute;top:2px;right:2px;height:24px;line-height:24px;font-size:11px;font-family:Helvetica, Arial, fallback, sans-serif;font-weight:500;color:white}#av-container #av-inner #gui #aniview-credit span{display:inline-block;vertical-align:top;width:24px;height:24px;background-repeat:no-repeat;background-size:cover;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20id%3D%22play-Layer_1%22%20xml%3Aspace%3D%22preserve%22%20height%3D%2223%22%20viewBox%3D%220%200%2022.677%2022.677%22%20width%3D%2223%22%20version%3D%221.1%22%20y%3D%220px%22%20x%3D%220px%22%20enable-background%3D%22new%200%200%2022.677%2022.677%22%3E%09%3Cpath%20fill%3D%22red%22%20d%3D%22m19.343%2011.251c-0.035-0.439-0.334-0.874-0.902-1.207l-10.905-6.403c-1.211-0.712-2.203-0.138-2.203%201.275v7.463c5.85-2.36%2013.783-1.163%2014.01-1.128z%22%2F%3E%09%3Cpath%20fill%3D%22red%22%20d%3D%22m5.333%2017v0.762c0%201.412%200.992%201.985%202.203%201.273l10.904-6.402c0.643-0.377%200.941-0.882%200.902-1.379-8.65%200.696-12.404%203.614-14.009%205.746z%22%2F%3E%3C%2Fsvg%3E")}#av-container.desktop #av-inner #gui #big-play{border-color:#ccc}#av-container.desktop:hover #av-inner #gui #big-play{background-color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0.7);border-color:white}#av-container.desktop #gui:before{bottom:-15%}#av-container.desktop:hover #gui:before{bottom:0}#av-container.desktop #gui:before,#av-container.desktop #gui #timeline,#av-container.desktop #gui #buttons{opacity:0;filter:alpha(opacity=0)}#av-container.desktop:hover #gui:before,#av-container.desktop:hover #gui #buttons,#av-container.desktop:hover #gui #timeline,#av-container.desktop #av-inner #gui #timeline:hover #timeline-moveto{opacity:1;filter:alpha(opacity=100)}#av-container.desktop #av-inner #gui #close-btn:hover,#av-container.desktop #av-inner #gui #skip-btn:hover{cursor:pointer;background-color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0.7)}#av-container.responsive{width:100%;height:520px}#av-container.hide-controls #timeline,#av-container.hide-controls #buttons,#av-container.hide-controls #av-inner #gui:before{display:none}#av-container.buttons-below #av-inner #slot #videoslot{top:0;-webkit-transform:none;transform:none}#av-testcss{margin-top:3px}.embed-player-tag #testyourself-postroll-embedgui #av-container{position:relative;top:50%;-webkit-transform:initial !important;transform:initial !important}.testyourself-postroll .embed-player-tag #testyourself-postroll-embedgui #av-container{top:0px}.embed-player-tag #testyourself-postroll-embedgui #av-container{margin-left:auto;margin-right:auto;//margin-top:50px}#testyourself-preroll-embedgui #av-container #av-inner #gui #skip-btn{top:0px}#spotimaniviewplayergui #av-container{//position:inherit} #av-container #videoslot video {max-width: none;} #aniBox { margin:15px 0; }</style><link rel="preload" href="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/integrator.js" as="script"><script type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/integrator.js"></script><script src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/pubads_impl_191.js" async=""></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="156085c5-0017-4150-b225-a731ad248f38/service" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/service.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="services/services" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/services.js"></script><style>@-webkit-keyframes insQ_100 {  from {  outline: 1px solid transparent  } to {  outline: 0px solid transparent }  }
+#menufication-top { animation-duration: 0.001s; animation-name: insQ_100; -webkit-animation-duration: 0.001s; -webkit-animation-name: insQ_100;  } </style><link type="text/css" rel="stylesheet" href="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/listbuilder-popup.css"><script async="true" type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/roundtrip.js"></script><script async="true" type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/4RKMV6N56FGA7ANPGL4FQW"></script><script type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/sendrolling.js"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img style="border-style:none;" alt="" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/out_005.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/out_004.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/out_002.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/out_003.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/out.html" width="1" height="1">
+<img style="border-style:none;" alt="" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/out.gif" width="1" height="1">
+</div></head>
+  <body>
+    <header class="main-header u-isSingle" role="banner">
+      <nav class=" NavBar l-p-fix l-p-sta--3col l-d-f l-w-100 t-bg-grey-500">
+        <div class="l-d-f l-w-100 l-w-3col--3col l-w-4col--4col l-jc-sb l-mh-auto l-ph2">
+          <section class="l-d-f l-ai-str l-jc-sta">
+            <a tabindex="0" class="l-d-f l-ai-cen l-pa3 f-c-white t-t NavBar_item" onclick="sitepoint.SidebarNav_toggle(event)" onkeyup="sitepoint.SidebarNav_toggle(event)">
+              <i class="f-medium fa fa-navicon"></i>
+            </a>
+            
+<div id="SidebarNav" class="SidebarNav" onkeyup="sitepoint.SidebarNav_toggle(event)">
+  <header class="m-border-b SidebarNav_header">
+    <a href="#" onclick="sitepoint.SidebarNav_toggle(event)" class="l-pt0 f-light">
+      <span class="SidebarNav_icon">×</span>
+    </a>
+    <div class="l-d-n l-d-b--3col SidebarNav_search">
+      <form method="get" action="https://www.sitepoint.com/">
+        <input aria-label="search" autocomplete="off" id="sidebar-search-box" name="s" placeholder="Search" type="text">
+        <button><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+  </header>
+
+  <section class="m-border-b">
+    <ul>
+      <li class="SidebarNav_link u-premium/l/join">
+            <i class="SidebarNav_icon fa fa-user u-premium/l/join"></i>
+            
+            <a class="f-light" href="https://www.sitepoint.com/premium/l/join?ref_source=sitepoint&amp;ref_medium=drawer">Sign Up</a>
+          </li>      <li class="SidebarNav_link u-premium/sign-in">
+            <i class="SidebarNav_icon fa fa-sign-in u-premium/sign-in"></i>
+            
+            <a class="f-light" href="https://www.sitepoint.com/premium/sign-in/?ref_source=sitepoint&amp;ref_medium=drawer">Login</a>
+          </li>                </ul>
+  </section>
+
+  <section class="m-border-b SidebarNav_products">
+    <ul>
+      
+      <li class="SidebarNav_link u-premium/paths">
+            <i class="SidebarNav_icon fa fa-map-marker u-premium/paths"></i>
+            
+            <a class="f-light" href="https://www.sitepoint.com/premium/paths?ref_source=sitepoint&amp;ref_medium=drawer">Learning Paths</a>
+          </li>
+            <li class="SidebarNav_link u-premium/deals/?ref_source=sitepoint&amp;ref_medium=drawer">
+            <i class="SidebarNav_icon fa fa-diamond u-premium/deals/?ref_source=sitepoint&amp;ref_medium=drawer"></i>
+            
+            <a class="f-light" href="https://www.sitepoint.com/premium/deals/?ref_source=sitepoint&amp;ref_medium=drawer?ref_source=sitepoint&amp;ref_medium=drawer">Deals</a>
+          </li>      <li class="SidebarNav_link u-premium/books">
+            <i class="SidebarNav_icon fa fa-book u-premium/books"></i>
+            
+            <a class="f-light" href="https://www.sitepoint.com/premium/books/?ref_source=sitepoint&amp;ref_medium=drawer">Books</a>
+          </li>      <li class="SidebarNav_link u-premium/courses">
+            <i class="SidebarNav_icon fa fa-play-circle u-premium/courses"></i>
+            
+            <a class="f-light" href="https://www.sitepoint.com/premium/courses/?ref_source=sitepoint&amp;ref_medium=drawer">Courses</a>
+          </li>
+    </ul>
+  </section>
+
+  <section class="m-border-b SidebarNav_topics">
+    <ul>
+      <li class="SidebarNav_link SidebarNav_channelLink u-html-css">
+            <i class="SidebarNav_icon fa fa-circle u-html-css"></i>
+            <a class="f-light" href="https://www.sitepoint.com/html-css/?ref_source=sitepoint&amp;ref_medium=drawer" data-channel="html-css">HTML &amp; CSS</a>
+          </li>      <li class="SidebarNav_link SidebarNav_channelLink u-javascript">
+            <i class="SidebarNav_icon fa fa-circle u-javascript"></i>
+            <a class="f-light" href="https://www.sitepoint.com/javascript/?ref_source=sitepoint&amp;ref_medium=drawer" data-channel="javascript">JavaScript</a>
+          </li>      <li class="SidebarNav_link SidebarNav_channelLink u-php">
+            <i class="SidebarNav_icon fa fa-circle u-php"></i>
+            <a class="f-light" href="https://www.sitepoint.com/php/?ref_source=sitepoint&amp;ref_medium=drawer" data-channel="php">PHP</a>
+          </li>      <li class="SidebarNav_link SidebarNav_channelLink u-design-ux">
+            <i class="SidebarNav_icon fa fa-circle u-design-ux"></i>
+            <a class="f-light" href="https://www.sitepoint.com/design-ux/?ref_source=sitepoint&amp;ref_medium=drawer" data-channel="design-ux">Design &amp; UX</a>
+          </li>      <li class="SidebarNav_link SidebarNav_channelLink u-web">
+            <i class="SidebarNav_icon fa fa-circle u-web"></i>
+            <a class="f-light" href="https://www.sitepoint.com/web/?ref_source=sitepoint&amp;ref_medium=drawer" data-channel="web">Web</a>
+          </li>      <li class="SidebarNav_link SidebarNav_channelLink u-wordpress">
+            <i class="SidebarNav_icon fa fa-circle u-wordpress"></i>
+            <a class="f-light" href="https://www.sitepoint.com/wordpress/?ref_source=sitepoint&amp;ref_medium=drawer" data-channel="wordpress">WordPress</a>
+          </li>      <li class="SidebarNav_link SidebarNav_channelLink u-woorank">
+            <i class="SidebarNav_icon fa fa-circle u-woorank"></i>
+            <a class="f-light" href="https://www.sitepoint.com/woorank/?ref_source=sitepoint&amp;ref_medium=drawer" data-channel="woorank">SEO By WooRank</a>
+          </li>      <li class="SidebarNav_link SidebarNav_channelLink u-developer-center">
+            <i class="SidebarNav_icon fa fa-circle u-developer-center"></i>
+            <a class="f-light" href="https://www.sitepoint.com/developer-center/?ref_source=sitepoint&amp;ref_medium=drawer" data-channel="developer-center">Microsoft Tech</a>
+          </li>    </ul>
+  </section>
+
+  <section class="m-border-b">
+    <ul>
+      <li class="SidebarNav_link u-community">
+            <i class="SidebarNav_icon fa fa-comment u-community"></i>
+            
+            <a class="f-light" href="https://www.sitepoint.com/community/?ref_source=sitepoint&amp;ref_medium=drawer">Community</a>
+          </li>      <li class="SidebarNav_link u-versioning">
+            
+            <i class="SidebarNav_icon"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+<svg viewBox="0 0 463 533">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Misc-Icons" transform="translate(-224.000000, -209.000000)" fill="#A2A2A2">
+            <g id="Adam" transform="translate(224.000000, 209.000000)">
+                <path d="M205.23914,223.989305 C205.23914,239.058221 193.018305,251.270053 177.938282,251.270053 C162.858259,251.270053 150.637425,239.064975 150.637425,223.989305 C150.637425,208.927144 162.858259,196.708557 177.938282,196.708557 C193.018305,196.708557 205.23914,208.927144 205.23914,223.989305" id="Shape"></path>
+                <path d="M319.240023,223.989305 C319.240023,239.058221 307.019188,251.270053 291.939165,251.270053 C276.859142,251.270053 264.638308,239.064975 264.638308,223.989305 C264.638308,208.927144 276.859142,196.708557 291.939165,196.708557 C307.019188,196.708557 319.240023,208.927144 319.240023,223.989305" id="Shape-Copy"></path>
+                <path d="M45.9192714,105.68948 C47.1603233,105.013767 48.4156135,104.338834 49.6814591,103.66477 C49.285517,101.268011 49.079511,98.8067359 49.079511,96.2970985 C49.079511,71.6393315 68.9663337,51.6502619 93.4979726,51.6502619 C104.828598,51.6502619 115.168338,55.9145566 123.11028,62.1553999 C123.11028,37.497633 142.997103,17.5085634 167.528742,17.5085634 C177.872808,17.5085634 187.39103,21.0626011 194.940698,27.0220906 C201.994758,11.1002236 217.874616,0 236.33381,0 C255.201408,0 271.374274,11.5968357 278.182101,28.0859033 C285.813075,16.4403992 298.937725,8.75428168 313.84838,8.75428168 C335.217866,8.75428168 352.918943,24.5413571 356.037389,45.1451696 C359.093922,44.2508863 362.326213,43.7714084 365.669919,43.7714084 C384.669913,43.7714084 400.072453,59.2531388 400.072453,78.3508211 C400.072453,84.451539 398.500668,90.1832596 395.741931,95.1591734 C420.545,106.093308 441.166028,118.313655 447.484806,130.438797 C462.05792,158.40324 448.921531,194.216875 441.795446,209.76377 C445.786047,226.227441 447.901492,243.429264 447.901492,261.127716 C447.901492,277.569319 446.075834,293.582324 442.617163,308.973095 C454.31826,313.102542 462.707645,324.30529 462.707645,337.477559 C462.707645,352.446546 451.87352,364.872078 437.657056,367.264056 C442.403415,372.604775 445.288641,379.652197 445.288641,387.376964 C445.288641,404.057219 431.83579,417.579236 415.240858,417.579236 C414.739425,417.579236 414.24086,417.56689 413.745449,417.542485 C416.086983,421.841984 417.418234,426.776628 417.418234,432.023801 C417.418234,448.704055 403.965383,462.226073 387.370451,462.226073 C385.766225,462.226073 384.191363,462.099709 382.655177,461.856345 C383.175775,464.083267 383.451175,466.405199 383.451175,468.791784 C383.451175,485.472038 369.998324,498.994056 353.403392,498.994056 C348.884389,498.994056 344.598385,497.991345 340.753583,496.195199 C340.156973,512.346957 326.941829,525.256901 310.726831,525.256901 C300.435078,525.256901 291.351821,520.056112 285.93648,512.126599 C281.811241,523.856499 270.681444,532.260326 257.598867,532.260326 C247.286985,532.260326 238.188331,527.039174 232.776786,519.083469 C227.365238,527.039175 218.266585,532.260326 207.954704,532.260326 C194.872127,532.260326 183.74233,523.856499 179.617091,512.126599 C174.20175,520.056112 165.118493,525.256901 154.82674,525.256901 C138.611742,525.256901 125.396598,512.346957 124.799988,496.195199 C120.955186,497.991345 116.669182,498.994056 112.150179,498.994056 C95.5552468,498.994056 82.1023962,485.472038 82.1023962,468.791784 C82.1023962,466.405199 82.3777956,464.083267 82.8983938,461.856345 C81.3622084,462.099709 79.7873457,462.226073 78.1831202,462.226073 C61.588188,462.226073 48.1353374,448.704055 48.1353374,432.023801 C48.1353374,426.776628 49.4665878,421.841984 51.8081225,417.542485 C51.312711,417.56689 50.8141464,417.579236 50.312713,417.579236 C33.7177807,417.579236 20.2649301,404.057219 20.2649301,387.376964 C20.2649301,379.652197 23.1501561,372.604775 27.8965152,367.264056 C13.6800506,364.872078 2.84592558,352.446546 2.84592558,337.477559 C2.84592558,324.30529 11.2353108,313.102542 22.9364075,308.973095 C19.4777374,293.582324 17.6520794,277.569319 17.6520794,261.127716 C17.6520794,244.483155 19.5230884,228.277837 23.0652378,212.71266 C23.0461555,212.67345 23.0269954,212.633634 23.0077587,212.593218 C8.40744355,199.915919 -22.2912349,139.477462 27.9975916,114.351569 C34.9803921,110.862741 40.9027514,108.009708 45.9192714,105.68948 L45.9192714,105.68948 Z M321.182928,338.855264 C312.257241,380.392075 275.494697,411.515802 231.5,411.515802 C187.505303,411.515802 150.742759,380.392075 141.817072,338.855264 L321.182928,338.855264 L321.182928,338.855264 L321.182928,338.855264 Z M323.401809,93.513343 C382.119911,125.539939 421.986958,188.049902 421.986958,259.919187 C421.986958,269.181179 421.324839,278.287729 420.045582,287.193626 L420.045582,287.193626 C414.531038,280.687855 406.320283,276.561781 397.150761,276.561781 C382.005642,276.561781 369.476084,287.817909 367.390774,302.461227 C361.921787,296.754612 354.241111,293.204376 345.735474,293.204376 C336.696537,293.204376 328.589254,297.213765 323.07789,303.559722 L323.07789,303.559722 C317.566526,297.213765 309.459243,293.204376 300.420306,293.204376 C291.140116,293.204376 282.841976,297.430646 277.326999,304.072813 C271.812023,297.430646 263.513882,293.204376 254.233693,293.204376 C245.884947,293.204376 238.331009,296.624848 232.883277,302.147652 L232.883277,302.147652 C227.435545,296.624848 219.881607,293.204376 211.532861,293.204376 C202.252672,293.204376 193.954531,297.430646 188.439555,304.072813 C182.924578,297.430646 174.626438,293.204376 165.346248,293.204376 C156.307311,293.204376 148.200028,297.213765 142.688664,303.559722 L142.688664,303.559722 C137.1773,297.213765 129.070017,293.204376 120.03108,293.204376 C111.525443,293.204376 103.844767,296.754612 98.3757799,302.461227 C96.2904699,287.817909 83.7609125,276.561781 68.6157934,276.561781 C60.2507056,276.561781 52.6835401,279.995657 47.2334107,285.537513 C46.105173,277.159748 45.5224867,268.607864 45.5224867,259.919187 C45.5224867,222.269089 56.4635528,187.187552 75.3242153,157.711582 C101.872077,155.792935 136.061257,148.07484 172.032022,134.915239 C218.909805,117.765397 257.559595,95.4909208 277.539381,75.8645287 C278.024685,75.9807367 278.50926,76.0988336 278.993099,76.2188112 C286.713596,87.3063559 299.514894,94.5568665 314.000977,94.5568665 C317.230893,94.5568665 320.377051,94.1964131 323.401809,93.513343 L323.401809,93.513343 L323.401809,93.513343 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+</i>
+            <a class="f-light" href="https://www.sitepoint.com/versioning/?ref_source=sitepoint&amp;ref_medium=drawer">Versioning</a>
+          </li>      <li class="SidebarNav_link u-newsletter">
+            <i class="SidebarNav_icon fa fa-envelope u-newsletter"></i>
+            
+            <a class="f-light" href="https://www.sitepoint.com/newsletter/?ref_source=sitepoint&amp;ref_medium=drawer">Newsletters</a>
+          </li>    </ul>
+  </section>
+
+  <section class="m-border-b SidebarNav_admin">
+    <ul>
+      <li class="SidebarNav_link u-advertise">
+            
+            
+            <a class="f-light" href="https://www.sitepoint.com/advertise/?ref_source=sitepoint&amp;ref_medium=drawer">Advertise</a>
+          </li>      <li class="SidebarNav_link u-contact-us">
+            
+            
+            <a class="f-light" href="https://www.sitepoint.com/contact-us/?ref_source=sitepoint&amp;ref_medium=drawer">Contact Us</a>
+          </li>      <zendesk><li class="SidebarNav_link"><a class="f-light" href="#">Support</a></li></zendesk></ul>
+  </section>
+
+  
+  <section class="SidebarNav_social">
+    <ul>
+      <li class="SidebarNav_socialLink">
+        <a class="f-light" href="https://www.sitepoint.com/newsletter/">
+          <i class="fa fa-envelope SidebarNav_socialIcon u-newsletter"></i>
+          <span class="SidebarNav_socialCount">1.2M<br>Subscribers</span>
+        </a>
+      </li>
+      <li class="SidebarNav_socialLink">
+        <a class="f-light" href="https://twitter.com/sitepointdotcom" rel="noopener" target="_blank">
+          <i class="fa fa-twitter SidebarNav_socialIcon u-twitter"></i>
+          <span class="SidebarNav_socialCount">136k<br>Followers</span>
+        </a>
+      </li>
+      <li class="SidebarNav_socialLink">
+        <a class="f-light" href="https://facebook.com/sitepoint" rel="noopener" target="_blank">
+          <i class="fa fa-facebook SidebarNav_socialIcon u-facebook"></i>
+          <span class="SidebarNav_socialCount">100k<br>Followers</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<div class="SidebarNav_lightbox" onclick="sitepoint.SidebarNav_toggle(event)"></div>
+            <a class="l-d-f" href="https://www.sitepoint.com/">
+              <div class="l-d-n l-d-f--3col l-as-cen">
+                <svg class="sp-logo" viewBox="0 0 123 27">
+  <g fill-rule="evenodd">
+    <path d="M31.36,16.75 C31.56,17.07 31.82,17.31 32.14,17.50 C32.46,17.68 32.82,17.82 33.23,17.89 C33.63,17.97 34.05,18.01 34.48,18.01 C34.81,18.01 35.16,17.99 35.52,17.94 C35.89,17.89 36.22,17.81 36.53,17.68 C36.83,17.55 37.08,17.36 37.28,17.11 C37.48,16.87 37.58,16.55 37.58,16.17 C37.58,15.64 37.37,15.24 36.96,14.97 C36.55,14.69 36.03,14.47 35.41,14.31 C34.79,14.14 34.12,13.99 33.39,13.85 C32.66,13.71 31.99,13.52 31.37,13.27 C30.75,13.03 30.23,12.68 29.82,12.23 C29.41,11.78 29.20,11.16 29.20,10.36 C29.20,9.73 29.34,9.20 29.63,8.75 C29.92,8.30 30.30,7.94 30.75,7.66 C31.20,7.38 31.72,7.17 32.29,7.03 C32.86,6.90 33.42,6.83 33.99,6.83 C34.71,6.83 35.38,6.89 35.99,7.01 C36.61,7.13 37.15,7.34 37.62,7.63 C38.09,7.93 38.46,8.33 38.75,8.83 C39.03,9.34 39.19,9.96 39.24,10.72 L37.13,10.72 C37.10,10.32 36.99,9.98 36.81,9.72 C36.63,9.46 36.40,9.25 36.12,9.08 C35.84,8.92 35.53,8.81 35.19,8.74 C34.85,8.66 34.51,8.63 34.16,8.63 C33.84,8.63 33.53,8.65 33.20,8.70 C32.88,8.75 32.59,8.83 32.32,8.95 C32.06,9.07 31.84,9.23 31.68,9.43 C31.51,9.63 31.43,9.89 31.43,10.21 C31.43,10.56 31.56,10.86 31.82,11.09 C32.07,11.32 32.40,11.51 32.80,11.66 C33.19,11.82 33.64,11.95 34.13,12.05 C34.63,12.15 35.13,12.26 35.62,12.37 C36.15,12.49 36.67,12.62 37.17,12.78 C37.67,12.94 38.12,13.15 38.51,13.42 C38.90,13.68 39.21,14.01 39.45,14.41 C39.69,14.81 39.81,15.31 39.81,15.90 C39.81,16.66 39.65,17.28 39.33,17.77 C39.01,18.27 38.58,18.67 38.06,18.98 C37.54,19.28 36.96,19.49 36.30,19.61 C35.65,19.73 35.00,19.79 34.36,19.79 C33.65,19.79 32.97,19.72 32.32,19.58 C31.68,19.43 31.11,19.20 30.61,18.87 C30.12,18.54 29.72,18.11 29.42,17.57 C29.13,17.03 28.96,16.38 28.93,15.61 L31.03,15.61 C31.05,16.06 31.16,16.44 31.36,16.75" id="Fill-1"></path>
+    <path d="M42.27,7.12 L44.37,7.12 L44.37,19.53 L42.27,19.53 L42.27,7.12 Z" id="Fill-2"></path>
+    <path d="M53.13,7.12 L53.13,8.92 L50.57,8.92 L50.57,16.62 C50.57,16.86 50.59,17.05 50.63,17.20 C50.67,17.34 50.75,17.46 50.87,17.54 C50.99,17.62 51.15,17.67 51.35,17.69 C51.56,17.71 51.83,17.73 52.16,17.73 L53.13,17.73 L53.13,19.53 L51.51,19.53 C50.97,19.53 50.50,19.49 50.11,19.42 C49.72,19.35 49.41,19.22 49.17,19.02 C48.93,18.83 48.75,18.56 48.64,18.21 C48.52,17.86 48.46,17.39 48.46,16.81 L48.46,8.92 L46.28,8.92 L46.28,7.12 L48.46,7.12 L48.46,3.39 L50.57,3.39 L50.57,7.12 L53.13,7.12" id="Fill-3"></path>
+    <path d="M64.53,18.73 C63.57,19.44 62.36,19.79 60.91,19.79 C59.89,19.79 59.00,19.63 58.25,19.31 C57.49,18.99 56.86,18.54 56.35,17.97 C55.84,17.39 55.45,16.70 55.20,15.90 C54.94,15.10 54.80,14.23 54.76,13.29 C54.76,12.34 54.91,11.48 55.21,10.69 C55.51,9.91 55.92,9.23 56.46,8.65 C57.00,8.08 57.63,7.63 58.37,7.31 C59.11,6.99 59.91,6.83 60.79,6.83 C61.93,6.83 62.87,7.05 63.63,7.51 C64.38,7.97 64.98,8.55 65.44,9.25 C65.89,9.96 66.20,10.73 66.38,11.56 C66.55,12.39 66.62,13.18 66.59,13.93 L56.99,13.93 C56.98,14.48 57.04,14.99 57.19,15.48 C57.34,15.97 57.58,16.40 57.91,16.78 C58.24,17.16 58.66,17.46 59.18,17.68 C59.69,17.90 60.29,18.01 60.98,18.01 C61.88,18.01 62.61,17.82 63.18,17.41 C63.75,17.02 64.13,16.41 64.31,15.59 L66.39,15.59 C66.11,16.98 65.49,18.03 64.53,18.73 L64.53,18.73 Z M64.02,10.76 C63.83,10.33 63.58,9.96 63.25,9.65 C62.93,9.34 62.55,9.09 62.11,8.90 C61.68,8.72 61.19,8.63 60.66,8.63 C60.12,8.63 59.62,8.72 59.19,8.90 C58.75,9.09 58.37,9.34 58.06,9.66 C57.75,9.98 57.50,10.35 57.32,10.78 C57.13,11.20 57.03,11.65 56.99,12.13 L64.36,12.13 C64.32,11.65 64.21,11.20 64.02,10.76 L64.02,10.76 Z" id="Fill-4"></path>
+    <path d="M70.95,7.12 L70.95,8.80 L71.00,8.80 C71.35,8.11 71.89,7.61 72.64,7.30 C73.38,6.98 74.20,6.83 75.09,6.83 C76.09,6.83 76.95,7.00 77.68,7.36 C78.42,7.71 79.03,8.18 79.52,8.78 C80.01,9.38 80.37,10.08 80.62,10.86 C80.87,11.65 80.99,12.48 80.99,13.36 C80.99,14.24 80.87,15.07 80.63,15.85 C80.39,16.64 80.03,17.32 79.54,17.91 C79.06,18.49 78.44,18.95 77.71,19.29 C76.97,19.62 76.12,19.79 75.14,19.79 C74.83,19.79 74.48,19.76 74.09,19.70 C73.70,19.63 73.32,19.53 72.94,19.38 C72.56,19.24 72.20,19.04 71.86,18.79 C71.52,18.55 71.23,18.24 71.00,17.87 L70.95,17.87 L70.95,24.26 L68.84,24.26 L68.84,7.12 L70.95,7.12 L70.95,7.12 Z M78.53,11.52 C78.37,10.97 78.13,10.48 77.81,10.04 C77.49,9.61 77.07,9.27 76.57,9.01 C76.06,8.76 75.47,8.63 74.79,8.63 C74.08,8.63 73.48,8.76 72.98,9.04 C72.49,9.31 72.08,9.67 71.77,10.10 C71.46,10.55 71.23,11.05 71.09,11.60 C70.95,12.17 70.88,12.73 70.88,13.31 C70.88,13.92 70.95,14.51 71.10,15.07 C71.25,15.64 71.48,16.14 71.81,16.57 C72.13,17.01 72.55,17.35 73.06,17.62 C73.57,17.88 74.19,18.01 74.92,18.01 C75.65,18.01 76.25,17.88 76.74,17.61 C77.23,17.34 77.62,16.98 77.92,16.53 C78.22,16.08 78.43,15.57 78.56,14.99 C78.70,14.41 78.76,13.82 78.76,13.21 C78.76,12.64 78.68,12.07 78.53,11.52 L78.53,11.52 Z" id="Fill-5"></path>
+    <path d="M83.17,10.78 C83.44,9.98 83.84,9.30 84.36,8.71 C84.89,8.13 85.55,7.67 86.33,7.33 C87.10,7.00 87.99,6.83 89.00,6.83 C90.03,6.83 90.92,7.00 91.69,7.33 C92.46,7.67 93.11,8.13 93.64,8.71 C94.17,9.30 94.56,9.98 94.83,10.78 C95.09,11.57 95.23,12.42 95.23,13.33 C95.23,14.25 95.09,15.09 94.83,15.88 C94.56,16.66 94.17,17.35 93.64,17.93 C93.11,18.52 92.46,18.97 91.69,19.30 C90.92,19.63 90.03,19.79 89.00,19.79 C87.99,19.79 87.10,19.63 86.33,19.30 C85.55,18.97 84.89,18.52 84.36,17.93 C83.84,17.35 83.44,16.66 83.17,15.88 C82.91,15.09 82.78,14.25 82.78,13.33 C82.78,12.42 82.91,11.57 83.17,10.78 L83.17,10.78 Z M85.32,15.34 C85.53,15.92 85.81,16.41 86.18,16.80 C86.54,17.19 86.96,17.49 87.45,17.70 C87.94,17.91 88.46,18.01 89.00,18.01 C89.55,18.01 90.06,17.91 90.55,17.70 C91.04,17.49 91.46,17.19 91.83,16.80 C92.19,16.41 92.48,15.92 92.68,15.34 C92.89,14.75 92.99,14.09 92.99,13.33 C92.99,12.58 92.89,11.91 92.68,11.33 C92.48,10.75 92.19,10.25 91.83,9.85 C91.46,9.45 91.04,9.15 90.55,8.94 C90.06,8.73 89.55,8.63 89.00,8.63 C88.46,8.63 87.94,8.73 87.45,8.94 C86.96,9.15 86.54,9.45 86.18,9.85 C85.81,10.25 85.53,10.75 85.32,11.33 C85.11,11.91 85.01,12.58 85.01,13.33 C85.01,14.09 85.11,14.75 85.32,15.34 L85.32,15.34 Z" id="Fill-6"></path>
+    <path d="M97.83,7.12 L99.94,7.12 L99.94,19.53 L97.83,19.53 L97.83,7.12 Z" id="Fill-7"></path>
+    <path d="M105.19,7.12 L105.19,9.08 L105.24,9.08 C106.12,7.58 107.51,6.83 109.41,6.83 C110.25,6.83 110.95,6.94 111.51,7.16 C112.08,7.39 112.53,7.70 112.88,8.10 C113.23,8.50 113.47,8.98 113.61,9.53 C113.75,10.08 113.82,10.69 113.82,11.36 L113.82,19.53 L111.71,19.53 L111.71,11.12 C111.71,10.36 111.48,9.75 111.02,9.30 C110.56,8.85 109.92,8.63 109.11,8.63 C108.46,8.63 107.91,8.72 107.43,8.92 C106.96,9.11 106.57,9.38 106.26,9.73 C105.94,10.08 105.71,10.50 105.55,10.97 C105.39,11.44 105.32,11.96 105.32,12.52 L105.32,19.53 L103.21,19.53 L103.21,7.12 L105.19,7.12" id="Fill-8"></path>
+    <path d="M122.47,7.12 L122.47,8.92 L119.92,8.92 L119.92,16.62 C119.92,16.86 119.94,17.05 119.98,17.20 C120.02,17.34 120.10,17.46 120.22,17.54 C120.33,17.62 120.49,17.67 120.70,17.69 C120.91,17.71 121.18,17.73 121.50,17.73 L122.47,17.73 L122.47,19.53 L120.86,19.53 C120.32,19.53 119.85,19.49 119.46,19.42 C119.07,19.35 118.76,19.22 118.52,19.02 C118.28,18.83 118.10,18.56 117.99,18.21 C117.87,17.86 117.81,17.39 117.81,16.81 L117.81,8.92 L115.63,8.92 L115.63,7.12 L117.81,7.12 L117.81,3.39 L119.92,3.39 L119.92,7.12 L122.47,7.12" id="Fill-9"></path>
+    <path d="M0.67,11.87 L2.62,13.76 L8.76,19.50 L11.41,16.94 C11.65,16.61 11.64,16.16 11.36,15.84 L8.94,13.72 L8.95,13.72 L6.34,11.19 C6.04,10.84 6.04,10.32 6.37,9.99 L13.38,3.21 L10.20,0.12 L0.68,9.31 C-0.05,10.02 -0.05,11.17 0.67,11.87" id="Fill-10"></path>
+    <path d="M21.60,15.15 L19.66,13.27 L13.51,7.53 L10.86,10.08 C10.62,10.42 10.64,10.87 10.91,11.19 L13.33,13.31 L13.33,13.31 L15.93,15.84 C16.24,16.19 16.23,16.70 15.91,17.04 L8.89,23.82 L12.08,26.91 L19.65,19.60 L21.60,17.71 C22.33,17.01 22.33,15.86 21.60,15.15" id="Fill-11"></path>
+    <path d="M44.55,4.58 C44.55,5.24 44.00,5.77 43.32,5.77 C42.64,5.77 42.09,5.24 42.09,4.58 C42.09,3.93 42.64,3.39 43.32,3.39 C44.00,3.39 44.55,3.93 44.55,4.58" id="Fill-12"></path>
+    <path d="M100.11,4.58 C100.11,5.24 99.56,5.77 98.88,5.77 C98.20,5.77 97.65,5.24 97.65,4.58 C97.65,3.93 98.20,3.39 98.88,3.39 C99.56,3.39 100.11,3.93 100.11,4.58" id="Fill-13"></path>
+  </g>
+</svg>
+              </div>
+              <div class="l-d-f l-d-n--3col l-as-cen">
+                <svg width="22px" height="27px" viewBox="0 0 22 27">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-52.00, -407.00)" fill="#FFFFFF">
+            <g transform="translate(52.00, 407.00)">
+                <path d="M0.54,11.75 L2.49,13.64 L8.63,19.38 L11.28,16.82 C11.52,16.49 11.51,16.04 11.23,15.72 L8.81,13.60 L8.82,13.60 L6.21,11.07 C5.91,10.72 5.91,10.20 6.24,9.87 L13.25,3.09 L10.06,0 L0.54,9.19 C-0.18,9.90 -0.18,11.05 0.54,11.75"></path>
+                <path d="M20.71,14.62 L18.76,12.74 L12.62,7 L9.97,9.55 C9.73,9.89 9.74,10.34 10.02,10.65 L12.44,12.78 L12.43,12.78 L15.04,15.31 C15.34,15.66 15.33,16.17 15.01,16.51 L8,23.29 L11.18,26.38 L18.75,19.06 L20.70,17.18 C21.43,16.48 21.44,15.33 20.71,14.62"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+              </div>
+            </a>
+          </section>
+
+          <section class="l-d-f l-w-100 l-ai-str l-jc-fe">
+                        <sp-notification-dot notification_text="9" storage_key="DealsPage" url="/premium/deals/?ref_source=sitepoint&amp;ref_medium=topnav" icon="diamond" link_text="Deals" nav_location="topNav" class="
+                NavBar_item
+                f-c-white
+                f-light
+                f-small
+                l-ai-cen
+                l-ai-str
+                l-d-f--3col
+                l-d-n
+                l-ml3
+                l-ml4--4col
+                l-p-rel
+                l-ph2
+              "><a class="f-small f-light f-c-white NavBar_item l-d-f l-ai-cen" href="https://www.sitepoint.com/premium/deals/?ref_source=sitepoint&amp;ref_medium=topnav"><i class="l-mr2 f-medium fa fa-diamond"></i><span>Deals</span><div class="deal-notification f-center f-c-white f-bold">9</div></a></sp-notification-dot>
+            <a class="
+                l-d-n
+                l-d-f--3col
+                l-ai-cen
+                l-ml3
+                l-ml4--4col
+                l-pa2
+                f-small
+                f-light
+                f-c-white
+                NavBar_item" href="https://www.sitepoint.com/premium/paths?ref_source=sitepoint&amp;ref_medium=topnav">
+                <i class="l-mr2 f-medium fa fa-map-marker"></i>
+                Learning Paths
+            </a>
+                          <a class="
+                  l-d-n
+                  l-d-f--3col
+                  l-ai-cen
+                  l-ml3
+                  l-ml4--4col
+                  l-pa2
+                  f-small
+                  f-light
+                  f-c-white
+                  NavBar_item" href="https://www.sitepoint.com/premium/topics/all?q=&amp;limit=400&amp;offset=0&amp;page1&amp;ref_source=sitepoint&amp;ref_medium=topnav">
+                  <i class="l-mr2 f-medium fa fa-book"></i>
+                  Books &amp; Courses
+              </a>
+            
+            <div class="l-d-f"><a href="https://www.sitepoint.com/premium/sign-in" class="Button u-small u-outline u-white l-as-cen l-ml3 l-d-n l-d-b--2col" style="border-width: 1px;">Login</a><a href="https://www.sitepoint.com/premium/l/join?ref_source=sitepoint&amp;ref_medium=topnav" class="Button u-small l-as-cen l-ml3 l-d-n l-d-b--2col">Sign Up</a></div>
+          </section>
+        </div>
+      </nav>
+
+      <div class="l-d-n--3col NavBar_offsetSpacer"></div>
+      <script>
+                            localStorage.setItem('SP_slug', 'build-online-store-rails');
+          localStorage.setItem('SP_categories', 'ruby')
+              </script>
+      <div class="widget maestro maestro-content-type-html " id="maestro-646"><sp-fixed-countdown-bar button_text="Get All Our Books and Courses for $9" button_url="https://www.sitepoint.com/premium/l/join?ref_source=sitepoint&amp;ref_medium=noticebar" buttonclass="u-red u-white" end="2018-03-31 22:45:00 +1000" end_message="JOIN 35,339 OTHERS LEARNING WEB DEVELOPMENT WITH SITEPOINT PREMIUM" landingpageclass="v3 l-ph3" ga_event_label="646" countdown_message="Offer Ends In" server-rendered="1"><div class="
+        FixedCountdownBar_trigger
+        t-t
+        u-fixed
+      "><div class="
+            FixedCountdownBar
+            l-w-100
+            l-d-f
+            l-jc-cen
+            l-ai-cen
+            l-pv3
+            f-c-white
+            f-uppercase
+            f-bold
+            v3 l-ph3"><div class=" l-d-f l-ph3 l-ph0--4col l-fw-w l-fw-n--3col l-jc-cen l-jc-sb--2col l-ai-cen l-w-100 l-w-4col--4col " style="align-items: baseline;"><div class=" l-d-f l-ai-cen l-fw-w l-mb3 "><div class=" f-center f-left--2col f-uppercase f-small f-medium--3col f-bold "><span>Offer Ends In</span></div><div class="l-d-f"><div class="l-d-f l-ml3 f-larger"><div class="l-mr2 f-bold">02</div><div class="f-light">hrs</div></div><div class="l-d-f l-ml3 f-larger"><div class="l-mr2 f-bold">02</div><div class="f-light">mins</div></div><div class="l-d-f l-ml3 f-larger"><div class="l-mr2 f-bold">31</div><div class="f-light">secs</div></div></div></div><a data-ga-on="click" data-ga-event-category="maestro" data-ga-event-label="FixedCountdownBar_646" data-ga-event-action="click" href="https://www.sitepoint.com/premium/l/join?ref_source=sitepoint&amp;ref_medium=noticebar&amp;ref_campaign=build-online-store-rails&amp;ref_content=ruby" class="Button l-ph4 l-pv2 f-small f-medium--3col u-red u-white">Get All Our Books and Courses for $9</a></div><a class="f-c-white l-d-f l-ai-cen l-pa2 t-t"><i class="fa fa-close"></i></a></div></div></sp-fixed-countdown-bar><script>ga('SitePointPlugin:observeImpressions', 'maestro-646')</script></div>    </header>
+<div class="widget maestro maestro-content-type-html hide-for-mobile-SP" id="maestro-670"><homepage-banner heading="Get all our web development and design books and courses for just $9." tagline="Plus, &lt;b&gt;exclusive deals&lt;/b&gt; on our favorite books, courses and tools outside of SitePoint, you won't find anywhere else." image="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/12/1512627668resources.png" image_alt="SitePoint Resources" button_class="u-large" button_text="Get This Deal Now" button_link="/premium/l/join?ref_source=sitepoint&amp;ref_medium=article-pushdown" bg_color="#262626" bg_pattern="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/03/1521086357Frame-45.png" ga_event_label="maestro-670"><div class="l-w-100 l-d-f l-fw-w l-jc-cen l-ai-cen l-pa4 f-center l-p-rel HomepageBanner" style="background-color: rgb(38, 38, 38); background-image: url(&quot;https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2018/03/1521086357Frame-45.png&quot;), linear-gradient(165deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 65%, rgba(38, 38, 38, 0.3) 65.1%, rgba(38, 38, 38, 0.3));"><div class="l-d-f--2col l-jc-sb l-w-100 l-w-4col--4col l-pv3 l-ph4--2col"><div class="l-d-f l-d-b--2col l-fw-w l-w-2col--2col l-jc-cen l-jc-fs--3col l-mh-auto f-center f-left--3col"><h2 class="l-d-b l-ma0 f-large f-xlarge--2col f-bold f-c-white">Get all our web development and design books and courses for just $9.</h2><div class="l-d-b l-mv3 f-light f-medium f-larger--2col f-c-white f-lh-title">Plus, <b>exclusive deals</b> on our favorite books, courses and tools outside of SitePoint, you won't find anywhere else.</div><div class="f-center l-d-b l-d-n--3col l-w-100"><img class="l-h6 l-mb2" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/1512627668resources.png" alt="SitePoint Resources"></div><a data-ga-on="click" data-ga-event-category="maestro" data-ga-event-label="maestro-670" data-ga-event-action="click" href="https://www.sitepoint.com/premium/l/join?ref_source=sitepoint&amp;ref_medium=article-pushdown" class="Button Button l-mt4 l-mb3 l-w-1col u-large">Get This Deal Now</a></div><div class="l-d-n l-d-f--3col l-w-1col l-w-2col--4col l-jc-fe HomepageBanner_image" style="background-image: url(&quot;https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/12/1512627668resources.png&quot;);"></div></div><a class="f-c-white l-pa2 t-t HomepageBanner_dismiss"><i class="fa fa-close"></i></a></div></homepage-banner></div><div class="l-p-rel t-bg-white" role="main">
+      <div class="l-p-rel l-w-100 l-mh-auto Article_overflow">
+          <div class="l-w-100 t-bg">
+      <div class="l-w-4col--4col l-mh3 l-mh-auto--3col">
+        <div class="f-medium f-c-grey-200 l-pt3">
+                    <ol itemscope="" itemtype="https://schema.org/BreadcrumbList" class="Article_breadcrumb l-ml0">
+            <li class="breadcrumb__item f-capitalize l-d-ib t-ls-n" itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+              <a itemprop="item" itemscope="" itemtype="https://schema.org/Thing" class="f-c-white f-bold" href="https://www.sitepoint.com/ruby/">
+                <span itemprop="name">
+                  ruby                </span>
+              </a>
+            </li>
+            <li class="breadcrumb__item f-c-grey-200 l-d-ib t-ls-n" itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                              <span itemprop="name">
+                  August 01, 2014                </span>
+                          </li>
+            <li class="breadcrumb__item l-d-ib t-ls-n" itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                                                By
+                  <a itemprop="item" itemscope="" itemtype="https://schema.org/Thing" class="f-c-grey-200" href="https://www.sitepoint.com/author/khusseiny/">
+                    <span itemprop="name">
+                      Karim El Husseiny                    </span>
+                  </a>
+                                          </li>
+          </ol>
+        </div>
+        <div class="l-d-f l-fd-col l-fd-row--3col l-jc-sb">
+          <div>
+            <h1 class="f-lh-title f-larger l-mb4 f-c-white f-xxlarge--2col">
+              <span class="f-c-white l-mr3">Build an Online Store with Rails</span>
+            </h1>
+                      </div>
+                <div class="l-w-1col--3col l-as-cen l-fs0 l-d-n l-d-b--2col l-ml3">
+        <div class="f-c-white f-small f-bold l-w-100 l-mb3">Related Topics:</div>
+        <div class="l-d-f l-fw-w">
+        <a class="f-c-white" href="https://www.sitepoint.com/ruby/ruby-news-opinion/"><div class="ArticleTags l-mr2 f-smaller l-d-f l-jc-cen l-ai-cen l-mb3">News &amp; Opinion</div></a><a class="f-c-white" href="https://www.sitepoint.com/ruby/ruby-on-rails/"><div class="ArticleTags l-mr2 f-smaller l-d-f l-jc-cen l-ai-cen l-mb3">Ruby on Rails</div></a><a class="f-c-white" href="https://www.sitepoint.com/ruby/ruby-deployment/"><div class="ArticleTags l-mr2 f-smaller l-d-f l-jc-cen l-ai-cen l-mb3">Ruby Deployment</div></a><a class="f-c-white" href="https://www.sitepoint.com/ruby/jruby/"><div class="ArticleTags l-mr2 f-smaller l-d-f l-jc-cen l-ai-cen l-mb3">JRuby</div></a><a class="f-c-white" href="https://www.sitepoint.com/ruby/gems/"><div class="ArticleTags l-mr2 f-smaller l-d-f l-jc-cen l-ai-cen l-mb3">Gems</div></a><a class="f-c-white" href="https://www.sitepoint.com/ruby/"><div class="ArticleTags l-mr2 f-smaller l-d-f l-jc-cen l-ai-cen l-mb3">More...</div></a>        </div>
+      </div>
+              </div>
+      </div>
+    </div>
+                <div class="l-d-f l-jc-sb l-mt3 l-w-4col--4col l-mh-auto" data-hellobar="content">
+        <div class="l-w-100 l-w-2col-i--2col l-fg1 l-mh3--2col l-mh0--4col">
+                        <div class="l-mb4 l-pa3 l-pt0">
+    
+      <div class="l-d-f l-jc-cen f-center l-mh-auto l-o-h l-mt3">
+        <div class="widget maestro maestro-content-type-html hide-for-mobile-SP" id="maestro-659"><script>
+bsa_targeting.push([
+                "tags", 
+                [
+                        ["GlennG"]
+                ]
+]);
+</script>
+
+<div id="bsa-zone_1509641776795-6_123456" data-google-query-id="CNKig_ehltoCFUWQjgod24EMFw"><div id="google_ads_iframe_/8691100/SitePoint_728x90_ArticlesLeaderboard_Content_Articles_0__container__" style="border: 0pt none; display: inline-block; width: 728px; height: 90px;"><iframe style="border: 0px none; vertical-align: bottom;" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/container_002.html" id="google_ads_iframe_/8691100/SitePoint_728x90_ArticlesLeaderboard_Content_Articles_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" data-is-safeframe="true" width="728" height="90" frameborder="0"></iframe></div></div><script>ga('SitePointPlugin:observeImpressions', 'maestro-659')</script></div>      </div>
+
+        <div class="ArticleCopy language-">
+      <div class="l-mt3 l-mh5--2col">
+      <p>Online shopping is a form of electronic commerce which allows 
+customers to directly buy products or services like e-books, software, 
+and streaming media over the Internet using a web browser. This kind of 
+shopping is a part of our daily lives, used by many well-known sites, 
+such as Amazon, E-bay, or various streaming media/educational sites.</p>
+<p>This series will build an online store from scratch. We will learn how to use Rails with some great tools, such as:</p>
+<ul><li><strong>Foundation</strong> to design responsive pages</li>
+<li><strong>Redis</strong> to store shopping cart items quickly in memory</li>
+<li><strong>Braintree</strong> to accept payments and provide premium plan subscriptions.</li>
+</ul><p>Let’s get started!</p>
+<h3><strong>Main Features</strong></h3>
+<ul><li><strong>Responsive pages:</strong>  The app will be built using a responsive framework to provide optimal viewing for different devices.</li>
+<li><strong>Shopping cart:</strong> Allow users to accumulate a list of 
+items for purchase while navigating the website, then calculate the 
+total of the order before checking out.</li>
+<li><strong>Simple payment scenario:</strong> Accept payments from user’s credit cards directly without saving them into your merchant account.</li>
+<li><strong>Save credit card details:</strong> Users can associate their
+ credit cards with their accounts so they don’t have to add card details
+ everytime they want to buy something.</li>
+<li><strong>Manage credit cards:</strong> Extend payment process 
+features by providing the ability to add and remove credit cards and 
+choose between them when checking out.</li>
+<li><strong>Subscription plans:</strong> Provide several subscription plans for users, allowing them to upgrade, downgrade, and cancel said subscriptions.</li>
+</ul><h3><strong>Skills Needed</strong></h3>
+<ul><li>Good experience with Ruby on Rails.</li>
+<li>Intermediate level of HTML/CSS3.</li>
+<li>Basic knowledge of JS/Coffescript &amp; AJAX</li>
+<li>Understanding the concepts of responsive CSS.</li>
+<li>Introductory-level knowledge of Redis, a key-value store.</li>
+<li>Overview of how online payment systems work.</li>
+</ul><h3><strong>Tools</strong></h3>
+<ul><li><strong>Ruby 2.1.0</strong> – Programming language</li>
+<li><strong>Rails</strong> – Back-end framework</li>
+<li><strong>Foundation 5</strong> – Front-end css framework</li>
+<li><strong>Devise</strong> – User authentication</li>
+<li><strong>Redis</strong> – Key-value store</li>
+<li><strong>Braintree</strong> – Payment system</li>
+</ul><blockquote>
+<div class="widget maestro maestro-content-type-html hide-for-mobile-SP" id="maestro-682"><script id="aniviewJS" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/SitepointPMP.js"></script><div style="width: 100%; margin: 0px auto; max-width: 544px;"><div id="aniBox" style="overflow: hidden; transition: height 1s ease 0s; opacity: 0; width: 544px; height: 1px;"><div id="aniplayer_aniviewJS"><div id="aniplayer_aniviewJSgui"><div id="av-container" class=" desktop hide-controls" style="width: 544px; height: 306px;"><div id="av-inner"><div id="slot"><div id="imgpreloader"></div><div id="preloader" style="display: block;"><svg class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" xml:space="preserve"><g><path d="M23.3,14.9c0-0.4-0.3-0.9-0.8-1.2l-10-6.4c-1.1-0.7-2-0.1-2,1.3v7.5C15.8,13.7,23.1,14.9,23.3,14.9z M23.3,15 c-7.9,0.6-11.4,3.5-12.8,5.7v0.8c0,1.4,0.9,2,2,1.3l10-6.4C23.1,16,23.4,15.5,23.3,15z"></path></g></svg><svg class="circle" width="70" height="70" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="35" cy="35" r="32"></circle></svg><svg class="circle active" width="70" height="70" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="35" cy="35" r="32"></circle></svg></div><div id="videoslot" class="loaded" style="width: 544px; height: 306px;"></div></div><div id="gui"><div id="timeline" class=" av-bottom"><div id="timeline-buffer" style="width: 100%;"></div><div id="timeline-moveto"></div><div id="timeline-progress" style=""></div></div><div id="buttons"><div id="left"><div id="play-pause" class="pause" style="display: inline;"></div><div id="phone" style="display: none;"><div class="icon"></div><div id="phone-num"></div></div></div><div id="right"><div id="fullscreen" class="off" style="display: none;"></div><div id="share" style="display: none;"></div><div id="sound" style="display: none;"><div class="on"></div></div></div></div><div id="big-play" style="display: none;"></div><div id="timer" style="display: none;"></div><div id="close-btn" style="display: none;"></div><div id="skip-btn" style="display: none;">skip</div><div id="aniview-credit" style="display: inline;">Ads by Hooly<span style="height: 5px; width: 5px; background-image: url(&quot;https://hoolymedia.com&quot;);"></span></div></div></div></div></div><div id="anibid"></div></div></div></div><script>ga('SitePointPlugin:observeImpressions', 'maestro-682')</script></div><p><strong>Note:</strong> The source code is available on this <a href="https://github.com/Azzurrio/Moviestore">Github repository</a>.</p>
+</blockquote>
+<hr><h2><strong>Step 1:</strong> Initialize The Project</h2>
+<h3><strong>Create Project</strong></h3>
+<p>Let’s create a new Rails application and scaffold. We’re using mysql as our database:</p>
+<pre class=" language-bash"><code class=" language-bash">$ rails new moviestore -d mysql
+$ <span class="token function">cd</span> moviestore</code></pre>
+<h3><strong>Scaffolding</strong></h3>
+<p>Generate a <code class=" language-undefined">movie</code> scaffold with some basic model attributes.</p>
+<pre class=" language-bash"><code class=" language-bash">$ rails g scaffold movie title release_year:integer price:float description:text imdb_id poster_url --skip-stylesheets</code></pre>
+<p>Here we used the <code class=" language-undefined">--skip-stylesheets</code> option with the scaffold to avoid generating any stylesheets given that we’ll be using Foundation.</p>
+<p>Now we can create &amp; migrate our database.</p>
+<pre class=" language-bash"><code class=" language-bash">$ rake db:create
+$ rake db:migrate</code></pre>
+<h3><strong>Seeds File</strong></h3>
+<p>We need some data to work with, so I’ve created a csv file named <a href="https://github.com/Azzurrio/moviestore/blob/master/db/seeds_data/movies.csv"><code class=" language-undefined">movies.csv</code></a> which contains some movies records. I put it under <code class=" language-undefined">db/seeds_data</code> directory.</p>
+<p>We’ll loop through the csv file records so we can load its rows into our database.</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token keyword">require</span> <span class="token string">'csv'</span>
+<span class="token constant">CSV</span><span class="token punctuation">.</span><span class="token function">foreach</span><span class="token punctuation">(</span><span class="token constant">Rails</span><span class="token punctuation">.</span>root<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">"db/seeds_data/movies.csv"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> headers<span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token keyword">do</span> <span class="token operator">|</span>row<span class="token operator">|</span>
+  <span class="token constant">Movie</span><span class="token punctuation">.</span><span class="token function">find_or_create_by</span><span class="token punctuation">(</span>title<span class="token punctuation">:</span> row<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> release_year<span class="token punctuation">:</span> row<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> row<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> description<span class="token punctuation">:</span> row<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> imdb_id<span class="token punctuation">:</span> row<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> poster_url<span class="token punctuation">:</span> row<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span></code></pre>
+<p>After that, you can run the seeds file using <code class=" language-undefined">rake</code>:</p>
+<pre class=" language-bash"><code class=" language-bash">$ rake db:seed</code></pre>
+<h3><strong>Routes Configuration</strong></h3>
+<h4><strong>Root Route</strong></h4>
+<p>For now, make the root route go to the <code class=" language-undefined">index</code> action of the movies controller:</p>
+<pre class=" language-ruby"><code class=" language-ruby">root <span class="token string">'movies#index'</span></code></pre>
+<h4><strong>REST Resources</strong></h4>
+<p>We don’t need all the endpoints provided by <code class=" language-undefined">resource</code>, such as <code class=" language-undefined">create</code>, <code class=" language-undefined">update</code>, etc. Restrict the available actions to <code class=" language-undefined">index</code> and <code class=" language-undefined">show</code>:</p>
+<pre class=" language-ruby"><code class=" language-ruby">resources <span class="token symbol">:movies</span><span class="token punctuation">,</span> only<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token symbol">:show</span><span class="token punctuation">,</span> <span class="token symbol">:index</span><span class="token punctuation">]</span></code></pre>
+<p>Also, delete all unnecessary files in <strong>views</strong> and useless code in <code class=" language-undefined">MoviesController</code>.</p>
+<h3><strong>Finish Setup</strong></h3>
+<p>Finally, run <code class=" language-undefined">rails s</code> and open <a href="http://localhost:3000/">localhost:3000</a> in the browser and you’ll see our movies list.</p>
+<p>Well done! we just have finished the initial project setup, but the 
+style is lacking. Let’s add some nice style using Zurb Foundation.</p>
+<hr><h2><strong>Step 2:</strong> Responsive Design with Foundation</h2>
+<blockquote>
+<p><strong>Foundation</strong> is a front-end framework similar to 
+Twitter Bootstrap, it’s built on SASS instead of LESS which can make it 
+easier to integrate it into your Rails application.</p>
+</blockquote>
+<h3><strong>Installation</strong></h3>
+<p>To install Foundation, add this line to the application’s Gemfile:</p>
+<pre class=" language-ruby"><code class=" language-ruby">gem <span class="token string">'foundation-rails'</span></code></pre>
+<p>and then:</p>
+<pre class=" language-bash"><code class=" language-bash">$ bundle <span class="token function">install</span></code></pre>
+<h3><strong>Configuring Foundation</strong></h3>
+<p>Run the following command to add Foundation:</p>
+<pre class=" language-bash"><code class=" language-bash">$ rails g foundation:install</code></pre>
+<p>This generates a few files required by Foundation, including a layout
+ file, which asks you if you want to overwrite your existing layout 
+file. You do.</p>
+<blockquote>
+<p><strong>Hint</strong> You have to restart the server after adding the foundation gem.</p>
+</blockquote>
+<h4><strong>Override Foundation</strong></h4>
+<p>If you look at the <strong>application.css</strong> file now, you notice that it requires a <code class=" language-undefined">foundation_and_overrides</code>
+ file that was created by the foundation generator. It allows us to 
+customize Foundation by setting variables. It contains alot of comments 
+showing us which variables we can customize. </p>
+<h4><strong>Foundation Icon Fonts</strong></h4>
+<p>Naturally, we’ll need an icons set that to add meaningful sybmols to 
+our design. Fortunately, Zurb Foundation provides icon fonts which you 
+can download from <a href="http://zurb.com/playground/foundation-icon-fonts-3">here</a>. Add it to your application by copying the <strong>fonts</strong> folder into your <strong>app/assets</strong> folder and moving <strong>foundation-icons.css</strong> file to <strong>app/assets/stylesheets</strong> folder.</p>
+<p><img alt="Foundation Icons" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/Screenshot%25202014-07-11%252012.html" width="100%"></p>
+<h3><strong>Customize the Layout</strong></h3>
+<p>The layout looks OK for now, but there’s a lot we can do to improve 
+it. We’ll add some structure to the page and include a header, logo, 
+footer, and main content.<br>
+To do this quickly, grab one of the <a href="http://foundation.zurb.com/templates.html">Foundation template’s</a> HTML code and drop it between the <code class=" language-undefined"></code> tags of our layout page. It’s very easy to use.</p>
+<h5><strong>Application Template</strong></h5>
+<p>After some customizations to one of the Foundation templates, the 
+layout now consists of 4 main parts ( topbar, alerts, main-content and 
+footer):</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>body<span class="token operator">&gt;</span>
+
+  <span class="token operator">&lt;</span><span class="token string">%= render "layouts/header" %&gt;
+
+  &lt;%=</span> render <span class="token string">"layouts/alerts"</span> <span class="token string">%&gt;
+
+  &lt;div id="main-content" class="row full-min-height"&gt;</span>
+    <span class="token operator">&lt;</span><span class="token string">%= yield %&gt;
+  &lt;/div&gt;
+
+  &lt;footer class=</span><span class="token string">"row"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"large-12 columns"</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>hr<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>p<span class="token operator">&gt;</span>© <span class="token constant">MovieStore</span> <span class="token number">2014</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>footer<span class="token operator">&gt;</span>
+
+  <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">=</span> javascript_include_tag <span class="token string">"application"</span> <span class="token string">%&gt;
+
+&lt;/body&gt;</span></code></pre>
+<p>We’ve two partials here to help organize the layout. The first one is <code class=" language-undefined">_header</code>, which contains the topbar menu:</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"row"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>nav <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"top-bar column"</span> data<span class="token operator">-</span>topbar<span class="token operator">&gt;</span>
+
+      <span class="token operator">&lt;</span>ul <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"title-area"</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>li <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"name"</span><span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span>a href<span class="token operator">=</span><span class="token string">"/"</span><span class="token operator">&gt;</span>
+              <span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fi-play-video"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span> <span class="token constant">MovieStore</span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>a<span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>li <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"toggle-topbar"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span>a href<span class="token operator">=</span><span class="token string">"#"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span>span<span class="token operator">&gt;</span><span class="token constant">Menu</span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>a<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">&gt;</span>
+
+      <span class="token operator">&lt;</span>section <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"top-bar-section"</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>ul <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"right"</span><span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span>li<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%=link_to "Register", "#" %&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;%=</span>link_to <span class="token string">"Login"</span><span class="token punctuation">,</span> <span class="token string">"#"</span> <span class="token operator">%</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>section<span class="token operator">&gt;</span>
+
+    <span class="token operator">&lt;</span><span class="token operator">/</span>nav<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span></code></pre>
+<p>The second one is <code class=" language-undefined">_alerts</code>, which renders any flash alerts or notices:</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span><span class="token operator">%</span><span class="token keyword">if</span> notice<span class="token punctuation">.</span>present<span class="token operator">?</span> <span class="token operator">||</span> alert<span class="token punctuation">.</span>present<span class="token operator">?</span> <span class="token string">%&gt;
+  &lt;div class="row"&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span>is_alert <span class="token operator">=</span> alert<span class="token punctuation">.</span>present<span class="token operator">?</span> <span class="token operator">?</span> <span class="token string">"alert"</span> <span class="token punctuation">:</span> <span class="token string">""</span><span class="token string">%&gt;
+      &lt;div data-alert class="alert-box &lt;%=is_alert%&gt;</span>"<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token string">%=notice || alert%&gt;
+        &lt;a href=</span><span class="token string">"#"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"close"</span><span class="token operator">&gt;</span><span class="token operator">&amp;</span>times<span class="token punctuation">;</span><span class="token operator">&lt;</span><span class="token operator">/</span>a<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">%</span><span class="token keyword">end</span><span class="token operator">%</span><span class="token operator">&gt;</span></code></pre>
+<h3><strong>Customize CSS</strong></h3>
+<h4><strong>CSS Helpers Classes</strong></h4>
+<p>Create a new file named <strong>helpers.scss</strong> inside the <strong>app/stylesheets</strong>
+ directory. We’ll define some helper classes in this file to hold the 
+most used CSS in our application. The purpose of these classes is to 
+make your code reusable, faster, and more efficient. This is one of the <a href="http://www.smashingmagazine.com/2011/12/12/an-introduction-to-object-oriented-css-oocss/">OOCSS princables</a>,
+ which I consider good CSS best practices. If you haven’t read about 
+OOCSS ( object oriented CSS ) before, I encourage you to do so!</p>
+<p>Here is the <a href="https://github.com/Azzurrio/moviestore/blob/master/app/assets/stylesheets/helpers.scss">helpers</a> stylesheet. </p>
+<h4><strong>Foundation Variables</strong></h4>
+<p>As explained previously, we will customize some Foundation variables 
+to change the default colors and styles, like buttons, labels, inputs, 
+and so on. The best way to know which variables you have to change can 
+be found in the  Foundation docs. The end of each section shows the 
+relevant variables and how to customize them. Find these variables 
+inside <strong>foundation_overrides.scss</strong> and change them with the values you want. You can find my customized variables <a href="https://github.com/Azzurrio/moviestore/blob/master/app/assets/stylesheets/foundation_and_overrides.scss">here</a>.</p>
+<h4><strong>Custom Layout Style</strong></h4>
+<p>We want to add more customization to the layout. To do this, create a <strong>layout.scss</strong> file and add the following:</p>
+<pre class=" language-css"><code class=" language-css">// Custom layout styles
+// Default font family
+<span class="token atrule"><span class="token rule">@font-face</span></span> <span class="token punctuation">{</span>
+  <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">'gotham-rounded'</span><span class="token punctuation">;</span>
+  <span class="token property">src</span><span class="token punctuation">:</span> <span class="token url">url(gotham-rounded-medium.otf)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">// Body background
+body </span><span class="token punctuation">{</span>
+  <span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token url">url(body_bg.png)</span><span class="token punctuation">;</span>
+  <span class="token property">background-position</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token hexcode">#fff</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">// Logo
+<span class="token class">.title-area</span></span><span class="token punctuation">{</span>
+  <span class="token selector">a </span><span class="token punctuation">{</span> <span class="token property">padding</span><span class="token punctuation">:</span><span class="token number">0</span> <span class="token important">!important</span> <span class="token punctuation">}</span>
+  <span class="token selector">i </span><span class="token punctuation">{</span>
+    <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token number">30</span>px<span class="token punctuation">;</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+    <span class="token property">top</span><span class="token punctuation">:</span> <span class="token number">2</span>px<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token selector">// Topbar items
+<span class="token class">.top-bar-section</span> ul li </span><span class="token punctuation">{</span> <span class="token property">background</span><span class="token punctuation">:</span> transparent <span class="token punctuation">}</span>
+<span class="token selector">// Forms
+<span class="token class">.form-container</span> </span><span class="token punctuation">{</span>
+  <span class="token selector">padding: 3% 3%;
+  <span class="token class">.switch</span> &gt; div </span><span class="token punctuation">{</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+    <span class="token property">top</span><span class="token punctuation">:</span> -<span class="token number">5</span>px<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3><strong>Style Pages</strong></h3>
+<h4><strong>Index Page</strong></h4>
+<p>Using a <strong>grid view</strong> will be the simplest solution to display the movies. We can do this using the <a href="http://foundation.zurb.com/docs/components/grid.html">Foundation Grid System</a> which gives you a way to evenly split contents of a list within the grid. Let’s customize the <code class=" language-undefined">index</code> page and add the grid classes:</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>h4 <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"column"</span><span class="token operator">&gt;</span><span class="token constant">Featured</span> <span class="token constant">Movies</span><span class="token operator">&lt;</span><span class="token operator">/</span>h4<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"column"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>ul <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"movies-grid no-bullet row"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token variable">@movies</span><span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>movie<span class="token operator">|</span> <span class="token string">%&gt;
+      &lt;li class="large-3 medium-4 small-12 column"&gt;</span>
+        <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"movie-card padly"</span><span class="token operator">&gt;</span>
+          <span class="token operator">&lt;</span><span class="token string">%= link_to movie, class: "poster" do %&gt;
+            &lt;%=</span> image_tag movie<span class="token punctuation">.</span>poster <span class="token string">%&gt;
+          &lt;% end %&gt;</span>
+          <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"movie-info ell glassy-bg padmy padlx"</span><span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"title"</span><span class="token operator">&gt;</span>
+              <span class="token operator">&lt;</span>h6<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%= movie.title %&gt; &lt;span&gt;(&lt;%=</span> movie<span class="token punctuation">.</span>release_year <span class="token string">%&gt;)&lt;/span&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h6<span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+            <span class="token operator">&lt;</span>p <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"left price label movie-label radius"</span><span class="token operator">&gt;</span>$ <span class="token operator">&lt;</span><span class="token string">%= movie.price %&gt;&lt;/p&gt;
+            &lt;%=</span> link_to movie<span class="token punctuation">.</span>imdb<span class="token punctuation">,</span> <span class="token keyword">class</span><span class="token punctuation">:</span> <span class="token string">"right"</span> <span class="token keyword">do</span> <span class="token string">%&gt;
+              &lt;%= image_tag asset_path("imdb_logo.png") %&gt;</span>
+            <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token string">%&gt;
+          &lt;/div&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token string">%&gt;
+  &lt;/ul&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span></code></pre>
+<blockquote>
+<p><strong>Foundation Grid System</strong> is based on twelve columns 
+and we define these with CSS classes, so you can create powerful 
+multi-device layouts quickly and easily with the default 12-column, 
+nest-able Foundation grid.</p>
+</blockquote>
+<p>We’ve also added some of our own CSS classes to improve the design and fix its bugs:</p>
+<pre class=" language-css"><code class=" language-css"><span class="token selector"><span class="token class">.movies-grid</span> </span><span class="token punctuation">{</span>
+  <span class="token selector"><span class="token class">.movie-card</span> </span><span class="token punctuation">{</span>
+    <span class="token selector">width<span class="token pseudo-class">:220px</span>;
+    margin<span class="token pseudo-class">:auto</span>;
+    <span class="token class">.poster</span> img </span><span class="token punctuation">{</span>
+      <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">325</span>px<span class="token punctuation">;</span>
+      <span class="token property">width</span><span class="token punctuation">:</span><span class="token number">100%</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token selector"><span class="token class">.movie-info</span> </span><span class="token punctuation">{</span> <span class="token selector"><span class="token class">.title</span> </span><span class="token punctuation">{</span> <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">4</span>em<span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Notice, we call <code class=" language-undefined">imdb</code> and <code class=" language-undefined">poster</code> on <code class=" language-undefined">@movie</code> which aren’t attributes in the <code class=" language-undefined">Movie</code> model. That’s because I’ve created two instance methods which returns appropriate URLs based on other attributes.</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token keyword">class</span> <span class="token class-name">Movie</span> <span class="token operator">&lt;</span> <span class="token constant">ActiveRecord</span><span class="token punctuation">:</span><span class="token symbol">:Base</span>
+  <span class="token keyword">def</span> poster
+    <span class="token string">"http://ia.media-imdb.com/images/M/<span class="token interpolation"><span class="token delimiter tag">#{</span>poster_url<span class="token delimiter tag">}</span></span>"</span>
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> imdb
+    <span class="token string">"http://www.imdb.com/title/<span class="token interpolation"><span class="token delimiter tag">#{</span>imdb_id<span class="token delimiter tag">}</span></span>/"</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span></code></pre>
+<p><img alt="Foundation Icons" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/IMG_20140711_124229.html" width="100%"></p>
+<h4><strong>Show Page</strong></h4>
+<p>The last style-related task is redesign the <code class=" language-undefined">show</code> page based on our new layout and classes:</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"large-3 small-12 column"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token string">%=image_tag @movie.poster%&gt;
+&lt;/div&gt;
+
+&lt;div class=</span><span class="token string">"large-9 small-12 column"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>h3<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token string">%= @movie.title %&gt;
+    (&lt;%=</span> <span class="token variable">@movie</span><span class="token punctuation">.</span>release_year <span class="token string">%&gt;)
+    &lt;%=link_to @movie.imdb do%&gt;</span>
+      <span class="token operator">&lt;</span><span class="token string">%=image_tag asset_path("imdb_logo.png")%&gt;
+    &lt;%end%&gt;
+  &lt;/h3&gt;
+  &lt;p class=</span><span class="token string">"label movie-label radius mb1"</span><span class="token operator">&gt;</span>$ <span class="token operator">&lt;</span><span class="token string">%= @movie.price %&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;%=</span> <span class="token variable">@movie</span><span class="token punctuation">.</span>description <span class="token string">%&gt;&lt;/p&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span></code></pre>
+<p>Perfect! You now understand how to deal with Foundation, how to override it, and how to add your own customized stylesheets.</p>
+<hr><h2><strong>Step 3:</strong>  Devise User Model (Authentication)</h2>
+<p>In order to handle authentication in our app, we have to create <code class=" language-undefined">User</code> model with simple registeration and login forms. <a href="https://github.com/plataformatec/devise">Devise</a> is one of the easiest ways to do this.</p>
+<h3><strong>Install Devise</strong></h3>
+<p>First as we used, add devise gem to your <strong>Gemfile</strong> and run the <code class=" language-undefined">bundle</code> command to install it:</p>
+<pre class=" language-ruby"><code class=" language-ruby">gem <span class="token string">'devise'</span></code></pre>
+<p>after installing Devise, run the generator to create the <strong>devise.rb</strong> initializer which describes Devise’s configuration options:</p>
+<pre class=" language-bash"><code class=" language-bash">$ rails generate devise:install</code></pre>
+<h3><strong>Add User Model</strong></h3>
+<p>Create the <code class=" language-undefined">User</code> model and associate it with Devise using its generator:</p>
+<pre class=" language-bash"><code class=" language-bash">$ rails generate devise User</code></pre>
+<p>This will create the <code class=" language-undefined">User</code> model and configure it with default Devise modules. The generator also configures your <strong>config/routes.rb</strong> file to point to the Devise controller.</p>
+<pre class=" language-bash"><code class=" language-bash">$ rake db:migrate</code></pre>
+<h3><strong>Configuring Routes</strong></h3>
+<p>Devise provides the <code class=" language-undefined">devise_for</code> method in our <strong>routes.rb</strong> file, allowing us to configure devise routes path names like so:</p>
+<pre class=" language-ruby"><code class=" language-ruby">devise_for <span class="token symbol">:users</span><span class="token punctuation">,</span> path_names<span class="token punctuation">:</span> <span class="token punctuation">{</span> sign_in<span class="token punctuation">:</span> <span class="token string">'login'</span><span class="token punctuation">,</span> sign_out<span class="token punctuation">:</span> <span class="token string">'logout'</span><span class="token punctuation">,</span> sign_up<span class="token punctuation">:</span> <span class="token string">'register'</span> <span class="token punctuation">}</span></code></pre>
+<h3><strong>Configuring Views</strong></h3>
+<blockquote>
+<p><strong>Devise</strong> is a complete MVC solution based on Rails engines which is based on a modularity concept: “use just what you really need”.</p>
+</blockquote>
+<p>As you may have noticed, there are no generated views for Devise. 
+That’s because Devise’s views are packaged inside the gem. We only need 
+to generate a few set of views (like <code class=" language-undefined">register</code> &amp; <code class=" language-undefined">login</code> forms) and customize them. Run the following generator and pass it a list of these modules with  <code class=" language-undefined">-v</code> flag and it will copy the selected views into your application.</p>
+<pre class=" language-bash"><code class=" language-bash">$ rails generate devise:views -v registrations sessions</code></pre>
+<p>Good! Now we can change the registration and login forms with our customized layout.</p>
+<h4><strong>Registration Form</strong></h4>
+<p><strong>views/registrations/new.html.erb</strong></p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>h2<span class="token operator">&gt;</span><span class="token constant">Register</span><span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">&gt;</span>
+
+  <span class="token operator">&lt;</span><span class="token string">%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %&gt;
+    &lt;%=</span> devise_error_messages<span class="token operator">!</span> <span class="token string">%&gt;
+
+    &lt;div class="mb1"&gt;</span><span class="token operator">&lt;</span><span class="token string">%= f.email_field :email, autofocus: true, placeholder: "Email", class: "radius" %&gt;&lt;/div&gt;
+
+    &lt;div class=</span><span class="token string">"mb1"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%= f.password_field :password, autocomplete: "off", placeholder: "Password", class: "radius" %&gt;&lt;/div&gt;
+
+    &lt;div class=</span><span class="token string">"mb1"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm password", class: "radius" %&gt;&lt;/div&gt;
+
+    &lt;div&gt;&lt;%=</span> f<span class="token punctuation">.</span>submit <span class="token string">"Let's Go"</span><span class="token punctuation">,</span> <span class="token keyword">class</span><span class="token punctuation">:</span> <span class="token string">"button"</span> <span class="token string">%&gt;&lt;/div&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token string">%&gt;
+  &lt;%= render "devise/shared/links" %&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span></code></pre>
+<h4><strong>Login Form</strong></h4>
+<p><strong>views/sessions/new.html.erb</strong></p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>h2<span class="token operator">&gt;</span><span class="token constant">Login</span><span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">&gt;</span>
+
+  <span class="token operator">&lt;</span><span class="token string">%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %&gt;
+    &lt;div class=</span><span class="token string">"mb1"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%= f.email_field :email, autofocus: true, placeholder: "Email", class: "radius" %&gt;&lt;/div&gt;
+
+    &lt;div class=</span><span class="token string">"mb1"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%= f.password_field :password, autocomplete: "off", placeholder: "Password", class: "radius" %&gt;&lt;/div&gt;
+
+    &lt;% if devise_mapping.rememberable? -%&gt;
+      &lt;div class=</span><span class="token string">"switch round small mb1"</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"inline-block left prm"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%= f.check_box :remember_me %&gt; &lt;%=</span> f<span class="token punctuation">.</span>label <span class="token symbol">:remember_me</span> <span class="token string">%&gt;&lt;/div&gt;</span>
+        <span class="token operator">&lt;</span>span<span class="token operator">&gt;</span><span class="token constant">Remember</span> me<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">end</span> <span class="token operator">-</span><span class="token string">%&gt;
+
+    &lt;div class="clear"&gt;</span><span class="token operator">&lt;</span><span class="token string">%= f.submit "Let me in", class: "button" %&gt;&lt;/div&gt;
+  &lt;% end %&gt;
+
+  &lt;%=</span> render <span class="token string">"devise/shared/links"</span> <span class="token string">%&gt;
+&lt;/div&gt;</span></code></pre>
+<p><img alt="Foundation Icons" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/IMG_20140711_125505.html" width="100%"></p>
+<h4><strong>Topbar User Section</strong></h4>
+<p>Since we now have signed-in and signed-out users, edit topbar section inside <strong>layout/_header.html.erb</strong> file to show the right links depending on the Devise <code class=" language-undefined">signed_in?</code> helper.</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>ul <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"right"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token keyword">if</span> signed_in<span class="token operator">?</span><span class="token string">%&gt;
+    &lt;li&gt;</span><span class="token operator">&lt;</span><span class="token string">%=link_to current_user.email, edit_user_registration_path%&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;%=</span>link_to <span class="token string">"Logout"</span><span class="token punctuation">,</span> destroy_user_session_path<span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token symbol">:delete</span><span class="token string">%&gt;&lt;/li&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token keyword">else</span><span class="token string">%&gt;
+    &lt;li&gt;</span><span class="token operator">&lt;</span><span class="token string">%=link_to "Register", new_user_registration_path%&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;%=</span>link_to <span class="token string">"Login"</span><span class="token punctuation">,</span> new_user_session_path<span class="token string">%&gt;&lt;/li&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token keyword">end</span><span class="token operator">%</span><span class="token operator">&gt;</span></code></pre>
+<h2>    </h2>
+<h2><strong>Step 4:</strong> Shopping Cart</h2>
+<p>In this step, we want to add a shopping cart so users can add the 
+movies that they want to buy to their carts. They will also have the 
+ability to visit the cart page and browse the movies that they’ve added 
+to cart, removing any one of them if desired.</p>
+<p>To implement this scenario, there are some useful gems like <a href="https://github.com/gillies-dunlop/carter">carter</a> &amp; <a href="https://github.com/crowdint/acts_as_shopping_cart">act<em>as</em>shopping_cart</a>, but I prefer to build it from scratch using <a href="http://redis.io/">Redis</a>. Redis is very fast and has some features that will meet our needs perfectly.</p>
+<blockquote>
+<p><strong>Redis</strong> is an open source, advanced in-memory 
+key-value store. It is often referred to as a data structure server 
+since keys can contain strings, hashes, lists, sets and sorted sets.</p>
+</blockquote>
+<h3><strong>Setup Redis</strong></h3>
+<h4><strong>Installation</strong></h4>
+<p>If you’re running OS X the easiest way to install Redis is to use Homebrew (<code class=" language-undefined">brew install redis</code>).</p>
+<p>Then, add the following gems into our <strong>Gemfile</strong>, and run <code class=" language-undefined">bundle</code></p>
+<pre class=" language-ruby"><code class=" language-ruby">gem <span class="token string">'redis'</span><span class="token punctuation">,</span> <span class="token string">'~&gt; 3.0.1'</span>
+gem <span class="token string">'hiredis'</span><span class="token punctuation">,</span> <span class="token string">'~&gt; 0.4.5'</span></code></pre>
+<p>By default, <code class=" language-undefined">redis</code> uses Ruby’s socket library to talk to Redis. Because we will have some large replies ( such as <code class=" language-undefined">SMEMBERS</code> list command which will be used in our application ), we use an alternative connection driver called <code class=" language-undefined">hiredis</code> which optimizes for speed, at the cost of portability.</p>
+<p>Finally, we can then start it up by running this command:</p>
+<pre class=" language-bash"><code class=" language-bash">$ redis-server</code></pre>
+<p><img alt="Foundation Icons" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/IMG_20140711_135354.html" width="100%"></p>
+<h4><strong>Initialize the Global Object</strong></h4>
+<p>Create an initializer file named <strong>/config/initializers/redis.rb</strong>
+ where we’ll set up our Redis connection. A global variable will be 
+created to allow easy access in the rest of our app. Also, specify <code class=" language-undefined">hiredis</code> as the driver when instantiating the client object.</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token variable">$redis</span> <span class="token operator">=</span> <span class="token constant">Redis</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token symbol">:driver</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token symbol">:hiredis</span><span class="token punctuation">)</span></code></pre>
+<p>Nice! Now we’ve setup Redis successfully and it’s ready to use in our application.</p>
+<h3><strong>Carts Controller</strong></h3>
+<p>First, generate a carts controller, passing in <code class=" language-undefined">show</code> as a parameter because it’s the only action we’ll use.</p>
+<pre class=" language-bash"><code class=" language-bash">$ rails g controller carts show</code></pre>
+<h4><strong>Routes</strong></h4>
+<p>Since we deal with a single cart per user, <code class=" language-undefined">cart</code> can be a <a href="http://guides.rubyonrails.org/routing.html#singular-resources">singular resource</a>.  Add the <code class=" language-undefined">only</code> option with <code class=" language-undefined">show</code> action and define two non-RESTful routes for the <code class=" language-undefined">add</code> and <code class=" language-undefined">remove</code> actions.</p>
+<pre class=" language-ruby"><code class=" language-ruby">resource <span class="token symbol">:cart</span><span class="token punctuation">,</span> only<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token symbol">:show</span><span class="token punctuation">]</span> <span class="token keyword">do</span>
+  put <span class="token string">'add/:movie_id'</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> <span class="token string">'carts#add'</span><span class="token punctuation">,</span> as<span class="token punctuation">:</span> <span class="token symbol">:add_to</span>
+  put <span class="token string">'remove/:movie_id'</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> <span class="token string">'carts#remove'</span><span class="token punctuation">,</span> as<span class="token punctuation">:</span> <span class="token symbol">:remove_from</span>
+<span class="token keyword">end</span></code></pre>
+<h4><strong>Controller Actions</strong></h4>
+<p>Inside <code class=" language-undefined">CartsController</code>, we’ll use the <code class=" language-undefined">SMEMBERS</code>, <code class=" language-undefined">SADD</code>, and <code class=" language-undefined">SREM</code> Redis commands to list, add, and remove  movie ids into a unique set named <code class=" language-undefined">current_user_cart</code>, identified with <code class=" language-undefined">current_user.id</code>. For  more details about Redis commands, I recommend you to check out their <a href="http://redis.io/commands">documentation</a>, it’s very clear and useful.</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token keyword">class</span> <span class="token class-name">CartsController</span> <span class="token operator">&lt;</span> <span class="token constant">ApplicationController</span>
+  before_action <span class="token symbol">:authenticate_user!</span>
+
+  <span class="token keyword">def</span> show
+    cart_ids <span class="token operator">=</span> <span class="token variable">$redis</span><span class="token punctuation">.</span>smembers current_user_cart
+    <span class="token variable">@cart_movies</span> <span class="token operator">=</span> <span class="token constant">Movie</span><span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>cart_ids<span class="token punctuation">)</span>
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> add
+    <span class="token variable">$redis</span><span class="token punctuation">.</span>sadd current_user_cart<span class="token punctuation">,</span> params<span class="token punctuation">[</span><span class="token symbol">:movie_id</span><span class="token punctuation">]</span>
+    render json<span class="token punctuation">:</span> current_user<span class="token punctuation">.</span>cart_count<span class="token punctuation">,</span> status<span class="token punctuation">:</span> <span class="token number">200</span>
+  <span class="token keyword">end</span>
+
+  <span class="token keyword">def</span> remove
+    <span class="token variable">$redis</span><span class="token punctuation">.</span>srem current_user_cart<span class="token punctuation">,</span> params<span class="token punctuation">[</span><span class="token symbol">:movie_id</span><span class="token punctuation">]</span>
+    render json<span class="token punctuation">:</span> current_user<span class="token punctuation">.</span>cart_count<span class="token punctuation">,</span> status<span class="token punctuation">:</span> <span class="token number">200</span>
+  <span class="token keyword">end</span>
+
+  private
+
+  <span class="token keyword">def</span> current_user_cart
+    <span class="token string">"cart<span class="token interpolation"><span class="token delimiter tag">#{</span>current_user<span class="token punctuation">.</span>id<span class="token delimiter tag">}</span></span>"</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span></code></pre>
+<p>We’ve added <code class=" language-undefined">:authenticate_user!</code> as a <code class=" language-undefined">before_action</code>
+ callback to restrict access for controller actions to signed-in users 
+only. Also, in the add &amp; remove actions, we respond with <code class=" language-undefined">current_user.cart_count</code> which is an instance method inside the <code class=" language-undefined">User</code> model that returns the number of movies inside the current users’s cart using the <code class=" language-undefined">SCARD</code> command:</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token keyword">def</span> cart_count
+  <span class="token variable">$redis</span><span class="token punctuation">.</span>scard <span class="token string">"cart<span class="token interpolation"><span class="token delimiter tag">#{</span>id<span class="token delimiter tag">}</span></span>"</span>
+<span class="token keyword">end</span></code></pre>
+<p>Last thing to do is add the <code class=" language-undefined">My Cart</code> link to the top bar menu so users can access it directly anytime. Also,<br>
+let’s present the number of movies in their carts:</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>li<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token string">%= link_to cart_path do%&gt;
+    &lt;i class=</span><span class="token string">"fi-shopping-cart"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span>
+    <span class="token constant">My</span> <span class="token constant">Cart</span>
+    <span class="token punctuation">(</span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"cart-count"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">=</span>current_user<span class="token punctuation">.</span>cart_count<span class="token string">%&gt;&lt;/span&gt;</span><span class="token punctuation">)</span>
+  <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token keyword">end</span><span class="token string">%&gt;
+&lt;/li&gt;</span></code></pre>
+<p><img alt="Foundation Icons" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/IMG_20140711_140245.html" width="100%"></p>
+<h4><strong>Add to Cart Button</strong></h4>
+<p>Create an “Add to cart” button which handles the <code class=" language-undefined">add</code> and <code class=" language-undefined">remove</code> actions. We’ll add it inside movies <code class=" language-undefined">show</code> page:</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span><span class="token operator">%</span><span class="token keyword">if</span> signed_in<span class="token operator">?</span><span class="token string">%&gt;
+  &lt;%=link_to "", class: "button", data: {target: @cart_action, addUrl: add_to_cart_path(@movie), removeUrl: remove_from_cart_path(@movie)} do%&gt;</span>
+    <span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fi-shopping-cart"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>span<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">=</span><span class="token variable">@cart_action</span><span class="token string">%&gt;&lt;/span&gt;</span> <span class="token constant">Cart</span>
+  <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token keyword">end</span><span class="token string">%&gt;
+&lt;%end%&gt;</span></code></pre>
+<p>We define the <code class=" language-undefined">@cart_action</code> instance object inside the <code class=" language-undefined">movies#show</code> action as:</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token keyword">def</span> show
+  <span class="token variable">@movie</span> <span class="token operator">=</span> <span class="token constant">Movie</span><span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>params<span class="token punctuation">[</span><span class="token symbol">:id</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token variable">@cart_action</span> <span class="token operator">=</span> <span class="token variable">@movie</span><span class="token punctuation">.</span>cart_action current_user<span class="token punctuation">.</span>try <span class="token symbol">:id</span>
+<span class="token keyword">end</span></code></pre>
+<p>It calls the <code class=" language-undefined">cart_action</code> method on <code class=" language-undefined">@movie</code>,
+ which checks if that movie is a member on the current user’s cart. It 
+returns the appropriate text to be rendered as the button label, as well
+ as used in our coffescript, as we will see later.</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token keyword">def</span> <span class="token function">cart_action</span><span class="token punctuation">(</span>current_user_id<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token variable">$redis</span><span class="token punctuation">.</span>sismember <span class="token string">"cart<span class="token interpolation"><span class="token delimiter tag">#{</span>current_user_id<span class="token delimiter tag">}</span></span>"</span><span class="token punctuation">,</span> id
+    <span class="token string">"Remove from"</span>
+  <span class="token keyword">else</span>
+    <span class="token string">"Add to"</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span></code></pre>
+<p>Here we’ve used the <code class=" language-undefined">SISMEMBER</code> Redis command, which determines if a given value is a member of a set.</p>
+<p><img alt="Foundation Icons" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/IMG_20140711_130415.html" width="100%"></p>
+<h4><strong>Add / Remove Requests</strong></h4>
+<p>We need to hook up the “Add to cart” button using some <code class=" language-undefined">jQuery</code> scripts and AJAX requests.</p>
+<pre class=" language-javascript"><code class=" language-javascript"><span class="token function">$</span><span class="token punctuation">(</span>window<span class="token punctuation">)</span><span class="token punctuation">.</span>load <span class="token operator">-</span><span class="token operator">&gt;</span>
+  <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'a[data-target]'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>click <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span>
+    e<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    $<span class="token keyword">this</span> <span class="token operator">=</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> $<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token string">'target'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'Add to'</span>
+      url <span class="token operator">=</span> $<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token string">'addurl'</span><span class="token punctuation">)</span>
+      new_target <span class="token operator">=</span> <span class="token string">"Remove from"</span>
+    <span class="token keyword">else</span>
+      url <span class="token operator">=</span> $<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token string">'removeurl'</span><span class="token punctuation">)</span>
+      new_target <span class="token operator">=</span> <span class="token string">"Add to"</span>
+    $<span class="token punctuation">.</span>ajax url<span class="token punctuation">:</span> url<span class="token punctuation">,</span> type<span class="token punctuation">:</span> <span class="token string">'put'</span><span class="token punctuation">,</span> success<span class="token punctuation">:</span> <span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'.cart-count'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+      $<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token string">'span'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span>new_target<span class="token punctuation">)</span>
+      $<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token string">'target'</span><span class="token punctuation">,</span> new_target<span class="token punctuation">)</span></code></pre>
+<p>We check the state of the current movie using the <code class=" language-undefined">target</code> data attribute which is set to <code class=" language-undefined">@cart_action</code> as we mentioned before. Consequently, we can specify the ajax <code class=" language-undefined">url</code> which is either <code class=" language-undefined">add_to_cart</code> or <code class=" language-undefined">remove_from_cart</code>, since we pass them to our script using the <code class=" language-undefined">addurl</code> &amp; <code class=" language-undefined">removeurl</code> data attributes.<br>
+Upon successful completion of the ajax request, set the cart movies 
+count which is located in the topbar menu with the new number, change 
+the label of the button, and set the <code class=" language-undefined">target</code> data attribute with the new value.</p>
+<blockquote>
+<p><strong>Note</strong>: I’ve disabled <code class=" language-undefined">Turbolinks.js</code> so we can keep our script as simple as possible. You can do it by simply removing the <code class=" language-undefined">require turbolinks</code> line from the <strong>application.js</strong> file.</p>
+</blockquote>
+<h4><strong>My Cart Page</strong></h4>
+<p>Now, the final thing to do is represent the cart items on the <code class=" language-undefined">carts/show</code> page. Let’s add some HTML tags:</p>
+<pre class=" language-ruby"><code class=" language-ruby"><span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"mycart"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"small-10 small-centered medium-8 large-8 column"</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"p1 glassy-bg mb1 text-center radius-l1 radius-r1"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h4<span class="token operator">&gt;</span><span class="token constant">My</span> <span class="token constant">Cart</span><span class="token operator">&lt;</span><span class="token operator">/</span>h4<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>p <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"mb0"</span><span class="token operator">&gt;</span> <span class="token constant">You</span>'ve selected <span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"cart-count"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token string">%=current_user.cart_count%&gt;&lt;/span&gt; movies!&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;% @cart_movies.each do |movie|%&gt;
+  &lt;div data-equalizer class=</span><span class="token string">"cart-movie large-12 column mb1"</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"column large-2 text-center p0"</span> data<span class="token operator">-</span>equalizer<span class="token operator">-</span>watch<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token string">%=link_to movie do%&gt;
+        &lt;%=</span>image_tag movie<span class="token punctuation">.</span>poster<span class="token punctuation">,</span> <span class="token keyword">class</span><span class="token punctuation">:</span> <span class="token string">"radius-l1"</span><span class="token string">%&gt;
+      &lt;%end%&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"column large-7 glassy-bg text-center"</span> data<span class="token operator">-</span>equalizer<span class="token operator">-</span>watch<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>p <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"scale ptm"</span><span class="token operator">&gt;</span> <span class="token operator">&lt;</span><span class="token string">%= movie.title %&gt; &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=</span><span class="token string">"column large-3 primary-bg text-center radius-r1"</span> data<span class="token operator">-</span>equalizer<span class="token operator">-</span>watch<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token string">%=link_to "" , data: {targetUrl: remove_from_cart_path(movie)} do%&gt;
+        &lt;i class=</span><span class="token string">"fi-x right"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token keyword">end</span><span class="token string">%&gt;
+      &lt;h4 class="scale"&gt;</span>$ <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token operator">=</span> movie<span class="token punctuation">.</span>price <span class="token string">%&gt;&lt;/h4&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">%</span><span class="token keyword">end</span><span class="token string">%&gt;
+&lt;/div&gt;</span></code></pre>
+<blockquote>
+<p><strong>Equalizer</strong>, provided by Foundation, is a great way to
+ create equal height content on your page. You can find more details 
+about how it works <a href="http://foundation.zurb.com/docs/components/equalizer.html">here</a>.</p>
+</blockquote>
+<p>Give it a little special styling inside the <strong>carts.scss</strong> file:</p>
+<pre class=" language-css"><code class=" language-css"><span class="token selector"><span class="token id">#mycart</span> </span><span class="token punctuation">{</span>
+  <span class="token selector"><span class="token class">.scale</span> </span><span class="token punctuation">{</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+    <span class="token property">top</span><span class="token punctuation">:</span> <span class="token number">35%</span><span class="token punctuation">;</span>
+    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translateY</span><span class="token punctuation">(</span>-<span class="token number">35%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector"><span class="token class">.fi-x</span> </span><span class="token punctuation">{</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+    <span class="token property">top</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
+    <span class="token property">right</span><span class="token punctuation">:</span> -<span class="token number">5</span>px<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Finally, write a similar script to activate the <code class=" language-undefined">remove</code> icon functionality.</p>
+<pre class=" language-javascript"><code class=" language-javascript"><span class="token function">$</span><span class="token punctuation">(</span>window<span class="token punctuation">)</span><span class="token punctuation">.</span>load <span class="token operator">-</span><span class="token operator">&gt;</span>
+  <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#mycart .fi-x'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>click <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span>
+    e<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    $<span class="token keyword">this</span> <span class="token operator">=</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">closest</span><span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span>
+    url <span class="token operator">=</span> $<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token string">'targeturl'</span><span class="token punctuation">)</span>
+    $<span class="token punctuation">.</span>ajax url<span class="token punctuation">:</span> url<span class="token punctuation">,</span> type<span class="token punctuation">:</span> <span class="token string">'put'</span><span class="token punctuation">,</span> success<span class="token punctuation">:</span> <span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span>
+      <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'.cart-count'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+      $<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">closest</span><span class="token punctuation">(</span><span class="token string">'.cart-movie'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slideUp</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p>Wow, it seems that everything is working smoothly now. Great job!</p>
+<p><img alt="Foundation Icons" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/IMG_20140711_131406.html" width="100%"></p>
+<h2><strong>Still More to Do</strong></h2>
+<p>There is still more work before we can say our online store is 
+complete. In my next article, I’ll cover integrating Braintree with our 
+application to accept payments. Thanks for reading!</p>
+      <div class="Article_authorBio l-mv4 t-bg-white m-border l-pa3">
+        <div class="l-d-f l-pt3">
+          <a class="l-s5 l-pa0 l-mr3 l-round l-o-h" href="https://www.sitepoint.com/author/khusseiny/">
+            <img src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/64489b929919f1ba0b57b82c0ddfe254.jpeg" alt="" class="avatar avatar-96 wp-user-avatar wp-user-avatar-96 photo avatar-default" width="96" height="96">          </a>
+          <div class="f-lh-title">
+            <div class="f-c-grey-300">Meet the author</div>
+            <div class="f-large">
+              <a class="f-bold f-c-grey-500" href="https://www.sitepoint.com/author/khusseiny/">
+                Karim El Husseiny              </a>
+              <a class="f-c-grey-500 l-mh1" target="_blank" href="https://twitter.com/Azzurrio"><i class="fa fa-twitter"></i></a><a class="f-c-grey-500 l-mh1" target="_blank" href="https://www.sitepoint.com/build-online-store-rails/eg.linkedin.com/in/azzurrio/"><i class="fa fa-linkedin"></i></a><a class="f-c-grey-500 l-mh1" target="_blank" href="https://github.com/Azzurrio"><i class="fa fa-github"></i></a>            </div>
+          </div>
+        </div>
+        <div class="f-light f-lh-copy l-mt3">Karim is an entrepreneur 
+who passionate about Web, Education and Efficiency. He loves to write 
+well-tested clean code which follows best practice and achieves highest 
+performance.
+He specialise in Ruby and Javascript development (Ruby on Rails, Sinatra
+ &amp; AngularJS). Also he does like to design responsive UIs using 
+modern CSS frameworks, and very interested in acronyms like TDD, OOD and
+ DevOps. 
+Follow @Azzurrio to share any thoughts with him.</div>
+      </div>
+      
+      </div>
+    </div>
+        </div>
+            </div>
+            <div class="l-w-aside-i l-mt3 l-mh3 l-d-n l-d-f--3col l-fd-col l-fs0">
+      <div class="l-mb3">
+            <div class="l-as-fs l-mv0 l-pv1 l-ph3 f-light f-larger f-uppercase f-c-white t-bg-grey-500">Sponsors</div>
+    <div class="l-w-100 l-mv3 t-bg-white m-border"><div class="widget maestro maestro-content-type-bsa hide-for-mobile-SP" id="maestro-448"></div></div>
+            <div class="widget maestro maestro-content-type-html hide-for-mobile-SP" id="maestro-662"><script>
+bsa_targeting.push([
+                "tags", 
+                [
+                        ["GlennG"]
+                ]
+]);
+</script>
+
+<div id="bsa-zone_1509641776795-3_123456" style="height: 250px; width: 300px;" data-google-query-id="CJmUgfehltoCFQbrjgodSz8Fyg"><div id="google_ads_iframe_/8691100/SitePoint_300x250_ArticlesMedRec_Side_Articles_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/8691100/SitePoint_300x250_ArticlesMedRec_Side_Articles_0" title="3rd party ad content" name="google_ads_iframe_/8691100/SitePoint_300x250_ArticlesMedRec_Side_Articles_0" scrolling="no" marginwidth="0" marginheight="0" style="border: 0px none; vertical-align: bottom;" srcdoc="" width="300" height="250" frameborder="0"></iframe></div></div><script>ga('SitePointPlugin:observeImpressions', 'maestro-662')</script></div>      </div>
+      <div class="ArticleBox u-premium-preview"></div>
+      <div class="ArticleAside_row"><div class="widget maestro maestro-content-type-html hide-for-mobile-SP" id="maestro-661"><script>
+bsa_targeting.push([
+                "tags", 
+                [
+                        ["GlennG"]
+                ]
+]);
+</script>
+
+<div id="bsa-zone_1509641776795-4_123456" data-google-query-id="CKr2gvehltoCFRFnjgod0OAH3g"><div id="google_ads_iframe_/8691100/SitePoint_300x600_ArticlesHalfPage_Side_Articles_0__container__" style="border: 0pt none; display: inline-block; width: 300px; height: 250px;"><iframe style="border: 0px none; vertical-align: bottom;" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/container_002.html" id="google_ads_iframe_/8691100/SitePoint_300x600_ArticlesHalfPage_Side_Articles_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" data-is-safeframe="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="300" height="250" frameborder="0"></iframe></div></div><script>ga('SitePointPlugin:observeImpressions', 'maestro-661')</script></div>        <ads-weighted widget="21" data="{&quot;NL&quot;:[{&quot;id&quot;:&quot;585&quot;,&quot;demandbase_field&quot;:null,&quot;demandbase_value&quot;:null,&quot;weight&quot;:&quot;50&quot;,&quot;randMax&quot;:50},{&quot;id&quot;:&quot;584&quot;,&quot;demandbase_field&quot;:null,&quot;demandbase_value&quot;:null,&quot;weight&quot;:&quot;50&quot;,&quot;randMax&quot;:100}]}" fallback="" url="build-online-store-rails" channelslug="ruby"></ads-weighted></div>
+      <div class="ArticleAside_row ArticleAside_newboxads"></div>
+    </div>
+          </div>
+
+      <div class="u-accordion-end"></div>
+      <div class="l-d-f l-jc-sb l-w-3col--3col l-mh-auto">
+        <div class="u-showseriesx l-w-100 l-w-2col-i--2col l-fg1 l-mh3--2col l-mh0--4col">
+
+          <div class="widget maestro maestro-content-type-html hide-for-tablet-SP hide-for-mobile-SP" id="maestro-649"><span data-sumome-listbuilder-embed-id="6cbb401075afaa88f82a6ddc686573be3368d07928cf833fe1a56254d6ff9849"></span><script>ga('SitePointPlugin:observeImpressions', 'maestro-649')</script></div>
+                    <div id="commentsSection" class="l-pa3 t-bg-white">
+                        <a id="comments"></a>
+                      </div>
+        </div>
+      </div>
+
+    
+    <script>
+      OneSignal.push(function() {
+        OneSignal.sendTags({
+          ruby: 'ruby',
+        });
+      });
+    </script>
+      </div>
+    </div><script src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/aniview.js" async=""></script>
+        <footer role="contentinfo">
+  <div class="l-w-100 l-d-f Footer-bg">
+    <div class="l-d-f l-fw-w l-mh-auto">
+      <div class="l-d-f l-fw-w l-mt4 l-w-100 l-pa3 l-w-3col--4col l-jc-sb l-jc-sa--4col">
+        <ul>
+          <li class="t-ls-n">
+            <div class="f-c-white f-large f-bold l-mb2">Stuff We Do</div>
+          </li>
+          <li class="l-ml3 f-c-grey-300 l-mb2">
+            <a class="Footer-link f-small" href="https://www.sitepoint.com/premium/">Premium</a>
+          </li>
+          <li class="l-ml3 f-c-grey-300 l-mb2">
+            <a class="Footer-link f-small" href="https://www.sitepoint.com/versioning/">Versioning</a>
+          </li>
+          <li class="l-ml3 f-c-grey-300 l-mb2">
+            <a class="Footer-link f-small" href="https://www.sitepoint.com/community/">Forums</a>
+          </li>
+          <li class="l-ml3 f-c-grey-300 l-mb2">
+            <a class="Footer-link f-small" href="https://www.sitepoint.com/html-css/css/">References</a>
+          </li>
+        </ul>
+
+        <ul>
+          <li class="t-ls-n">
+            <div class="f-c-white f-large f-bold l-mb2">About</div>
+          </li>
+          <li class="l-ml3 f-c-grey-300 l-mb2">
+            <a class="Footer-link f-small" href="https://www.sitepoint.com/about-us/">Our Story</a>
+          </li>
+          <li class="l-ml3 f-c-grey-300 l-mb2">
+            <a class="Footer-link f-small" href="https://www.sitepoint.com/press/">Press Room</a>
+          </li>
+        </ul>
+
+        <ul>
+          <li class="t-ls-n">
+            <div class="f-c-white f-large f-bold l-mb2">Contact</div>
+          </li>
+          <li class="l-ml3 f-c-grey-300 l-mb2">
+            <a class="Footer-link f-small" href="https://www.sitepoint.com/contact-us/">Contact Us</a>
+          </li>
+          <li class="l-ml3 f-c-grey-300 l-mb2">
+            <a class="Footer-link f-small" href="https://sitepoint.zendesk.com/hc/en-us">FAQ</a>
+          </li>
+          <li class="l-ml3 f-c-grey-300 l-mb2">
+            <a class="Footer-link f-small" href="https://www.sitepoint.com/write-for-us/">Write for Us</a>
+          </li>
+          <li class="l-ml3 f-c-grey-300 l-mb2">
+            <a class="Footer-link f-small" href="https://www.sitepoint.com/advertise/">Advertise</a>
+          </li>
+        </ul>
+
+        <ul>
+          <li class="t-ls-n">
+            <div class="f-c-white f-large f-bold l-mb2">Legals</div>
+          </li>
+          <li class="l-ml3 f-c-grey-300 l-mb2">
+            <a class="Footer-link f-small" href="https://www.sitepoint.com/legals/">Terms of Use</a>
+          </li>
+          <li class="l-ml3 f-c-grey-300 l-mb2">
+            <a class="Footer-link f-small" href="https://www.sitepoint.com/legals/#privacy">Privacy Policy</a>
+          </li>
+        </ul>
+      </div>
+      <div class="l-d-n l-d-b--4col l-as-cen Footer-hr">
+      </div>
+      <div class="l-mt4 l-pa3 l-w-1col--4col">
+        <ul class="t-ls-n l-d-f l-fw-w l-d-b--3col">
+          <li>
+            <div class="f-c-white f-large f-bold l-mb2 l-mr3">Connect</div>
+          </li>
+          <li class="f-center">
+            <a class="f-c-grey-300" href="https://www.facebook.com/sitepoint" rel="noopener" target="_blank">
+              <i class="fa fa-facebook-square l-i4"></i>
+            </a>
+            <a class="l-pl3 f-c-grey-300" href="http://twitter.com/sitepointdotcom" rel="noopener" target="_blank">
+              <i class="fa fa-twitter-square l-i4"></i>
+            </a>
+            <a class="l-pl3 f-c-grey-300" href="https://www.sitepoint.com/versioning/">
+              <i class="fa fa-envelope-square l-i4"></i>
+            </a>
+            <a class="l-pl3 f-c-grey-300" href="https://www.sitepoint.com/feed/">
+              <i class="fa fa-rss-square l-i4"></i>
+            </a>
+            <a class="l-pl3 f-c-grey-300" href="https://plus.google.com/+sitepoint" rel="noopener" target="_blank">
+              <i class="fa fa-google-plus-square l-i4"></i>
+            </a>
+          </li>
+          <p class="f-c-grey-300 l-mh-auto l-ml3--2col l-ml0--3col l-mv3--4col f-small f-center">
+            © 2000 – 2018 SitePoint Pty. Ltd.
+          </p>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+    <script type="text/javascript">
+  adroll_adv_id = "DJI3I3WGJBGL7PDJEDAYHV";
+  adroll_pix_id = "4RKMV6N56FGA7ANPGL4FQW";
+  (function () {
+    var adblocked = false;
+    var onAdblock = function() {
+      if(adblocked) return;
+
+      adblocked = true;
+
+      gaEventQueue && gaEventQueue.track('CanSeeAds', 'adrollBlocked', {'nonInteraction': true});
+
+      Array.prototype.slice.call(document.getElementsByClassName('CantSeeAds'))
+        .forEach(function(el) {
+          el.className = el.className.replace('CantSeeAds', '');
+        });
+
+    };
+    var _onload = function(){
+      if (document.readyState && !/loaded|complete/.test(document.readyState)){setTimeout(_onload, 10);return}
+      if (!window.__adroll_loaded){__adroll_loaded=true;setTimeout(_onload, 50);return}
+      var scr = document.createElement("script");
+      var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+      scr.setAttribute('async', 'true');
+      scr.type = "text/javascript";
+      scr.src = host + "/j/roundtrip.js";
+      scr.onerror = onAdblock;
+      ((document.getElementsByTagName('head') || [null])[0] ||
+          document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+    };
+    if (window.addEventListener) {window.addEventListener('load', _onload, false);}
+    else {window.attachEvent('onload', _onload)}
+  }());
+</script>
+    <script>
+(function(d,b,a,s,e){ var t = b.createElement(a),
+  fs = b.getElementsByTagName(a)[0]; t.async=1; t.id=e; t.src=s;
+  fs.parentNode.insertBefore(t, fs); })
+(window,document,'script','https://scripts.demandbase.com/IM2QfEma.min.js','demandbase_js_lib');
+</script>
+    				<script type="text/javascript"><!--
+			var seriesdropdown = document.getElementById("orgseries_dropdown");
+			if (seriesdropdown) {
+			 function onSeriesChange() {
+					if ( seriesdropdown.options[seriesdropdown.selectedIndex].value != ( 0 || -1 ) ) {
+						location.href = "https://www.sitepoint.com/series/"+seriesdropdown.options[seriesdropdown.selectedIndex].value;
+					}
+				}
+				seriesdropdown.onchange = onSeriesChange;
+			}
+			--></script>
+			        <script type="text/javascript">
+        // <![CDATA[
+        var disqus_shortname = 'sitepointproduction';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1 && nodes[i].parentNode.tagName == 'A') {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('data-dsqidentifier'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) { url = url[0]; }
+                    else { url = url[1]; }
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        // ]]>
+        </script>
+        
+<!-- START Parse.ly Include: Standard -->
+<div id="parsely-root" style="display: none">
+  <div id="parsely-cfg" data-parsely-site="sitepoint.com"></div>
+<script id="parsely-script" async="" data-cfasync="false" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/p.js"></script></div>
+<script data-cfasync="false">
+(function(s, p, d) {
+  var h=d.location.protocol, i=p+"-"+s,
+      e=d.getElementById(i), r=d.getElementById(p+"-root"),
+      u=h==="https:"?"d1z2jf7jlzjs58.cloudfront.net"
+      :"static."+p+".com";
+  if (e) return;
+  e = d.createElement(s); e.id = i; e.async = true;
+  e.setAttribute('data-cfasync', 'false'); e.src = h+"//"+u+"/p.js"; r.appendChild(e);
+})("script", "parsely", document);
+</script>
+<!-- END Parse.ly Include: Standard -->
+    <script type="text/javascript">
+    (function(googletag, SP_GPT_Slots) {
+      if(!SP_GPT_Slots.length) return;
+
+      var SP_GPT_First_Slot_Rendered = false;
+      googletag.cmd.push(function(){
+        googletag.pubads().addEventListener("slotRenderEnded", function(e){
+          if (!SP_GPT_First_Slot_Rendered) {
+            gaEventQueue.track("CanSeeAds", "dfpFirstRendered", {"nonInteraction": true});
+            SP_GPT_First_Slot_Rendered = true;
+          }
+        });
+      });
+
+    })(googletag, SP_GPT_Slots);
+    </script>
+<script type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/scripts-foot-dfb2dddf3e07e06b11282e3f2248e361.js"></script><iframe style="display: none;" id="sumome-jquery-iframe" title="Sumo Hidden Content"></iframe>
+<script type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/compiled.js"></script>
+<script type="text/javascript" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/wp-embed.js"></script>
+    <script>
+    jQuery(document).ready(function() {
+      jQuery('.lazyYT').each(function() {
+        var id = jQuery(this).data('youtube-id'),
+            url = 'https://www.youtube.com/watch?v=' + id;
+        jQuery(this).replaceWith('<a href="' + url + '">' + url + '</a>');
+      });
+    });
+    </script>
+  
+  
+
+
+<iframe id="fb_iframe" src="https://www.facebook.com/audiencenetwork/token/v1/" width="0" height="0" frameborder="0"></iframe><script style="display: none;" defer="defer" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/multi-sync.js" data-partner="11868" data-region="na" data-country="us" data-endpoint="us-east"></script><div><script type="text/javascript" async="" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/cookiesync.gif"></script><iframe style="display: none;" src="https://ib.adnxs.com/getuid?https:%2F%2Fads.servebom.com%2Fpartner%3Fcb%3D65%26svc%3Dus%26id%3D23%2C25%2C26%2C29%2C33%26uid%3D$UID"></iframe><span style="display: none;"><iframe id="4451dc03ec" name="4451dc03ec" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/afr.html" framespacing="0" scrolling="no" width="1" height="1" frameborder="0"></iframe></span><img src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/us.gif"><iframe style="display: none;" src="https://ap.lijit.com/pixel?redir=https:%2F%2Fads.servebom.com%2Fpartner%3Fcb%3D538%26svc%3Dus%26id%3D24%26uid%3D$UID"></iframe><span style="display: none;"><iframe style="display:none" src="//eb2.3lift.com/getuid?redir=%2F%2Fads.servebom.com%2Fpartner%3Fcb%3D6414%26svc%3Dus%26id%3D14%26uid%3D%24UID"></iframe></span><span style="display: none;"><iframe style="display:none" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/user_sync.html"></iframe></span><iframe style="display: none;" src="https://purch-match.dotomi.com/purch/match?rurl=https:%2F%2Fads.servebom.com%2Fpartner%3Fcb%3D6627%26svc%3Dus%26id%3D36%26uid%3D$UID"></iframe><span style="display: none;"><iframe style="display:none" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/user_sync_002.html"></iframe></span><span style="display: none;"><iframe style="display:none" src="https://bh.contextweb.com/bh/rtset?pid=558527&amp;cb=4447&amp;ev=1&amp;rurl=https%3A%2F%2Fads.servebom.com%2Fpartner%3Fsvc%3Dus%26id%3D17%26cb%3D4447%26uid%3D%25%25VGUID%25%25"></iframe></span><iframe style="display: none;" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/usermatch.html"></iframe><span style="display: none;"><iframe style="display:none" src="//t.cwkuki.com/cs/prch18/?cb=6326&amp;url=https%3A%2F%2Fads.servebom.com%2Fpartner%3Fcb%3D6326%26svc%3Dus%26id%3D44%26uid%3DD%5BUID%5D"></iframe></span><span style="display: none;"><iframe style="display:none" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/user_sync_003.html"></iframe></span></div><iframe id="fb_iframe" src="https://www.facebook.com/audiencenetwork/token/v1/" width="0" height="0" frameborder="0"></iframe><div></div><iframe id="AVLoaderaniplayer_aniviewJS" style="display: none;" src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/a_007.html"></iframe><a href="javascript:void(0);" title="Sumo" style="background-color: rgb(0, 115, 183); border-radius: 3px 0px 0px 3px; box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px; position: fixed; display: none !important; z-index: 2147483647; padding: 0px; width: 44px; height: 40px; text-indent: -10000px; opacity: 1;"><span style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">Sumo</span><span style="display:block;width:40px;height:40px;background:white;margin-left:4px;-webkit-border-radius: 3px 0 0 3px;-moz-border-radius: 3px 0 0 3px;-ms-border-radius: 3px 0 0 3px;-o-border-radius: 3px 0 0 3px;border-radius: 3px 0 0 3px;background-repeat:no-repeat;background-position:8px 8px;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoxZDQ2MjI4YS03NWY2LTRkZTQtOGJjYy1hODc1NjRkMjYxYTUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RDQ3MUVFMDFFMjVDMTFFNjlFQjhBRjdGODU5MDJBMDUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RDQ3MUVFMDBFMjVDMTFFNjlFQjhBRjdGODU5MDJBMDUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxZDQ2MjI4YS03NWY2LTRkZTQtOGJjYy1hODc1NjRkMjYxYTUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MWQ0NjIyOGEtNzVmNi00ZGU0LThiY2MtYTg3NTY0ZDI2MWE1Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+8JtvywAAAKhQTFRFzOPxSJvLA3W4Mo7FBna5w97u8vj7EHy8a67VhbzdsdTpVaLPh73d9/v9C3m6QZfJbq/WXKbR3u32JIfB3ez1KorDir/eBHW4+/3+rtPoZarUG4K/LIvDDnu7ocvkf7nbdrTY9fr8E328WKPQO5PITJ3MPpXJstXptdbq+Pv9cbHXaq3VU6HOkMLgnMnjDHq62uv1/P3+6/T53Oz1cLDX/f7+AHO3////ptOZ5QAAADh0Uk5T/////////////////////////////////////////////////////////////////////////wA7XBHKAAAAmUlEQVR42sSRRxLCMAxFRSq9907ovebr/jdDMWYGxmZL3sIqbyFbJv4B/VlkVlerKALTD3G46Mx3AOR1UZ/TsDxW6W0gfYRNVfTCFu2AWpAMgMItMW+zQJU2UjWI29D0+e5KWNPMk+A9Om+B/UgOJyCuwMJCrpuziYkIsglfRByZ/XM3eXnBFEu1kpMpjq9dxQYp/OAXTwEGAB7Rc1xVnPemAAAAAElFTkSuQmCC);"></span></a><iframe src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/usync.html" width="0" height="0" frameborder="0"></iframe><span style="display: none;"><iframe style="display:none" src="//sync.aralego.com/idSync/?ucf_nid=par-2EE948B3EA8B6A90994284DE3BE42B&amp;ucf_user_id=8807b67ea3924fa9a7971ec6706cce35&amp;redirect=https%3A%2F%2Fads.servebom.com%2Fpartner%3Fcd%3D1629%26svc%3Dus%26id%3D31%26uid%3DUCFUID"></iframe></span><iframe id="google_osd_static_frame_6076085652016" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe><iframe style="display: none;"></iframe><div style="position:fixed;top:0;left:0;overflow:hidden;"><label for="focus_retriever" style="position:absolute;left:-1000px;">Focus Retriever</label><input style="position:absolute;left:-1000px;" name="focus_retriever" id="focus_retriever" readonly="true" type="text"></div><img src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/a_002.asc" alt="" style="display: none;"><img src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/a.asc" alt="" style="display: none;"><img src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/a_003.asc" alt="" style="display: none;"><img src="Build%20an%20Online%20Store%20with%20Rails%20%E2%80%94%20SitePoint_files/a_004.asc" alt="" style="display: none;"><img style="display: none;" src="//sumo.com/apps/heatmaps/click?clicks=%5B%7B%22selector%22%3A%22html%22%2C%22x%22%3A%221.00%22%2C%22y%22%3A%220.00%22%2C%22_%22%3A0.9848903614748346%7D%5D&amp;site_id=64b8e500e3524000ecfa2000d01e2100033e83009398f000ab804c005e0e4300&amp;path=/build-online-store-rails/"></body></html>
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+Object Caching 1097/1155 objects using memcached
+Page Caching using memcached (SSL caching disabled)
+Content Delivery Network via Amazon Web Services: CloudFront: dab1nmslvvntp.cloudfront.net
+
+ Served from: www.sitepoint.com @ 2018-03-31 02:38:19 by W3 Total Cache -->

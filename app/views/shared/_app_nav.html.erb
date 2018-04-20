@@ -1,0 +1,150 @@
+
+  <nav class="navbar " style=" border-radius: 0px;  background: white; border: 0px;">
+    
+
+      
+    <div class="collapse navbar-collapse  col-xs-offset-2 col-xs-8 col-xs-offset-2 " style="border-radius:0px">
+
+<!-- <form style="margin-top: 16px" class="form-horizontal"> -->
+
+<ul class="nav navbar-nav   pull-right " style="background: white ; margin-top: 15px">
+
+
+<% if user_signed_in? %>
+
+ <!-- <li><a href="#"><span class=""></span> F&Q</a></li> -->
+
+
+
+      <li class="dropdown" style="margin-bottom: 5px">
+          <a href="#" data-toggle="dropdown" class="dropdown-toggle"> <span class="glyphicon glyphicon-user" style=" size: 10px"></span>  My Account <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+             <li><a href="#">  Profile</a></li>
+            <li><a href="#">  Transaction</a></li>
+            <li><a href="#"> order history</a></li>
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
+
+          </ul>
+        </li>
+
+ <!-- <li></li> -->
+<% else %>
+
+
+      <li class="dropdown">
+          <a href="#" data-toggle="dropdown" class="dropdown-toggle"> <span class="glyphicon glyphicon-user" style="size: 16px"></span>  My Account <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+          
+
+          <li><%= link_to "Create Account", new_user_registration_path %></li>
+           
+           <li> <a href="/home/login">  Login</a> </li>
+
+          </ul>
+        </li>
+
+<% end %>
+    
+
+
+            <li style=" padding-left:10px ">  <%= link_to "  #{current_order.order_items.size}", cart_path, class: " glyphicon glyphicon-shopping-cart" %></li>
+         
+        
+
+
+  </ul>
+
+<ul class="nav navbar-nav " style="margin: 0px">
+
+        <li style="margin-top: 15px"><%= image_tag("logo", class: "img-responsive",:style=>"width:120px; height:40px;")%></li>
+        <li >
+          
+
+
+              <div class="input-group" id="adv-search" style="margin-top: 20px">
+               
+                <input type="text" class="form-control" value = "" name = "key_word" id ="search" placeholder="Search " />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="submit" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+
+        
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+
+
+                                <form class="form-horizontal" role="form" action="/search/search" method="POST"> 
+
+                                  <div class="form-group">
+                                    <!-- <label for="filter"></label> -->
+                                    <select class="form-control" name="filter">
+                                      <option value="9" selected> -- filter by --</option>
+                                        <option value="" >All arts</option>
+                                        <option value="1">Latest arts</option>
+                                        <option value="2">On promotion</option>
+                                        <option value="3">Best seller</option>
+                                      
+                                    </select>
+                                  </div>
+
+                      
+                                  <div class="form-group">
+                                    <!-- <label for="contain">Artist</label> -->
+                                    <input class="form-control" type="text"  name = "artist" placeholder="artist name" />
+                                  </div> 
+                      
+                                  <div class="form-group">
+                                    <!-- <label for="contain"></label> -->
+                                    <input class="form-control" type="text"  name="key_word" placeholder="contains the words" required /> 
+                                  </div>
+
+                      
+                                  <button type="submit" class="btn btn-info" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                </form>
+                            </div>
+                        </div>
+                        <button type="button" onclick="search()" class="btn btn-info" style="border-radius: 0px"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </li>
+
+
+
+      </ul>
+
+
+
+     
+
+
+
+  
+
+
+
+
+  </nav>
+
+</div>
+
+
+
+<script type="text/javascript">
+  
+  function search(){
+    var s =  document.getElementById("search").value
+
+    if(s == ""){
+      alert("Key word can not be empty")
+      return false
+    }
+    window.location.href = "/search/search?key_word=" + s + "&src=" + 1
+
+  }
+</script>

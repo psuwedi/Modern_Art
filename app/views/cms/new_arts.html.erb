@@ -1,0 +1,245 @@
+
+<%= render :partial => "shared/cms_index" %>
+
+
+
+<div id="page-wrapper" style="min-height: 900px">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="page-header">Arts </h1>
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+
+  <div class="row">
+    <div class="col-sm-10">
+
+
+
+      <%  if flash[:notice] %>
+      <div col-xs-offset-4 col-xs-4 col-xs-offset-4>
+        <div class="alert alert-success ">
+          <button data-dismiss="alert" class="close" type="button">×</button>
+          <h4>Success</h4>
+          <%= flash[:notice] %>
+        </div>
+      </div>
+      <% end %>
+
+      <%  if flash[:error] %>
+      <div col-xs-offset-4 col-xs-4 col-xs-offset-4>
+        <div class="alert alert-error col-xs-offset-4 col-xs-4 col-xs-offset-4">
+          <button data-dismiss="alert" class="close" type="button">×</button>
+          <h4>Error</h4>
+          <%= flash[:error] %>
+        </div>
+
+      </div>
+      <% end %>
+
+
+
+      <div class="panel panel-grey" >
+        <div class="panel-heading" style="padding: 15px">
+          <div class="row">
+
+
+           <form class="form-horizontal" action="/cms/new_arts" method="POST"  enctype="multipart/form-data">
+             <div class="col-sm-12">
+
+              <a href="/cms/all_arts" class="btn btn-success pull-right" style="margin:5px; border-radius:0px"> <span class=""> List arts</span>
+              </a>
+
+            </div>
+
+
+
+
+
+
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="f_name">Art Name:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="name" required placeholder="Enter Name">
+              </div>
+            </div>
+
+
+             <div class="form-group">
+              <label class="control-label col-sm-2" for="f_name">Display Title:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="title" required placeholder="Enter short discription">
+              </div>
+            </div>
+
+
+
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="f_name">Category Name:</label>
+              <div class="col-sm-10">
+
+                <select class="form-control"  name="category">
+
+              <% @category.each do |c|  %>
+                  <option value="<%=c.id%>"><%= c.name%> </option>
+              <% end %> 
+                </select>
+              </div>
+            </div>
+
+
+
+
+             <div class="form-group">
+              <label class="control-label col-sm-2" for="f_name">Size Name:</label>
+              <div class="col-sm-10">
+
+                <select class="form-control"  name="size">
+
+              <% @size.each do |c|  %>
+                  <option value="<%=c.id%>"><%= c.size%> </option>
+              <% end %> 
+                </select>
+              </div>
+            </div>
+
+
+
+             <div class="form-group">
+              <label class="control-label col-sm-2" for="f_name">Color Name:</label>
+              <div class="col-sm-10">
+
+                <select class="form-control"  name="color">
+
+              <% @color.each do |c|  %>
+                  <option value="<%=c.id%>"><%= c.art_color%> </option>
+              <% end %> 
+                </select>
+              </div>
+            </div>
+
+
+
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="">Frame Type:</label>
+              <div class="col-sm-10">
+
+                <select class="form-control"  name="frame">
+
+              <% @frame.each do |c|  %>
+                  <option value="<%=c.id%>"><%= c.name%> </option>
+              <% end %> 
+                </select>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="f_name">Artist Name:</label>
+              <div class="col-sm-10">
+
+                <select class="form-control"  name="artist">
+                  <option value="<%= 1 %>"> Unknown </option>
+              <% @artist.each do |a|  %>
+                  <option value="<%=a.id%>"><%= a.name%> </option>
+              <% end %> 
+                </select>
+              </div>
+            </div>
+
+
+            <div class="form-group" id = "image">
+              <label class="control-label col-sm-2" for="role">Price</label>
+              <div class="col-sm-10">
+
+                <input type="number" class="form-control-file"  min="0.00" step = "0.01" name="price" aria-describedby="fileHelp" placeholder="Price">
+                
+              </div>
+            </div>
+
+
+
+            <div class="form-group" id = "image">
+              <label class="control-label col-sm-2" for="role">qty</label>
+              <div class="col-sm-10">
+
+                <input type="number" class="form-control-file"  min="1" step = "1" name="qty" aria-describedby="fileHelp" required placeholder="Quatity">
+                
+              </div>
+            </div>
+
+
+
+            <div class="form-group" id = "image">
+              <label class="control-label col-sm-2" for="role">Image</label>
+              <div class="col-sm-10">
+
+                <input type="file" class="form-control-file" Value = "upload image" name="image" aria-describedby="fileHelp">
+                <small id="fileHelp" class="form-text text-muted">This will be set as display picture</small>
+
+
+              </div>
+            </div>
+
+
+            <div class="form-group" >
+              <label class="control-label col-sm-2" for="role">Art description:</label>
+              <div class="col-sm-10">
+
+                <textarea class="form-control" rows="5" id="art" name = "description" required></textarea>
+              </div>
+
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-info" >Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+  function validateFiles(inputFile) {
+    var maxExceededMessage = "This file exceeds the maximum allowed file size (5 MB)";
+    var extErrorMessage = "Only image file with extension: .jpg, .jpeg, .gif or .png is allowed";
+    var allowedExtension = ["jpg", "jpeg", "gif", "png"];
+
+    var extName;
+    var maxFileSize = $(inputFile).data('max-file-size');
+    var sizeExceeded = false;
+    var extError = false;
+
+    $.each(inputFile.files, function() {
+      if (this.size && maxFileSize && this.size > parseInt(maxFileSize)) {sizeExceeded=true;};
+      extName = this.name.split('.').pop();
+      if ($.inArray(extName, allowedExtension) == -1) {extError=true;};
+    });
+    if (sizeExceeded) {
+      window.alert(maxExceededMessage);
+      $(inputFile).val('');
+    };
+
+    if (extError) {
+      window.alert(extErrorMessage);
+      $(inputFile).val('');
+    };
+  }
+
+</script>

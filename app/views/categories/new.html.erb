@@ -1,0 +1,87 @@
+
+<%= render :partial => "shared/nav" %>
+
+
+
+
+<div class="panel panel-default col-xs-offset-2 col-xs-8 col-xs-offset-2 " style="border-radius:0px">
+
+  <div class="panel-heading" style="border-radius:0px">New Category</div>
+  <div class="panel-body">
+
+
+
+        <form class="form-horizontal" action="/cms/new_category" nctype="multipart/form-data">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="name">Category Name:</label>
+          <div class="col-sm-10">
+            <input type="text" name = "image" class="form-control" id="name" placeholder="Enter email" onchange="validateFiles(this)">
+          </div>
+        </div>
+
+
+      <div class="form-group">
+          <label class="control-label col-sm-2" for="image">Upload Image</label>
+          <div class="col-sm-10">
+
+            <input type="file" class="form-control-file" id="exampleFormControlFile1" data ="max_file_size[5.megabytes]"  accept=".jpg, .jpeg, .png" multiple required="">
+          </div>
+      </div>
+
+<!--  -->
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </div>
+      </form> 
+
+
+
+
+
+
+<% end %>
+
+
+    </div>
+
+
+
+
+</div>
+
+
+<%= render :partial => "shared/footer" %>
+
+
+
+<script>
+
+function validateFiles(inputFile) {
+  var maxExceededMessage = "This file exceeds the maximum allowed file size (5 MB)";
+  var extErrorMessage = "Only image file with extension: .jpg, .jpeg, .gif or .png is allowed";
+  var allowedExtension = ["jpg", "jpeg", "gif", "png"];
+
+  var extName;
+  var maxFileSize = $(inputFile).data('max-file-size');
+  var sizeExceeded = false;
+  var extError = false;
+
+  $.each(inputFile.files, function() {
+    if (this.size && maxFileSize && this.size > parseInt(maxFileSize)) {sizeExceeded=true;};
+    extName = this.name.split('.').pop();
+    if ($.inArray(extName, allowedExtension) == -1) {extError=true;};
+  });
+  if (sizeExceeded) {
+    window.alert(maxExceededMessage);
+    $(inputFile).val('');
+  };
+
+  if (extError) {
+    window.alert(extErrorMessage);
+    $(inputFile).val('');
+  };
+}
+
+</script>

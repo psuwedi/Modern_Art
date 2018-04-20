@@ -1,0 +1,149 @@
+
+<%= render :partial => "shared/cms_index" %>
+
+
+
+<div id="page-wrapper" style="min-height: 900px">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="page-header">Employee/Staff </h1>
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+
+  <div class="row">
+    <div class="col-sm-10">
+
+
+
+      <%  if flash[:notice] %>
+      <div col-xs-offset-4 col-xs-4 col-xs-offset-4>
+        <div class="alert alert-success ">
+          <button data-dismiss="alert" class="close" type="button">×</button>
+          <h4>Success</h4>
+          <%= flash[:notice] %>
+        </div>
+      </div>
+      <% end %>
+
+      <%  if flash[:error] %>
+      <div col-xs-offset-4 col-xs-4 col-xs-offset-4>
+        <div class="alert alert-error col-xs-offset-4 col-xs-4 col-xs-offset-4">
+          <button data-dismiss="alert" class="close" type="button">×</button>
+          <h4>Error</h4>
+          <%= flash[:error] %>
+        </div>
+
+      </div>
+      <% end %>
+
+
+
+      <div class="panel panel-grey" >
+        <div class="panel-heading" style="padding: 15px">
+          <div class="row">
+
+            <h5> List of Employees</h5>
+         
+             <div class="col-sm-12"><!-- 
+              <a href="" class="btn btn-danger pull-right" style="margin:5px; border-radius:0px"> <span class=""> Delete</span>
+              </a> -->
+
+
+           
+              
+            </div>
+
+            <div class="form-group">
+
+
+              <table class="table table-striped">
+                <thead>
+
+
+                  <tr>
+                    <th>First Name </th>
+                    <th>Surname </th>
+                    <th>Email </th>
+                    <th>phone number </th>
+                    <th>Account status </th>
+                    <th>Action </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @employees.each do |c|
+
+                    if c.status == 0
+                        sta = "de-activated"
+                      else
+                        sta = "active"
+                      end
+                   %>
+                  <tr>
+                    <td>   <%= c.firstname %></td>
+                    <td>   <%= c.surname %></td>
+                    <td>   <%= c.email %></td>
+                    <td>   <%= c.phone %></td>
+                    <td><%=  sta %></td>
+                    <td>     <a href="/cms/show_category?id=<%=c.id%>" class="btn btn-success " title="edit"> <span style = ""  class="glyphicon glyphicon-pencil" ></span> </a> 
+
+                      |  <a href="" class="btn btn-warning " onclick="deactivate('<%=c.id%>')"  title="deactivate" > <span style = "" class="glyphicon glyphicon-lock"></span></a>
+
+                      |  <a href="" class="btn btn-danger " onclick="ask('<%=c.id%> ')" title="delete"> <span style = "" class="glyphicon glyphicon-trash"></span></a>
+
+
+
+
+                    </td>  
+
+
+                  </td>
+
+
+                </tr>
+
+                <% end %>
+
+              </tbody>
+            </table>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+
+    function ask(id) {
+      var answer = confirm("Are you sure?")
+      if (answer) {
+            window.location.href = "/cms/delete_staff?id=" +id;
+          }
+          else {
+            return false
+          }
+        }
+
+  function deactivate(id){
+    var answer = confirm("Are you sure?")
+      if (answer) {
+            window.location.href = "/cms/delete_staff?id=" +id + "&key=" + "deactivate" ;
+          }
+          else {
+            return false
+          }
+
+  }
+</script>

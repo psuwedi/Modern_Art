@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>New User</title>
+    <script type="text/javascript" src="/assets/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+      var currentUsername = '';
+      function confirmAction(){
+        $('#myModal').modal('show');
+      }
+
+      function cancel(){
+        window.location = '/users/my_profile'
+      }
+    </script>
+  </head>
+  <body>
+    <div class="row-fluid">
+      <div class="span3" id="sidebar">
+        <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+          <li>
+            <a href="/users/new_user"><i class="icon-chevron-right"></i> New User</a>
+          </li>
+          <li>
+            <a href="/users/edit_user"><i class="icon-chevron-right"></i> Edit User</a>
+          </li>
+          <li>
+            <a href="/users/delete_user"><i class="icon-chevron-right"></i> Delete User</a>
+          </li>
+          <li class="active">
+            <a href="/users/my_profile"><i class="icon-chevron-right"></i> My Profile</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="span9" id="content">
+        <div class="row-fluid">
+          <%  if flash[:notice] %>
+            <div class="alert alert-success">
+              <button data-dismiss="alert" class="close" type="button">×</button>
+              <h4>Success</h4>
+              <%= flash[:notice] %>
+            </div>
+          <% end %>
+          <%  if flash[:error] %>
+            <div class="alert alert-error">
+              <button data-dismiss="alert" class="close" type="button">×</button>
+              <h4>Error</h4>
+              <%= flash[:error] %>
+            </div>
+          <% end %>
+          <div class="block">
+            <div class="navbar navbar-inner block-header">
+              <div class="muted pull-left">Edit <%= params[:field].titleize %></div>
+            </div>
+            <div class="block-content collapse in">
+              <div class="span12">
+                <form action="/users/update_field" class="form-horizontal" method="POST">
+                  <fieldset>
+
+                    <% if params[:field] == 'first_name' %>
+                      <div class="control-group">
+                        <label class="control-label">First Name<span class="required">*</span></label>
+                        <div class="controls">
+                          <input type="text" value="<%= @user.first_name %>" name="first_name" required="required" class="span4 m-wrap"/>
+                        </div>
+                        <%= hidden_field_tag("field", 'first_name') %>
+                      </div>
+                    <% end %>
+
+                    <% if params[:field] == 'last_name' %>
+                      <div class="control-group">
+                        <label class="control-label">Last Name<span class="required">*</span></label>
+                        <div class="controls">
+                          <input type="text" value="<%= @user.last_name %>" name="last_name" required="required" class="span4 m-wrap"/>
+                        </div>
+                      </div>
+                      <%= hidden_field_tag("field", 'last_name') %>
+                    <% end %>
+
+                    <% if params[:field] == 'username' %>
+                      <div class="control-group">
+                        <label class="control-label">Username<span class="required">*</span></label>
+                        <div class="controls">
+                          <input type="text" value="<%= @user.username %>" name="username" required="required" class="span4 m-wrap"/>
+                        </div>
+                      </div>
+                      <%= hidden_field_tag("field", 'username') %>
+                    <% end %>
+
+                    <% if params[:field] == 'email' %>
+                      <div class="control-group">
+                        <label class="control-label">Email<span class="required">*</span></label>
+                        <div class="controls">
+                          <input type="email" value="<%= @user.email %>" name="email" required="required" class="span4 m-wrap"/>
+                        </div>
+                      </div>
+                      <%= hidden_field_tag("field", 'email') %>
+                    <% end %>
+
+                    <% if params[:field] == 'password' %>
+                      <div class="control-group">
+                        <label class="control-label">Password<span class="required">*</span></label>
+                        <div class="controls">
+                          <input type="password" name="password" required="required" class="span4 m-wrap"/>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <label class="control-label">Retype Password<span class="required">*</span></label>
+                        <div class="controls">
+                          <input type="password" name="password_confirm" required="required" class="span4 m-wrap"/>
+                        </div>
+                      </div>
+                      <%= hidden_field_tag("field", 'password') %>
+                    <% end %>
+
+                    <div class="form-actions">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="button" onclick="confirmAction();" class="btn">Cancel</button>
+                    </div>
+
+                  </fieldset>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <!-- /block -->
+        </div>
+
+      </div>
+
+    </div>
+
+    <!--CONFIRMATION POPUP BEGIN -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">
+              Cancel Confirmation
+            </h4>
+          </div>
+          <div class="modal-body">
+            <span style="text-align:center;">You are about to cancel the process. Are you really very sure?</span>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cancel();">Okay</button>
+              <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--CONFIRMATION POPUP END -->
+  </body>
+</html>

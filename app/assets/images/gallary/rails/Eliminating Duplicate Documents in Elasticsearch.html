@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="wf-lato-n3-active wf-lato-n4-active wf-lato-n7-active wf-lato-i3-active wf-lato-i4-active wf-lato-i7-active wf-active wf-fontawesome-n4-inactive" lang="en-US"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+
+        
+        
+        
+  <title>Eliminating Duplicate Documents in Elasticsearch</title>
+  <link rel="home" href="https://qbox.io/">
+  <link rel="canonical" href="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch">
+  <meta name="Description" content="Learn the techniques for identifying and managing duplicates in your Elasticsearch indexes.">
+
+  <meta property="og:site_name" content="Qbox.io">
+  <meta property="og:title" content="Eliminating Duplicate Documents in Elasticsearch">
+  <meta property="og:url" content="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch">  <meta property="og:image" content="https://qbox.io/img/blog/_blogWidth/do-not-duplicate-key.jpg">  <meta property="og:image:url" content="https://qbox.io/img/blog/_blogWidth/do-not-duplicate-key.jpg">  <meta property="og:image:secure_url" content="https://qbox.io/img/blog/_blogWidth/do-not-duplicate-key.jpg">  <meta property="og:description" content="Avoiding duplication in your Elasticsearch indexes is always a good thing. But you can gain other benefits by eliminating duplicates: save disk space, improve search accuracy, improve the efficiency of hardware resource management. Perhaps most important, you reduce the fetch time for searches.
+
+Surprisingly, there is little documentation available on this topic, so we offer this tutorial that gives you the proper technique for identifying and managing duplicates in your indexes.
+">  <meta name="author" content="Vineeth Mohan">
+  <meta name="google-site-verification" content="aj7yP0xofpjgVl17DiTGo8wAwWgrXStQVItO16U5T1g">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/main.css">
+  <link rel="stylesheet" type="text/css" href="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/qbox_chat.css">
+  <link rel="shortcut icon" href="https://qbox.io/favicon.ico">
+  <script type="text/javascript" id="www-widgetapi-script" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/www-widgetapi.js" async=""></script><script type="text/javascript" async="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/e7ddbc4f761acdadd2e2dffa9c18089dec1d22c5.js"></script><script type="text/javascript" async="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/i.js"></script><script type="text/javascript" async="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/atrk.js"></script><script type="text/javascript" async="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/roundtrip.js"></script><script type="text/javascript" async="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/analytics.js"></script><script async="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/iframe_api.js" id="youtube-iframe-api"></script><script async="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/count.js" id="disqus-loader-js"></script><script async="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/gtm.js"></script><script src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/app.js"></script><link rel="stylesheet" href="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/css_002.css" media="all"><link rel="stylesheet" href="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/font-awesome.css" media="all"><link rel="stylesheet" href="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/css.css" media="all">
+<script async="true" type="text/javascript" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/O7T6VJHCSFD3VLSYIPVU2P"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img style="border-style:none;" alt="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/out.asc" width="1" height="1"><img style="border-style:none;" alt="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/out_002.gif" width="1" height="1"><img style="border-style:none;" alt="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/out_003.gif" width="1" height="1"><img style="border-style:none;" alt="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/out.html" width="1" height="1"></div><script type="text/javascript" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/sendrolling.js"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img style="border-style:none;" alt="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/out_007.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/out_006.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/out_004.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/out_005.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/out_002.html" width="1" height="1">
+<img style="border-style:none;" alt="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/out.gif" width="1" height="1">
+</div></head>
+
+<body id="blog_entry">
+  <!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5SS2ZN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>
+  (function(w,d,s,l,i) {
+    w[l] = w[l]||[];
+    w[l].push({
+      'gtm.start': new Date().getTime(),
+      event:'gtm.js'
+    });
+    var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = (l!='dataLayer') ? '&l='+l : '';
+        j.async = true;
+        j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5SS2ZN');
+</script>
+<!-- End Google Tag Manager -->
+
+<script>
+  // Custom click listeners for event tracking.
+  (function(){
+    window.dataLayer = window.dataLayer || [];
+    var docListeners = [];
+
+    var uiEvent = function(category, action, label) {
+      var payload = {
+        event: 'ui-event',
+        eventAttributes: {
+          category: category,
+          action:   action,
+          label:    label
+        }
+      };
+
+      window.dataLayer.push(payload);
+    };
+
+    var handleDocClick = function(e) {
+      for(var listener in docListeners) {
+        if(e.target.matches(listener)) {
+          docListeners[listener](e);
+        }
+      }
+    };
+
+    var addDocListener = function(key, action) {
+      docListeners[key] = action;
+    };
+
+    document.documentElement.addEventListener('click', function(e) {
+      handleDocClick(e);
+    });
+
+    addDocListener('a.reddit-share', function(e) {
+      uiEvent('Social', 'Reddit:Share', e.target.getAttribute('data-baseurl'));
+    });
+
+    addDocListener('a.linkedin-share', function(e) {
+      uiEvent('Social', 'LinkedIn:Share', e.target.getAttribute('data-baseurl'));
+    });
+
+    addDocListener('a.facebook-share', function(e) {
+      uiEvent('Social', 'Facebook:Share', e.target.getAttribute('data-baseurl'));
+    });
+
+    addDocListener('a.twitter-share', function(e) {
+      uiEvent('Social', 'Twitter:Share', e.target.getAttribute('data-baseurl'));
+    });
+
+    addDocListener('button.copy-share', function(e) {
+      uiEvent('Social', 'Copy URL', e.target.getAttribute('data-baseurl'));
+    });
+  })();
+</script>
+
+  
+  
+  <div class="site-header  fixed">
+  <nav class="site-nav" role="navigation">
+    <a href="https://qbox.io/" class="site-logo" title="Hosted Elasticsearch Service" rel="home">Qbox Hosted Elasticsearch Service</a>
+
+    <!-- <label for="site-nav-toggle" class="site-nav-show">Menu</label> -->
+    <label for="site-nav-toggle" class="btn btn-primary btn-inverted site-nav-show" aria-hidden="true">Menu</label>
+
+    <input id="site-nav-toggle" class="site-nav-toggle" aria-hidden="true" autocomplete="off" tabindex="-1" type="checkbox">
+
+    <div class="site-nav-menus">
+      <ul class="site-nav-left">
+        <li class="site-nav-home">
+          <a href="https://qbox.io/" title="Hosted Elasticsearch Service" rel="home">Home</a>
+        </li>
+
+        <li data-toggle="hover-group">
+          <a href="#products-menu" data-toggle="handle" class="">
+            Products
+            <i class="fa fa-angle-down"></i>
+          </a>
+
+          <ul data-toggle="container" class="hover-menu">
+            <li>
+              <a href="https://qbox.io/hosted-elasticsearch">Hosted Elasticsearch</a>
+            </li>
+            <li>
+              <a href="https://qbox.io/elasticsearch-on-aws">Private Elasticsearch on AWS</a>
+            </li>
+            <li>
+              <a href="https://qbox.io/kibana">Hosted Kibana</a>
+            </li>
+            <li>
+              <a href="https://qbox.io/logstash">Hosted Logstash</a>
+            </li>
+            <li>
+              <a href="https://qbox.io/elk-stack">Hosted ELK Stack</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="https://qbox.io/pricing" title="Hosted Elasticsearch Service Pricing">
+            Pricing
+          </a>
+        </li>
+
+        <li>
+          <a href="https://qbox.io/tutorials" title="Elasticsearch Tutorials">
+            Tutorials
+          </a>
+        </li>
+
+        <li>
+          <a href="https://qbox.io/blog" title="Qbox Blog">
+            Blog
+          </a>
+        </li>
+      </ul>
+
+      <ul class="site-nav-right">
+        <span class="nav-qbox-session-inactive">
+          <li><a href="https://qbox.io/support">Support</a></li>
+          <li><a href="https://qbox.io/login">Login</a></li>
+          <li><a class="btn btn-primary btn-inverted site-nav-pricing" href="https://qbox.io/pricing?utm_source=qbox.io&amp;utm_medium=header&amp;utm_campaign=2017.03" title="Qbox Elasticsearch Service Pricing">View Pricing</a></li>
+          <li><a class="btn btn-primary btn-inverted site-nav-login" href="https://qbox.io/signup?utm_source=qbox.io&amp;utm_medium=header&amp;utm_campaign=2017.01" title="Create an Elasticsearch Cluster">Get Started</a></li>
+        </span>
+        <span class="nav-qbox-session-active">
+          <li><a href="https://qbox.io/support">Support</a></li>
+          <li><a href="https://qbox.io/dashboard">Dashboard</a></li>
+          <li><a href="https://qbox.io/logout">Logout</a></li>
+          <li><a class="btn btn-primary btn-inverted site-nav-new-cluster" href="https://qbox.io/dashboard/clusters/aws-v2/new?utm_source=qbox.io&amp;utm_medium=header&amp;utm_campaign=2017.02" title="Create an Elasticsearch Cluster">New Cluster</a></li>
+        </span>
+      </ul>
+    </div>
+
+    <label for="site-nav-toggle" class="site-nav-hide" aria-hidden="true">Hide Nav</label>
+  </nav>
+</div>
+
+  <!--<div class="announcement">
+    Introducing Supergiant, a fundamental change in hosted Elasticsearch. <a class="read-more" href="/supergiant-elasticsearch">Read more &#9656;</a>
+  </div>-->
+
+  <main id="content" role="main">
+    
+<div id="breadcrumbs" style="background-image: url(&quot;data:image/png;base64,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&quot;);">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li><a href="https://qbox.io/blog">Blog</a></li>
+
+      
+      <li class="active">Eliminating Duplicate Documents in Elasticsearch</li>
+    </ol>
+  </div>
+
+  <script>
+    (function(){
+      var container = document.querySelector('#breadcrumbs');
+
+      var pattern = Trianglify({
+        width:          container.offsetWidth,
+        height:         container.offsetHeight,
+        cell_size:      50,
+        variance:       1,
+        x_colors:       ['#3356B4', '#0ad', '#3356B4'],
+        y_colors:       ['#3356B4', '#0ad', '#0044aa'],
+        palette:        Trianglify.colorbrewer
+      });
+
+      container.style.backgroundImage = ' url(' + pattern.png() + ')';
+    })();
+  </script>
+</div>
+
+<div class="content">
+      <div class="container">
+      <article class="blog-article">
+            <div class="full-image" style="background-image: url(https://qbox.io/img/blog/_blogWidth/do-not-duplicate-key.jpg);">
+        <div class="article-header">
+          <h1><a href="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch?utm_source=qbox.io&amp;utm_medium=article&amp;utm_campaign=minimizing-document-duplication-in-elasticsearch" title="Eliminating Duplicate Documents in Elasticsearch">Eliminating Duplicate Documents in Elasticsearch</a></h1>
+
+          <span class="date">Posted by <a href="https://qbox.io/blog/author/vineeth-mohan?utm_source=qbox.io&amp;utm_medium=article&amp;utm_campaign=minimizing-document-duplication-in-elasticsearch">Vineeth Mohan</a> <span class="text-nowrap">September 15, 2015</span></span>
+
+          <div class="author-image">
+            <a href="https://qbox.io/blog/author/vineeth-mohan?utm_source=qbox.io&amp;utm_medium=article&amp;utm_campaign=minimizing-document-duplication-in-elasticsearch" class="image-container" style="background-image: url(https://qbox.io/cpresources/userphotos/vineeth/120/Vineeth_Mohan.jpg?d=1452890104)"></a>
+          </div>
+        </div>
+      </div>
+      
+  
+  <aside class="article-share-top">
+    <div class="article-share-buttons">
+  <a class="reddit-share" href="http://www.reddit.com/submit?url=https%3A%2F%2Fqbox.io%2Fblog%2Fminimizing-document-duplication-in-elasticsearch%3Futm_source%3DReddit%26utm_medium%3Dshare%26utm_name%3Dblog&amp;title=%E2%80%8BEliminating%20Duplicate%20Documents%20in%20Elasticsearch" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Share on Reddit" target="_blank">Share on Reddit</a>
+  <a class="linkedin-share" href="https://www.linkedin.com/shareArticle?&amp;mini=true&amp;url=https%3A%2F%2Fqbox.io%2Fblog%2Fminimizing-document-duplication-in-elasticsearch%3Futm_source%3DLinkedIn%26utm_medium%3Dshare%26utm_name%3Dblog&amp;title=Eliminating%20Duplicate%20Documents%20in%20Elasticsearch&amp;summary=Learn%20the%20techniques%20for%20identifying%20and%20managing%20duplicates%20in%20your%20Elasticsearch%20indexes.&amp;source=10617054" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Share on LinkedIn" target="_blank">Share on LinkedIn</a>
+  <a class="facebook-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fqbox.io%2Fblog%2Fminimizing-document-duplication-in-elasticsearch%3Futm_source%3DFacebook%26utm_medium%3Dshare%26utm_name%3Dblog" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Share on Facebook" target="_blank">Share on Facebook</a>
+  <a class="twitter-share" href="http://twitter.com/share?text=@qboxio%3A%20Eliminating%20Duplicate%20Documents%20in%20Elasticsearch&amp;url=https%3A%2F%2Fqbox.io%2Fblog%2Fminimizing-document-duplication-in-elasticsearch%3Futm_source%3DTwitter%26utm_medium%3Dshare%26utm_name%3Dblog&amp;hashtags=qboxio" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Share on Twitter" target="_blank">Share on Twitter</a>
+  <button class="copy-share" href="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Copy URL" data-clipboard-text="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog">Copy URL</button>
+
+  <div class="article-share-text">
+    <input id="social-share-text" value="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog" onclick="this.setSelectionRange(0, this.value.length);" type="text">
+  </div>
+
+  <script>
+    if(clipboard) clipboard.destroy();
+    var clipboard = new Clipboard('button.copy-share');
+
+    clipboard.on('success', function(e) {
+      e.trigger.setAttribute('data-tooltip','URL copied!');
+      console.info('URL copied to clipboard!');
+      e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+      var parent = e.trigger.parentNode;
+      parent.querySelector('.article-share-text').className += ' visible';
+      parent.querySelector('.article-share-text input').select();
+    });
+  </script>
+</div>
+  </aside>
+
+  <div class="post-summary">
+                  <p>Avoiding duplication in your Elasticsearch indexes 
+is always a good thing. But you can gain other benefits by eliminating 
+duplicates: save disk space, improve search accuracy, improve the 
+efficiency of hardware resource management. Perhaps most important, you 
+reduce the fetch time for searches.
+</p>
+<p>Surprisingly, there is little documentation available on this topic, 
+so we offer this tutorial that gives you the proper technique for 
+identifying and managing duplicates in your indexes.
+</p>
+
+        <p><em>For this post, we will be using hosted Elasticsearch on Qbox.io. You can sign up or <a href="https://qbox.io/signup?utm_source=blog&amp;utm_campaign=tutorial&amp;utm_term=launch_your_cluster&amp;utm_medium=article"></a><a href="https://qbox.io/signup?utm_source=blog&amp;utm_campaign=tutorial&amp;utm_term=launch_your_cluster&amp;utm_medium=article" target="_blank">launch your cluster here</a>, or click "Get Started" in the header navigation. If you need help setting up, refer to "<a href="https://qbox.io/blog/provisioning-a-qbox-elasticsearch-cluster?utm_source=tutorial&amp;utm_term=provision&amp;utm_medium=article&amp;utm_campaign=minimizing-document-duplication-in-elasticsearch"></a><a href="https://qbox.io/blog/provisioning-a-qbox-elasticsearch-cluster?utm_source=tutorial&amp;utm_term=provision&amp;utm_medium=article&amp;utm_campaign=minimizing-document-duplication-in-elasticsearch" target="_blank">Provisioning a Qbox Elasticsearch Cluster.</a>"</em></p>
+<h3>Example Data</h3>
+<p>Here are four simple documents, one of which is a duplicate of another. We index these documents under the name <code>employeeid</code> and the type <code>info</code>.
+</p>
+<h4>Document 1</h4>
+<pre class="hljs rust">curl -XPOST <span class="hljs-symbol">'http</span>:<span class="hljs-comment">//localhost:9200/employeeid/info/1' -d '{</span>
+ <span class="hljs-string">"name"</span>: <span class="hljs-string">"John"</span>,
+ <span class="hljs-string">"organisation"</span>: <span class="hljs-string">"Apple"</span>,
+ <span class="hljs-string">"employeeID"</span>: <span class="hljs-string">"23141A"</span>
+}'
+</pre>
+<h4>Document 2</h4>
+<pre class="hljs rust">curl -XPOST <span class="hljs-symbol">'http</span>:<span class="hljs-comment">//localhost:9200/employeeid/info/2' -d '{</span>
+ <span class="hljs-string">"name"</span>: <span class="hljs-string">"Sam"</span>,
+ <span class="hljs-string">"organisation"</span>: <span class="hljs-string">"Tesla"</span>,
+ <span class="hljs-string">"employeeID"</span>: <span class="hljs-string">"TE9829"</span>
+ }'
+</pre>
+<h4>Document 3</h4>
+<pre class="hljs rust">curl -XPOST <span class="hljs-symbol">'http</span>:<span class="hljs-comment">//localhost:9200/employeeid/info/3' -d '{</span>
+ <span class="hljs-string">"name"</span>:<span class="hljs-string">"Sarah"</span>,
+ <span class="hljs-string">"organisation"</span>:<span class="hljs-string">"Microsoft"</span>,
+ <span class="hljs-string">"employeeID"</span> :<span class="hljs-string">"M54667"</span>
+ }'
+</pre>
+<h4>Document 4</h4>
+<pre class="hljs rust">curl -XPOST <span class="hljs-symbol">'http</span>:<span class="hljs-comment">//localhost:9200/employeeid/info/4' -d '{</span>
+ <span class="hljs-string">"name"</span>: <span class="hljs-string">"John"</span>,
+ <span class="hljs-string">"organisation"</span>: <span class="hljs-string">"Apple"</span>,
+ <span class="hljs-string">"employeeID"</span>: <span class="hljs-string">"23141A"</span>
+ }'
+</pre>
+<p>Look closely, and you'll see that document 4 is a duplicate of document 1.
+</p>
+<h3>Avoiding Duplicate Documents during Indexing</h3>
+<p>Before we consider how to perform duplication checking in 
+Elasticsearch, let's take a moment to consider the different types of 
+indexing scenarios.
+</p>
+<p>One scenario is when we have access to the source documents prior to 
+indexing. In such cases, it's relatively easy to examine the data and 
+find one or more fields containing unique values. That is, each of the 
+distinct values for that field occurs in precisely one document. In such
+ cases, we could set that particular field to be the document id for the
+ Elasticsearch index. Since any duplicate source documents will also 
+have the same document id, Elasticsearch will ensure that these 
+duplicates won't become part of the index.
+</p>
+<h3>Upsert</h3>
+<p>Another scenario is when one or more documents have the same 
+identifiers but different content. This often happens when a user edits a
+ document and wants to reindex that document using the same document id.
+ The problem is that when the user attempts to reindex, Elasticsearch 
+won't permit it because it document ids must be unique.
+</p>
+<p>The workaround is to use the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html#upserts" target="_blank">upsert API</a>. <strong>Upsert</strong>
+ checks for the existence of a particular document, and, if it exists, 
+upsert will update that document with the content of the upsert. If the 
+document does not exist, upsert will create the document with the same 
+content. Either way, the user will get the content update under the same
+ document id.
+</p>
+<p>In the third scenario, there is no access to the data set prior to 
+creation of the index. It is in these cases that we will need to search 
+the index and check for the duplicates. This is what we demonstrate in 
+the sections below.
+</p>
+<h3>Basic Checks for Duplicates</h3>
+<p>In each of our example documents, we see three fields: <code>name, organisation,</code> and if we begin by assuming that the field <code>name</code>
+ is unique, we specify that field as the identifier for checking 
+duplicates. If more than one document has the same value for the <code>name</code> field, then that document is indeed a duplicate.
+</p>
+<p>Proceeding with this rationale in mind, we can perform simple <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html?q=terms%20ag" target="_blank">terms aggregation</a> to get document counts for each value of the field <code>name</code>.
+ However, this simple aggregation will only return document counts under
+ each value of that field. This approach isn't useful in checking for 
+duplicates because we want to examine the documents <em>for duplicates of one or more values for the field</em>. To do that, we also need to apply the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-top-hits-aggregation.html?q=top_hits%20aggregation" target="_blank">top_hits aggregation</a>—a subaggregator in which the top matching documents are aggregated per bucket.
+</p>
+<p>Here is the query we would recommend against our index of example documents given above:
+</p>
+<pre class="hljs rust">curl -XGET <span class="hljs-symbol">'http</span>:<span class="hljs-comment">//localhost:9200/employeeid/info/_search?pretty=true' -d '{</span>
+  <span class="hljs-string">"size"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-string">"aggs"</span>: {
+    <span class="hljs-string">"duplicateCount"</span>: {
+      <span class="hljs-string">"terms"</span>: {
+      <span class="hljs-string">"field"</span>: <span class="hljs-string">"name"</span>,
+        <span class="hljs-string">"min_doc_count"</span>: <span class="hljs-number">2</span>
+      },
+      <span class="hljs-string">"aggs"</span>: {
+        <span class="hljs-string">"duplicateDocuments"</span>: {
+          <span class="hljs-string">"top_hits"</span>: {}
+        }
+      }
+    }
+  }
+}'
+</pre>
+<p>Here we define the parameter <code>min_doc_count</code>. By setting this parameter to 2, only the aggregation buckets having a <code>doc_count</code> of two or more will appear in the aggregation (as shown in the results below).
+</p>
+<pre class="hljs json">{
+  <span class="hljs-attr">"took"</span>: <span class="hljs-number">112</span>,
+  <span class="hljs-attr">"timed_out"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"_shards"</span>: {
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">"successful"</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">"failed"</span>: <span class="hljs-number">0</span>
+  },
+  <span class="hljs-attr">"hits"</span>: {
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">"max_score"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"hits"</span>: [
+    ]
+  },
+  <span class="hljs-attr">"aggregations"</span>: {
+    <span class="hljs-attr">"duplicateCount"</span>: {
+      <span class="hljs-attr">"doc_count_error_upper_bound"</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-attr">"sum_other_doc_count"</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-attr">"buckets"</span>: [
+        {
+          <span class="hljs-attr">"key"</span>: <span class="hljs-string">"john"</span>,
+          <span class="hljs-attr">"doc_count"</span>: <span class="hljs-number">2</span>,
+          <span class="hljs-attr">"duplicateDocuments"</span>: {
+            <span class="hljs-attr">"hits"</span>: {
+              <span class="hljs-attr">"total"</span>: <span class="hljs-number">2</span>,
+              <span class="hljs-attr">"max_score"</span>: <span class="hljs-number">1</span>,
+              <span class="hljs-attr">"hits"</span>: [
+                {
+                  <span class="hljs-attr">"_index"</span>: <span class="hljs-string">"employeeid"</span>,
+                  <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"info"</span>,
+                  <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"4'"</span>,
+                  <span class="hljs-attr">"_score"</span>: <span class="hljs-number">1</span>,
+                  <span class="hljs-attr">"_source"</span>: {
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John"</span>,
+                    <span class="hljs-attr">"organisation"</span>: <span class="hljs-string">"Apple"</span>,
+                    <span class="hljs-attr">"employeeID"</span>: <span class="hljs-string">"23141A"</span>
+                  }
+                },
+                {
+                  <span class="hljs-attr">"_index"</span>: <span class="hljs-string">"employeeid"</span>,
+                  <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"info"</span>,
+                  <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"1'"</span>,
+                  <span class="hljs-attr">"_score"</span>: <span class="hljs-number">1</span>,
+                  <span class="hljs-attr">"_source"</span>: {
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John"</span>,
+                    <span class="hljs-attr">"organisation"</span>: <span class="hljs-string">"Apple"</span>,
+                    <span class="hljs-attr">"employeeID"</span>: <span class="hljs-string">"23141A"</span>
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+</pre>
+<p>It's important to note that we must set the value of <code>min_doc_count</code> to two. Otherwise, other results will appear in the aggregation and we will not find any duplicates that may exist.<br><br></p>
+<h3>De-duping on values in multiple fields</h3>
+<p>What we did above is a very basic example of identifying duplicate 
+documents according to values in a single field. This isn't very 
+interesting. Or useful. In most cases, checking for duplicates requires 
+examination of mulitple fields. We cannot reliably assume duplicates 
+exist among employee documents that merely contain multiple occurences 
+of the value of "Bill" in the <code>name</code> field. In many 
+real-world cases, it's necessary to check for duplication across many 
+different fields. Considering our example data set above, we need to 
+check for repetition in all of the fields.
+</p>
+<p>We can extend our approach from the previous section and perform a 
+multi-field terms aggregation together with a top-hits aggregation. We 
+can do the terms aggregation for all three fields in the documents of 
+our index. We would again specify the <code>min_doc_count</code> parameter to get only buckets having a <code>doc_count</code> that is greater than or equal to two. We also apply a <code>top_hits</code>
+ aggregation to get the correct results. To accommodate multiple fields,
+ we employ a script to help us append the field values for display in 
+the aggregation:
+</p>
+<pre class="hljs scilab">curl -XGET <span class="hljs-string">'http://localhost:9200/employeeid/info/_search?pretty=true'</span> -d <span class="hljs-string">'{
+  "</span><span class="hljs-built_in">size</span><span class="hljs-string">": 0,
+  "</span>aggs<span class="hljs-string">": {
+    "</span>duplicateCount<span class="hljs-string">": {"</span>terms<span class="hljs-string">": {
+      "</span>script<span class="hljs-string">": "</span>doc[<span class="hljs-string">'name'</span>].values + doc[<span class="hljs-string">'employeeID'</span>].values+doc[<span class="hljs-string">'organisation'</span>].values<span class="hljs-string">",
+      "</span>min_doc_count<span class="hljs-string">": 2
+    },      
+    "</span>aggs<span class="hljs-string">": {}
+      "</span>duplicateDocuments<span class="hljs-string">": {
+        "</span>top_hits<span class="hljs-string">": {}
+      }
+    }
+  }
+}'</span>
+</pre>
+<p>As we show below, the results from running this query display a <code>duplicateCount</code> aggregation, in which we we get a total of three key values—each with <code>doc_count</code> value of two. Also under each key value, the aggregation <code>duplicateDocuments</code>
+ contains the documents in which the duplicate values were found. We can
+ perform cross-checks and verifications on those documents.
+</p>
+<pre class="hljs json">{
+  <span class="hljs-attr">"took"</span>: <span class="hljs-number">9</span>,
+  <span class="hljs-attr">"timed_out"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"_shards"</span>: {
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">"successful"</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">"failed"</span>: <span class="hljs-number">0</span>
+  },
+  <span class="hljs-attr">"hits"</span>: {
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">"max_score"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"hits"</span>: [
+    ]
+  },
+  <span class="hljs-attr">"aggregations"</span>: {
+    <span class="hljs-attr">"duplicateCount"</span>: {
+      <span class="hljs-attr">"doc_count_error_upper_bound"</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-attr">"sum_other_doc_count"</span>: <span class="hljs-number">0</span>,
+      <span class="hljs-attr">"buckets"</span>: [
+        {
+          <span class="hljs-attr">"key"</span>: <span class="hljs-string">"23141a"</span>,
+          <span class="hljs-attr">"doc_count"</span>: <span class="hljs-number">2</span>,
+          <span class="hljs-attr">"duplicateDocuments"</span>: {
+            <span class="hljs-attr">"hits"</span>: {
+              <span class="hljs-attr">"total"</span>: <span class="hljs-number">2</span>,
+              <span class="hljs-attr">"max_score"</span>: <span class="hljs-number">1</span>,
+              <span class="hljs-attr">"hits"</span>: [
+                {
+                  <span class="hljs-attr">"_index"</span>: <span class="hljs-string">"employeeid"</span>,
+                  <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"info"</span>,
+                  <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"4'"</span>,
+                  <span class="hljs-attr">"_score"</span>: <span class="hljs-number">1</span>,
+                  <span class="hljs-attr">"_source"</span>: {
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John"</span>,
+                    <span class="hljs-attr">"organisation"</span>: <span class="hljs-string">"Apple"</span>,
+                    <span class="hljs-attr">"employeeID"</span>: <span class="hljs-string">"23141A"</span>
+                  }
+                },
+                {
+                  <span class="hljs-attr">"_index"</span>: <span class="hljs-string">"employeeid"</span>,
+                  <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"info"</span>,
+                  <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"1'"</span>,
+                  <span class="hljs-attr">"_score"</span>: <span class="hljs-number">1</span>,
+                  <span class="hljs-attr">"_source"</span>: {
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John"</span>,
+                    <span class="hljs-attr">"organisation"</span>: <span class="hljs-string">"Apple"</span>,
+                    <span class="hljs-attr">"employeeID"</span>: <span class="hljs-string">"23141A"</span>
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          <span class="hljs-attr">"key"</span>: <span class="hljs-string">"apple"</span>,
+          <span class="hljs-attr">"doc_count"</span>: <span class="hljs-number">2</span>,
+          <span class="hljs-attr">"duplicateDocuments"</span>: {
+            <span class="hljs-attr">"hits"</span>: {
+              <span class="hljs-attr">"total"</span>: <span class="hljs-number">2</span>,
+              <span class="hljs-attr">"max_score"</span>: <span class="hljs-number">1</span>,
+              <span class="hljs-attr">"hits"</span>: [
+                {
+                  <span class="hljs-attr">"_index"</span>: <span class="hljs-string">"employeeid"</span>,
+                  <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"info"</span>,
+                  <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"4'"</span>,
+                  <span class="hljs-attr">"_score"</span>: <span class="hljs-number">1</span>,
+                  <span class="hljs-attr">"_source"</span>: {
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John"</span>,
+                    <span class="hljs-attr">"organisation"</span>: <span class="hljs-string">"Apple"</span>,
+                    <span class="hljs-attr">"employeeID"</span>: <span class="hljs-string">"23141A"</span>
+                  }
+                },
+                {
+                  <span class="hljs-attr">"_index"</span>: <span class="hljs-string">"employeeid"</span>,
+                  <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"info"</span>,
+                  <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"1'"</span>,
+                  <span class="hljs-attr">"_score"</span>: <span class="hljs-number">1</span>,
+                  <span class="hljs-attr">"_source"</span>: {
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John"</span>,
+                    <span class="hljs-attr">"organisation"</span>: <span class="hljs-string">"Apple"</span>,
+                    <span class="hljs-attr">"employeeID"</span>: <span class="hljs-string">"23141A"</span>
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          <span class="hljs-attr">"key"</span>: <span class="hljs-string">"john"</span>,
+          <span class="hljs-attr">"doc_count"</span>: <span class="hljs-number">2</span>,
+          <span class="hljs-attr">"duplicateDocuments"</span>: {
+            <span class="hljs-attr">"hits"</span>: {
+              <span class="hljs-attr">"total"</span>: <span class="hljs-number">2</span>,
+              <span class="hljs-attr">"max_score"</span>: <span class="hljs-number">1</span>,
+              <span class="hljs-attr">"hits"</span>: [
+                {
+                  <span class="hljs-attr">"_index"</span>: <span class="hljs-string">"employeeid"</span>,
+                  <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"info"</span>,
+                  <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"4'"</span>,
+                  <span class="hljs-attr">"_score"</span>: <span class="hljs-number">1</span>,
+                  <span class="hljs-attr">"_source"</span>: {
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John"</span>,
+                    <span class="hljs-attr">"organisation"</span>: <span class="hljs-string">"Apple"</span>,
+                    <span class="hljs-attr">"employeeID"</span>: <span class="hljs-string">"23141A"</span>
+                  }
+                },
+                {
+                  <span class="hljs-attr">"_index"</span>: <span class="hljs-string">"employeeid"</span>,
+                  <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"info"</span>,
+                  <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"1'"</span>,
+                  <span class="hljs-attr">"_score"</span>: <span class="hljs-number">1</span>,
+                  <span class="hljs-attr">"_source"</span>: {
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John"</span>,
+                    <span class="hljs-attr">"organisation"</span>: <span class="hljs-string">"Apple"</span>,
+                    <span class="hljs-attr">"employeeID"</span>: <span class="hljs-string">"23141A"</span>
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+</pre>
+<p>That brings us to a wrap on this short tutorial. We welcome your 
+comments below, and we invite you to check out our other informative 
+articles such as these:
+</p>
+<ul><li><a href="http://blog.qbox.io/qbox-elasticsearch-tutorial-1">Elasticsearch Tutorials</a> </li>
+</ul><ul><li><a href="http://blog.qbox.io/welcome-to-the-elk-stack-elasticsearch-logstash-kibana">Welcome to the ELK Stack: Elasticsearch, Logstash, and Kiban</a><a href="http://blog.qbox.io/welcome-to-the-elk-stack-elasticsearch-logstash-kibana">a</a></li>
+</ul><ul><li><a href="http://blog.qbox.io/optimize-indexing-during-bulk-data-imports">Optimize Indexing during Bulk Data Import</a><a href="http://blog.qbox.io/optimize-indexing-during-bulk-data-imports">s</a></li>
+</ul><ul><li><a href="http://blog.qbox.io/optimizing-search-results-in-elasticsearch-with-scoring-and-boosting">Optimizing Search Results in Elasticsearch with Scoring and Boostin</a><a href="http://blog.qbox.io/optimizing-search-results-in-elasticsearch-with-scoring-and-boosting">g</a></li>
+</ul><ul><li><a href="http://blog.qbox.io/introduction-to-elasticsearch-scripting">Qbox Series on </a><a href="http://blog.qbox.io/introduction-to-elasticsearch-scripting">Scripting with Elasticsearch</a></li>
+</ul><ul><li><a href="http://blog.qbox.io/keys-to-a-healthy-elasticsearch-cluster">7 Keys to a Healthy Elasticsearch Cluste</a><a href="http://blog.qbox.io/keys-to-a-healthy-elasticsearch-cluster">r</a></li>
+</ul><ul><li><a href="http://blog.qbox.io/optimizing-elasticsearch-how-many-shards-per-index">Optimizing Elasticsearch: How Many Shards per Index</a><a href="http://blog.qbox.io/optimizing-elasticsearch-how-many-shards-per-index">?</a></li>
+</ul><ul><li><a href="http://blog.qbox.io/launching-and-scaling-elasticsearch">Thoughts on Launching and Scaling Elasticsearc</a><a href="http://blog.qbox.io/launching-and-scaling-elasticsearch">h</a></li>
+</ul><ul><li><a href="http://blog.qbox.io/how-to-quick-and-easy-resizing-of-your-elasticsearch-cluster">How-to: Quick-and-Easy Resizing of your Elasticsearch Cluste</a><a href="http://blog.qbox.io/how-to-quick-and-easy-resizing-of-your-elasticsearch-cluster">r</a></li>
+</ul>
+
+        <aside class="article-subscribe" id="article-end-form-container">
+  <h3>Get the Next Article</h3>
+
+  <div class="modular-form">
+    <div data-step="first">
+      <p>Sign up for our newsletter, and don't miss out on our top articles.</p>
+
+      <!-- Begin MailChimp Signup Form -->
+      <form action="//qbox.us12.list-manage.com/subscribe/post?u=13fb83e3ef457e012879a347c&amp;id=484874b0ce" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+        <input value="qbox-article-end" name="SOURCE" type="hidden">
+
+        <p>
+          <input class="form-control input-easy" placeholder="Your email address" id="mce-EMAIL" name="EMAIL" title="Enter your email address." required="" type="email">
+          <input value="Sign up" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary btn-easy" type="submit">
+        </p>
+
+        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input name="b_13fb83e3ef457e012879a347c_484874b0ce" tabindex="-1" type="text"></div>
+      </form>
+    </div>
+
+    <div data-step="thanks">
+      <p><b>Success!</b></p>
+
+      <p>Check your email. You will receive confirmation or a verification request.</p>
+    </div>
+  </div>
+
+  <script>
+    // --------------------------------------------------------------------------
+    // Subscribe Form 'article-end'
+    // --------------------------------------------------------------------------
+    (function(){
+      var formOptions = {
+        container: '#article-end-form-container',
+        label:     'article-end'
+      };
+      window.articleEndForm = new ModularForm(formOptions);
+    })();
+  </script>
+
+</aside>
+
+        <aside class="article-share-bottom">
+          <h3>If You Found this Helpful, Share!</h3>
+
+          <div class="article-share-buttons">
+  <a class="reddit-share" href="http://www.reddit.com/submit?url=https%3A%2F%2Fqbox.io%2Fblog%2Fminimizing-document-duplication-in-elasticsearch%3Futm_source%3DReddit%26utm_medium%3Dshare%26utm_name%3Dblog&amp;title=%E2%80%8BEliminating%20Duplicate%20Documents%20in%20Elasticsearch" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Share on Reddit" target="_blank">Share on Reddit</a>
+  <a class="linkedin-share" href="https://www.linkedin.com/shareArticle?&amp;mini=true&amp;url=https%3A%2F%2Fqbox.io%2Fblog%2Fminimizing-document-duplication-in-elasticsearch%3Futm_source%3DLinkedIn%26utm_medium%3Dshare%26utm_name%3Dblog&amp;title=Eliminating%20Duplicate%20Documents%20in%20Elasticsearch&amp;summary=Learn%20the%20techniques%20for%20identifying%20and%20managing%20duplicates%20in%20your%20Elasticsearch%20indexes.&amp;source=10617054" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Share on LinkedIn" target="_blank">Share on LinkedIn</a>
+  <a class="facebook-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fqbox.io%2Fblog%2Fminimizing-document-duplication-in-elasticsearch%3Futm_source%3DFacebook%26utm_medium%3Dshare%26utm_name%3Dblog" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Share on Facebook" target="_blank">Share on Facebook</a>
+  <a class="twitter-share" href="http://twitter.com/share?text=@qboxio%3A%20Eliminating%20Duplicate%20Documents%20in%20Elasticsearch&amp;url=https%3A%2F%2Fqbox.io%2Fblog%2Fminimizing-document-duplication-in-elasticsearch%3Futm_source%3DTwitter%26utm_medium%3Dshare%26utm_name%3Dblog&amp;hashtags=qboxio" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Share on Twitter" target="_blank">Share on Twitter</a>
+  <button class="copy-share" href="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Copy URL" data-clipboard-text="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog">Copy URL</button>
+
+  <div class="article-share-text">
+    <input id="social-share-text" value="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog" onclick="this.setSelectionRange(0, this.value.length);" type="text">
+  </div>
+
+  <script>
+    if(clipboard) clipboard.destroy();
+    var clipboard = new Clipboard('button.copy-share');
+
+    clipboard.on('success', function(e) {
+      e.trigger.setAttribute('data-tooltip','URL copied!');
+      console.info('URL copied to clipboard!');
+      e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+      var parent = e.trigger.parentNode;
+      parent.querySelector('.article-share-text').className += ' visible';
+      parent.querySelector('.article-share-text input').select();
+    });
+  </script>
+</div>
+        </aside>
+
+        <script>
+          $(function() {
+            $('pre').each(function(i, block) {
+              hljs.highlightBlock(block);
+            });
+          });
+        </script>
+            </div>
+
+  <div class="article-footer clearfix">
+        <div class="tags">
+      <span>Categorized under: </span>
+      <ul>
+                  <li><a href="https://qbox.io/blog/tag/elasticsearch-duplicates?utm_source=qbox.io&amp;utm_medium=article&amp;utm_campaign=minimizing-document-duplication-in-elasticsearch">Elasticsearch Duplicates</a></li>
+                  <li><a href="https://qbox.io/blog/tag/elasticsearch?utm_source=qbox.io&amp;utm_medium=article&amp;utm_campaign=minimizing-document-duplication-in-elasticsearch">Elasticsearch</a></li>
+              </ul>
+    </div>
+      </div>
+
+</article>
+
+<script>
+  // Apply UTM tags to article
+  var utmTags = new UTMTagger({
+    selector:     '#blog_entry article a[href]',
+    utm_medium:   'article',
+    utm_campaign: 'minimizing-document-duplication-in-elasticsearch'
+  });
+</script>
+
+      <div class="article-footer">
+        <div class="cta default-cta">
+			<div class="row">
+			<div class="col-sm-8">
+			<div class="cta-body">
+				<p>Not yet enjoying the benefits of a hosted ELK-stack enterprise 
+search on Qbox? Discover how easy it is to manage and scale your 
+Elasticsearch environment.<br></p>
+			</div>
+			</div>
+			
+			<div class="col-sm-4">
+				<a href="https://qbox.io/signup" class="btn btn-success btn-block">Get Started</a>
+				<span class="button-tagline">5 minutes to get started</span>
+			</div>
+		</div>	
+		
+</div>
+      </div>
+    </div>
+  </div>
+
+<div id="exitIntentModal" class="exitIntentModal">
+  <div class="exitIntentModal__underlay"></div>
+  <aside class="exitIntentModal__exitModal exitModal">
+
+    <div class="exitModal__closeButton"></div>
+
+    <div class="exitModal__content exitModal__content--newsletter">
+  <div class="exitModal__form" data-step="first">
+    <header class="exitModal__header">
+      <p class="exitModal__pretitle">
+        Don't miss out
+      </p>
+
+      <p class="exitModal__title">
+        Subscribe to our Newsletter
+      </p>
+
+      <p class="exitModal__subtitle">Get our top articles, like this one, sent regularly</p>
+    </header>
+
+    <div class="exitModal__body">
+      <!-- Begin MailChimp Signup Form -->
+      <form action="//qbox.us12.list-manage.com/subscribe/post?u=13fb83e3ef457e012879a347c&amp;id=484874b0ce" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+        <input value="qbox-modal" name="SOURCE" id="mce-MODAL" type="hidden">
+
+        <p>Enter your email address.</p>
+
+        <p>
+          <input class="exitModal__easyInput" placeholder="Your email address" id="mce-EMAIL" name="EMAIL" title="Enter your email address." required="" autofocus="" type="email">
+        </p>
+
+        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input name="b_13fb83e3ef457e012879a347c_484874b0ce" tabindex="-1" type="text"></div>
+
+        <input value="Get the newsletter" name="subscribe" id="mc-embedded-subscribe" class="exitModal__easyButton" type="submit">
+      </form>
+    </div>
+  </div>
+
+  <div class="exitModal__thanks" data-step="thanks">
+    <header class="exitModal__header">
+      <p class="exitModal__pretitle">
+        Success!
+      </p>
+
+      <p class="exitModal__title">
+        Our newsletter will arrive soon
+      </p>
+
+      <p class="exitModal__subtitle">Thanks for using our form</p>
+    </header>
+
+    <div class="exitModal__body">
+
+      <p>Please share this article, if you found it valuable!</p>
+
+      <div class="article-share-buttons">
+  <a class="reddit-share" href="http://www.reddit.com/submit?url=https%3A%2F%2Fqbox.io%2Fblog%2Fminimizing-document-duplication-in-elasticsearch%3Futm_source%3DReddit%26utm_medium%3Dshare%26utm_name%3Dblog&amp;title=%E2%80%8BEliminating%20Duplicate%20Documents%20in%20Elasticsearch" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Share on Reddit" target="_blank">Share on Reddit</a>
+  <a class="linkedin-share" href="https://www.linkedin.com/shareArticle?&amp;mini=true&amp;url=https%3A%2F%2Fqbox.io%2Fblog%2Fminimizing-document-duplication-in-elasticsearch%3Futm_source%3DLinkedIn%26utm_medium%3Dshare%26utm_name%3Dblog&amp;title=Eliminating%20Duplicate%20Documents%20in%20Elasticsearch&amp;summary=Learn%20the%20techniques%20for%20identifying%20and%20managing%20duplicates%20in%20your%20Elasticsearch%20indexes.&amp;source=10617054" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Share on LinkedIn" target="_blank">Share on LinkedIn</a>
+  <a class="facebook-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fqbox.io%2Fblog%2Fminimizing-document-duplication-in-elasticsearch%3Futm_source%3DFacebook%26utm_medium%3Dshare%26utm_name%3Dblog" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Share on Facebook" target="_blank">Share on Facebook</a>
+  <a class="twitter-share" href="http://twitter.com/share?text=@qboxio%3A%20Eliminating%20Duplicate%20Documents%20in%20Elasticsearch&amp;url=https%3A%2F%2Fqbox.io%2Fblog%2Fminimizing-document-duplication-in-elasticsearch%3Futm_source%3DTwitter%26utm_medium%3Dshare%26utm_name%3Dblog&amp;hashtags=qboxio" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Share on Twitter" target="_blank">Share on Twitter</a>
+  <button class="copy-share" href="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog" data-baseurl="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch" data-tooltip="Copy URL" data-clipboard-text="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog">Copy URL</button>
+
+  <div class="article-share-text">
+    <input id="social-share-text" value="https://qbox.io/blog/minimizing-document-duplication-in-elasticsearch?utm_source=CopyURL&amp;utm_medium=share&amp;utm_name=blog" onclick="this.setSelectionRange(0, this.value.length);" type="text">
+  </div>
+
+  <script>
+    if(clipboard) clipboard.destroy();
+    var clipboard = new Clipboard('button.copy-share');
+
+    clipboard.on('success', function(e) {
+      e.trigger.setAttribute('data-tooltip','URL copied!');
+      console.info('URL copied to clipboard!');
+      e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+      var parent = e.trigger.parentNode;
+      parent.querySelector('.article-share-text').className += ' visible';
+      parent.querySelector('.article-share-text input').select();
+    });
+  </script>
+</div>
+
+      <p>
+        You may <a href="#" data-action="next">close this modal</a> and return
+        to the article.
+      </p>
+
+    </div>
+  </div>
+
+  <script>
+    // --------------------------------------------------------------------------
+    // Exit Intent Modal 'newsletter'
+    // --------------------------------------------------------------------------
+    (function() {
+      // Track user behavior
+      oBehave.init('enter','scroll','click');
+
+      // Create the exit modal
+      var modalOptions = {
+        behavioral: oBehave,
+        label:      'newsletter'
+      };
+      window.exitModal = new ExitModal(modalOptions);
+    })();
+  </script>
+</div>
+    
+  </aside></div>
+
+
+  </main>
+
+  <footer class="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="footer-menu-i">
+                  <h4><a href="https://qbox.io/about">About Qbox</a></h4>
+        
+        <ul>
+                      <li><a href="https://qbox.io/">Hosted Elasticsearch</a></li>
+                      <li><a href="https://qbox.io/about">The Team</a></li>
+                      <li><a href="https://qbox.io/pricing">Pricing</a></li>
+                      <li><a href="https://qbox.io/blog" class="active">Blog</a></li>
+                  </ul>
+      </div>
+
+      <div class="footer-menu-ii">
+                  <h4><a href="https://qbox.io/support">Support</a></h4>
+        
+        <ul>
+                      <li><a href="https://qbox.io/support">Help Center</a></li>
+                      <li><a href="https://qbox.io/hello">Contact Us</a></li>
+                      <li><a href="https://qbox.io/service-level-agreement">SLA</a></li>
+                  </ul>
+      </div>
+
+      <div class="footer-sponsors">
+        <h4><a>Qbox Proudly Sponsors:</a></h4>
+
+        <ul class="list-footer-sponsors">
+          <li>
+            <a class="footer-sponsor-supergiant" href="https://qbox.io/community">
+              Supergiant
+            </a>
+          </li>
+          <li>
+            <a class="footer-sponsor-linux-foundation" href="https://qbox.io/community">
+              The Linux FoundationI
+            </a>
+          </li>
+          <li>
+            <a class="footer-sponsor-cncf" href="https://qbox.io/community">
+              Cloud Native Computing Foundation
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <ul class="footer-social">
+        <li class="social-link-facebook">
+          <a href="https://www.facebook.com/qboxio" rel="nofollow">
+            <span class="fa-stack">
+              <i class="fa fa-facebook-square"></i>
+              <span class="sr-only">Qbox on Facebook</span>
+            </span>
+          </a>
+        </li>
+        <li class="social-link-twitter">
+          <a href="https://twitter.com/qboxio" rel="nofollow">
+            <span class="fa-stack">
+              <i class="fa fa-twitter-square"></i>
+              <span class="sr-only">Qbox on Twitter</span>
+            </span>
+          </a>
+        </li>
+        <li class="social-link-linkedin">
+          <a href="https://www.linkedin.com/company/qbox-io" rel="nofollow">
+            <span class="fa-stack">
+              <i class="fa fa-linkedin-square"></i>
+              <span class="sr-only">Qbox on LinkedIn</span>
+            </span>
+          </a>
+        </li>
+        <li class="social-link-crunchbase">
+          <a href="https://www.crunchbase.com/organization/qbox-io" rel="nofollow">
+            <span class="fa-stack">
+              <i class="fa fa-square" style="position:relative;">
+                <span style="font-weight:bold; font-family:Lato; color:#fff; line-height:19px; font-size:15px; position:absolute; left:0; top:0; text-align:center; width:17px;">cb</span>
+                <span class="sr-only">Qbox on Crunchbase</span>
+              </i>
+            </span>
+          </a>
+        </li>
+        <li class="social-link-angellist">
+          <a href="https://angel.co/qbox-io" rel="nofollow">
+            <span class="fa-stack">
+              <i class="fa fa-stack-1x fa-square"></i>
+              <i class="fa fa-inverse fa-stack-1x fa-angellist" style="font-size: 15px;"></i>
+              <span class="sr-only">Qbox on Angelist</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="site-footer-legal">
+      <ul class="site-footer-status">
+        <li><a href="http://status.qbox.io/" rel="nofollow"><i class="fa fa-heartbeat"></i> System Status</a></li>
+      </ul>
+
+      <ul class="footer-menu-iii">
+        <li>
+          <a href="https://qbox.io/" class="site-logo" title="Hosted Elasticsearch Service" rel="home">
+            Hosted Elasticsearch Service
+          </a>
+        </li>
+
+                  <li>
+            <a href="https://qbox.io/">
+              Cloud Elasticsearch
+            </a>
+          </li>
+                  <li>
+            <a href="https://qbox.io/terms">
+              Terms of Service
+            </a>
+          </li>
+                  <li>
+            <a href="https://qbox.io/privacy-policy">
+              Privacy Policy
+            </a>
+          </li>
+              </ul>
+
+      <p class="note">
+        ​© Copyright 2018 Qbox, Inc. All rights reserved.
+        Elasticsearch, Logstash, and Kibana are trademarks of Elasticsearch, BV,
+        registered in the U.S. and in other countries.  Elasticsearch, BV and
+        Qbox, Inc., a Delaware Corporation, are not affiliated.
+      </p>
+    </div>
+  </div>
+</footer>
+
+      <!-- Google Fonts Loader -->
+<script src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/webfont.js"></script>
+<script>WebFont.load({ google: { families: [ 'Lato:300,400,700' ]}, custom: { families: ['FontAwesome'], urls: [ '//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css' ]}});</script>
+    <script>
+  // Respond to user behavior
+  window.oBehave.init('enter','scroll','click');
+</script>
+    
+<div class="qbox-chat-container">
+
+<script>
+  (function(){
+    // Handle session status
+    window.qboxSession = new QboxSession();
+  })();
+</script>
+    <script type="text/javascript">
+  var disqus_shortname = 'qboxio';
+
+  var disqus_loader = new AsyncScriptLoader({
+    src:      '//' + disqus_shortname + '.disqus.com/count.js',
+    id:       'disqus-loader-js'
+  });
+
+  disqus_loader.load();
+</script>
+    <!-- Youtube Video Loader -->
+<script>var lazyVideoLoader = new LazyVideoLoader();</script>
+  
+
+</div><div style="display: none; visibility: hidden;">
+<script type="text/javascript">_atrk_opts={atrk_acct:"hvDnj1aAkN00a2",domain:"qbox.io",dynamic:!0};(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="https://d31qbv1cthcecs.cloudfront.net/atrk.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();</script>
+<noscript></noscript>
+</div><script type="text/javascript" id="">var _kmq=_kmq||[],_kmk=_kmk||"e7ddbc4f761acdadd2e2dffa9c18089dec1d22c5";function _kms(c){setTimeout(function(){var a=document,b=a.getElementsByTagName("script")[0];a=a.createElement("script");a.type="text/javascript";a.async=!0;a.src=c;b.parentNode.insertBefore(a,b)},1)}_kms("//i.kissmetrics.com/i.js");_kms("//doug1izaerwt3.cloudfront.net/"+_kmk+".1.js");</script><script type="text/javascript" id="">(function(){var a=new Image;a.src="https://secure.adnxs.com/seg?add\x3d1235205\x26t\x3d2"});</script><script type="text/javascript" id="" src="Eliminating%20Duplicate%20Documents%20in%20Elasticsearch_files/webfont_002.js"></script>
+<script type="text/javascript" id="">WebFont.load({google:{families:["Lato:300,400,700,300italic,400italic,700italic"]}});</script></body></html>

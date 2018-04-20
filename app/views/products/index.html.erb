@@ -1,0 +1,27 @@
+
+<%= render :partial => "shared/index" %>
+
+
+ <div class="col-xs-offset-2 col-xs-8 col-xs-offset-2  " style="margin-top: 5px; background: ">
+
+
+
+
+
+
+   <h3 style=" text-align: center; color: #505050; border: 1px solid #ccc; padding: 10px"> Latest Arts </h3>
+
+
+    <% @products.each do |product| %>
+      <%= render "arts/product_row", product: product, order_item: @order_item %>
+
+
+    <% end %>
+
+</div>
+
+
+
+<%= render :partial => "shared/footer" %>
+
+

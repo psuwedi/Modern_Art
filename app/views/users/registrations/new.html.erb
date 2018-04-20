@@ -1,0 +1,296 @@
+
+<%= render :partial => "shared/app_nav" %>
+<%= render :partial => "shared/nav" %>
+
+
+
+
+
+<div class="panel panel-white col-xs-offset-2 col-xs-8 col-xs-offset-2 " style="border-radius:0px">
+
+
+  <ol class="breadcrumb" style="border-radius: 0px">
+  <li class="breadcrumb-item"><a href="#">Home</a></li>
+  <li class="breadcrumb-item"><a href="#">Account</a></li>
+  <li class="breadcrumb-item active">Register</li>
+</ol>
+
+
+    
+
+
+    <div id="content" class="col-sm-9">
+      <h3>Register</h3>
+      <p>Go to your account if you are already registered <a href="">login page</a>.</p>
+
+
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => 'form-horizontal'}, multipart: true) do |f| %>
+  
+
+  <%= devise_error_messages! %>
+
+
+      
+        <fieldset id="account">
+          <legend>Your Personal Details</legend>
+       
+
+
+
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="input-firstname">First Name</label>
+            <div class="col-sm-10">
+              <input type="text" name="firstname" value="" placeholder="First Name" id="input-firstname" class="form-control" />
+               </div>
+          </div>
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="input-lastname">Last Name</label>
+            <div class="col-sm-10">
+              <input type="text" name="lastname" value="" placeholder="Last Name" id="input-lastname" class="form-control" />
+               </div>
+          </div>
+
+
+
+
+<!--         <div class="form-group">
+              <label class="control-label col-sm-2" for="username">username:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="username" required placeholder="Enter username">
+              </div>
+            </div> -->
+
+
+
+
+          <div class="form-group required">
+            <%= f.label :email, "E-Mail:", class: " control-label col-sm-2" %>
+             <div class="col-sm-10">
+            <%=f.text_field :email, :required => true, :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}', class: " form-control control-label ", :required => true %>
+              </div>
+         </div>
+
+
+
+
+
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="input-telephone">Telephone</label>
+            <div class="col-sm-10">
+              <input type="tel" name="telephone" value="" placeholder="Telephone" id="input-telephone" class="form-control" />
+               </div>
+          </div>
+
+
+
+
+            <div class="form-group " id = "artist" style="">
+              <label class="control-label col-sm-2" for="role">Register as: </label>
+              <div class="col-sm-10">
+
+                <select name="role" class="form-control">
+                  <option value="customer"> customer</option>
+                  <option value="artist"> artist</option>
+                  <option value="both"> both</option>
+                </select>
+
+            
+              </div>
+            </div>
+
+
+
+
+            <div class="form-group " id = "artist" style="">
+              <label class="control-label col-sm-2" for="role">Your description:</label>
+              <div class="col-sm-10">
+
+                <textarea class="form-control" rows="5" id="description" name = "description" required></textarea>
+              </div>
+            </div>
+
+<!-- 
+            <div class="form-group" id = "image" style="">
+              <label class="control-label col-sm-2" for="role">Image</label>
+              <div class="col-sm-10">
+
+                <input type="file" class="form-control-file" Value = "upload image" name="image" aria-describedby="fileHelp">
+                <small id="fileHelp" class="form-text text-muted">This will be sent as your prifile picture</small>
+
+
+              </div>
+
+
+
+            </div> -->
+
+  <input type="hidden" value="public" name="src" >
+
+
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="district">country:</label>
+              <div class="col-sm-10">
+
+
+                <select class="form-control" name = "country" id="country">
+                  <% CS.countries.each do |k, v| %>
+                  <option value = "<%= v %>"><%= v %></option>
+                  <% end %>
+                </select>
+
+              </div>
+            </div>
+
+
+          <div class="form-group">
+              <label class="control-label col-sm-2" for="district">City:</label>
+              <div class="col-sm-10">
+
+                <input type="text" class="form-control" name="city" required placeholder="Enter city">
+
+              </div>
+            </div>
+
+
+
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="district">Physical Address:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="address" required placeholder="Enter Address">
+              </div>
+            </div>
+
+
+
+
+                  </fieldset>
+
+
+
+
+        <fieldset>
+
+
+
+          <legend>Your password</legend>
+
+            
+         <div class="form-group">
+
+        
+
+            <label class="control-label col-sm-2" for="district"> Password </label>
+
+                <div class="col-sm-10">
+         
+                     <%= f.password_field :password , class: " form-control"  ,:required => true%>
+
+
+            </div>
+         </div>
+
+
+
+              <div class="form-group">
+
+        
+
+            <label class="control-label col-sm-2" for="district"> password confirmation </label>
+
+                      <div class="col-sm-10">
+              
+                  <%= f.password_field :password_confirmation ,  class: " form-control"  ,:required => true%>
+
+               </div>
+
+          </div>
+
+
+        </fieldset>
+
+
+
+        <fieldset>
+          <legend>Newsletter</legend>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Subscribe</label>
+            <div class="col-sm-10">               <label class="radio-inline">
+                <input type="radio" name="newsletter" value="1" />
+                Yes</label>
+              <label class="radio-inline">
+                <input type="radio" name="newsletter" value="0" checked="checked" />
+                No</label>
+               </div>
+          </div>
+        </fieldset>
+
+
+        
+       
+          <div class="pull-right">I have read and agree to the <a href="" class="agree"><b>Privacy and Cookie Policy</b></a>
+                        <input type="checkbox" name="agree" value="1" />
+                        &nbsp;
+       
+
+            
+
+            
+
+          </div>
+     
+        
+  <br><br>  
+
+
+
+ 
+  <%= f.submit "Submit", class: "btn btn-default btn-primary  pull-right" %>
+
+  <br><br>
+
+<% end %>
+
+
+
+
+
+</div>
+
+
+
+<div class="col-sm-3" style="margin-top: 50px">
+  
+  <%= render :partial => "shared/account_nav" %>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<%= render :partial => "shared/footer" %>
