@@ -93,6 +93,86 @@ class CmsController < ApplicationController
     def base_part_of(file_name)
        File.basename(file_name)
     end
+# management of categories at cms level
+
+# adding new category
+    def new_category
+
+             if params[:name].present?
+               @category = Category.new()
+               @category.subject= params[:description]
+               @category.path = uploaded_file(params[:image])
+               @category.name = params[:name]
+
+               
+               if @category.save
+
+                    flash[:notice] = 'New Art Pieces Entry Was Created'
+                 render :new_category 
+               else
+
+                   # raise "nnnnn".inspect
+                   flash[:error] = 'An error has occured during saving'
+                 render :new_category
+               end
+             end
+    end
+
+
+    # show all categories
+    def all_categories
+
+        @all_categories = Category.all
+        # render :json => @all_categories
+    end
+
+    # delete a category
+    def delete_category
+
+        if params[:id].present?
+
+             Category.find(params[:id].to_i).destroy
+             Art.where(category_id: params[:id].to_i).destroy_all
+             flash[:notice] = 'Category deleted and its relavant arts'
+
+         end
+             @all_categories = Category.all
+
+            render :all_categories
+             
+    end
+
+
+    def update_category
+
+        if params[:id].present?
+
+             category = Category.find_by(id: params[:id].to_i)
+             category[:subject] = params[:description]
+             category[:path] = uploaded_file(params[:image])
+             category[:name] = params[:name]
+
+             category.save
+                
+             if category.save
+                 flash[:notice] = 'Check below for the changes made!'
+             end
+
+             redirect_to :action => "show_category", :id => params[:id]
+
+         else
+              @all_categories = Category.all
+             render :all_categories 
+        end
+
+             
+    end
+
+
+    def view_artists
+             @artist = Artist.all.limit(200).order("updated_at DESC")
+    end
+
 
 
 end
